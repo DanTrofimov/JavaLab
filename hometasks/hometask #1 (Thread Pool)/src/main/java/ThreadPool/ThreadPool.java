@@ -24,16 +24,10 @@ public class ThreadPool {
     }
 
     public void submit(Runnable task) {
-
         tasks.add(task);
         for (int i = 0; i < this.threads.length; i++) {
             synchronized (threads[i]) {
                 threads[i].notify();
-               /* if(threads[i].getState().toString().equals("WAITING")) {
-                    System.out.println("YES");
-                    threads[i].notify();
-                    break;
-                }*/
             }
         }
     }
@@ -44,17 +38,14 @@ public class ThreadPool {
         @Override
         public void run() {
             while (true) {
-
                 Runnable task = tasks.poll();
                 if (task != null) {
                     task.run();
-
                 }
                 synchronized (this) {
-                    if (tasks.size() == 0) {
+                    if (tasks.isEmpty()) {
                         wait();
                     }
-
                 }
             }
         }
