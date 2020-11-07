@@ -50,5 +50,11 @@ public class ThreadPool {
             }
         }
     }
+
+    /*
+        useful links:
+            1) wait & notify - https://metanit.com/java/tutorial/8.5.php
+            2) synchronized - https://metanit.com/java/tutorial/8.3.php
+     */
 }
 
