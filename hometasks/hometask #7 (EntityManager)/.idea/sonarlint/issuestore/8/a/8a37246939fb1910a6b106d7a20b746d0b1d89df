@@ -1,0 +1,15 @@
+
+N
+java:S3011W",This accessibility update should be removed.(ˆ­†ÿÿÿÿÿ8¤ßòÚ.
+N
+java:S3011C",This accessibility update should be removed.(ê¥ÍÔıÿÿÿÿ8¤ßòÚ.
+j	java:S119M"IRename this generic name to match the regular expression '^[A-Z][0-9]?$'.(Ùº­µûÿÿÿÿ8¤ßòÚ.
+I
+java:S3011a",This accessibility update should be removed.(˜ÂÓ˜8¤ßòÚ.
+a
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(äë˜w8¤ßòÚ.
+P
+java:S1874]"3Remove this use of "newInstance"; it is deprecated.(òÎ³º8¤ßòÚ.
+N
+java:S3011b",This accessibility bypass should be removed.(¯¸Û›ıÿÿÿÿ8¤ßòÚ.
+g	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8¤ßòÚ.
