@@ -6,10 +6,10 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import ru.itis.trofimoff.app.downloader.utils.Downloader;
-import ru.itis.trofimoff.app.files.utils.FileNamer;
-import ru.itis.trofimoff.app.threads.utils.ThreadPool;
-import ru.itis.trofimoff.app.main.utils.Args;
+import ru.itis.trofimoff.app.utils.Downloader;
+import ru.itis.trofimoff.app.utils.FileNamer;
+import ru.itis.trofimoff.app.utils.ThreadPool;
+import ru.itis.trofimoff.app.utils.Args;
 
 public class Main {
     public static void main(String... argv) {

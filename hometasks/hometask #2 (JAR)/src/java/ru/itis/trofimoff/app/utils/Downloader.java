@@ -1,4 +1,4 @@
-package ru.itis.trofimoff.app.utils.downloader;
+package ru.itis.trofimoff.app.utils;
 
 import java.io.*;
 import java.net.URL;

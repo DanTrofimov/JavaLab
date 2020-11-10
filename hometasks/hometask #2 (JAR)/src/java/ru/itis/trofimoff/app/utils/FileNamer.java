@@ -1,4 +1,4 @@
-package ru.itis.trofimoff.app.utils.files;
+package ru.itis.trofimoff.app.utils;
 
 import java.io.IOException;
 import java.net.URL;

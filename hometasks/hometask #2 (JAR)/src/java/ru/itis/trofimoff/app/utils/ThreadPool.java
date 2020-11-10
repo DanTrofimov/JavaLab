@@ -1,4 +1,4 @@
-package java.ru.itis.trofimoff.app.utils.threads;
+package ru.itis.trofimoff.app.utils;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;

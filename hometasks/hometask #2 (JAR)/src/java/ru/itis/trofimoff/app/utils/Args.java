@@ -1,4 +1,4 @@
-package java.ru.itis.trofimoff.app.utils.main;
+package ru.itis.trofimoff.app.utils;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;

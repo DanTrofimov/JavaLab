@@ -1,1 +1,1 @@
-Main-Class: ru.itis.trofimoff.main.Main.java
+Main-Class: ru.itis.trofimoff.app.program.main.Main
