@@ -1,6 +1,5 @@
 package ru.itis.application.repository;
 
-import javax.print.attribute.standard.PresentationDirection;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
