@@ -12,12 +12,8 @@ public class Main {
         entityManager.dropTable("users");
         entityManager.createTable("users", User.class);
         UUID id = UUID.randomUUID();
-        entityManager.save("users", User.builder()
-                .id(id)
-                .email("solid@gmail.com")
-                .firstName("Bob")
-                .lastName("Martin")
-                .build());
+        User user = new User(id, "Bob", "Martin", "solid@gmail.com");
+        entityManager.save("users", user);
         System.out.println(entityManager.findById("users", User.class, id));
     }
 }
