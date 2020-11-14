@@ -14,10 +14,10 @@ public class Main {
         UUID id = UUID.randomUUID();
         entityManager.save("users", User.builder()
                 .id(id)
-                .email("hello@gmail.com")
-                .firstName("Dan")
-                .lastName("Abramov")
-                .hash(false).build());
+                .email("solid@gmail.com")
+                .firstName("Bob")
+                .lastName("Martin")
+                .build());
         System.out.println(entityManager.findById("users", User.class, id));
     }
 }

@@ -1,59 +1,85 @@
 package ru.itis.trofimoff;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.sql.*;
-import java.util.Properties;
+import java.util.HashMap;
 
 public class EntityManager {
     private final DataSource dataSource;
 
-    private final static Properties typeCast = new Properties();
-    private static final String SQL_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS ";
-    private static final String SQL_DROP_TABLE = "DROP TABLE IF EXISTS ";
-    private static final String SQL_SAVE = "INSERT INTO ";
-    private static final String SQL_FIND = "SELECT * FROM ";
+    private final HashMap<String, String> types = new HashMap<>();
+    //language=SQL
+    private static final String SQL_CREATE_TABLE = "create table ";
+    //language=SQL
+    private static final String SQL_DROP_TABLE = "drop table ";
+    //language=SQL
+    private static final String SQL_SAVE = "insert into ";
+    //language=SQL
+    private static final String SQL_FIND = "select * from ";
 
     public EntityManager(DataSource dataSource) {
         this.dataSource = dataSource;
-        try {
-            typeCast.load(ClassLoader.getSystemResourceAsStream("db_types.properties"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        this.types.put("string", "varchar");
+        this.types.put("long", "bigint");
+        this.types.put("integer", "int");
+    }
+
+    private String getDbType(String fieldType) {
+        String type = types.get(fieldType);
+        return type != null ? type : fieldType;
     }
 
     public void save(String tableName, Object entity) {
+        Connection connection = null;
+        PreparedStatement statement = null;
         Class<?> entityClass = entity.getClass();
-        StringBuilder sql = new StringBuilder(SQL_SAVE);
-        sql.append(tableName.trim()).append(" VALUES(");
-        Field[] fields = entityClass.getDeclaredFields();
 
+        // constructing full sql query
+        StringBuilder sql = new StringBuilder(SQL_SAVE);
+        sql.append(tableName.trim()).append(" values(");
+        Field[] fields = entityClass.getDeclaredFields();
         for (int i = 0; i < fields.length; i++) {
             sql.append("?");
             if (i + 1 != fields.length) {
                 sql.append(", ");
             }
         }
-
         sql.append(");");
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql.toString())) {
-
+        // adding entity into the db
+        try {
+            connection = dataSource.getConnection();
+            statement = connection.prepareStatement(sql.toString());
             for (int i = 0; i < fields.length; i++) {
                 fields[i].setAccessible(true);
                 statement.setObject(i + 1, fields[i].get(entity));
             }
 
             statement.executeUpdate();
-        } catch (SQLException | IllegalAccessException e) {
-            throw new IllegalArgumentException(e);
+        } catch (SQLException | IllegalAccessException ex) {
+            throw new IllegalArgumentException(ex);
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    // ignore
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    // ignore
+                }
+            }
         }
     }
 
     public <T> void createTable(String tableName, Class<T> entityClass) {
+
+        // constructing full sql query
         StringBuilder sql = new StringBuilder(SQL_CREATE_TABLE);
         sql.append(tableName.trim()).append("(");
         Field[] fields = entityClass.getDeclaredFields();
@@ -65,32 +91,55 @@ public class EntityManager {
             }
         }
         sql.append(");");
-        try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement()) {
+
+        Connection connection = null;
+        Statement statement = null;
+
+        // adding table into the db
+        try {
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
             statement.executeUpdate(sql.toString());
         } catch (SQLException e) {
             throw new IllegalArgumentException(e);
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    // ignore
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    // ignore
+                }
+            }
         }
     }
 
     public <T, ID> T findById(String tableName, Class<T> resultType, ID idValue) {
+
+        // constructing sql query
         StringBuilder sql = new StringBuilder(SQL_FIND);
         T result;
         sql.append(tableName.trim()).append(" WHERE id=?");
 
         ResultSet resultSet = null;
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql.toString())) {
+        Connection connection = null;
+        PreparedStatement statement = null;
 
+        // finding entity in the db by id
+        try {
+            connection = dataSource.getConnection();
+            statement = connection.prepareStatement(sql.toString());
             Field id = resultType.getDeclaredField("id");
             id.setAccessible(true);
-
             statement.setObject(1, idValue);
-
             resultSet = statement.executeQuery();
-
             result = resultType.newInstance();
-
             if (resultSet.next()) {
                 for (Field field : resultType.getDeclaredFields()) {
                     field.setAccessible(true);
@@ -99,7 +148,6 @@ public class EntityManager {
             } else {
                 result = null;
             }
-
             return result;
         } catch (SQLException | NoSuchFieldException | IllegalAccessException | InstantiationException e) {
             throw new IllegalArgumentException(e);
@@ -108,26 +156,58 @@ public class EntityManager {
                 try {
                     resultSet.close();
                 } catch (SQLException throwables) {
-                    // empty
+                    // ignore
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    // ignore
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    // ignore
                 }
             }
         }
     }
 
-    private String getDbType(String fieldType) {
-        String type = typeCast.getProperty(fieldType);
-        return type != null ? type : fieldType;
-    }
 
     public void dropTable(String tableName) {
+
+        // constructing sql query
         StringBuilder sql = new StringBuilder(SQL_DROP_TABLE);
         sql.append(tableName);
 
-        try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement()) {
-            statement.executeUpdate(sql.toString());
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        // removing table from the db
+        try {
+            connection = dataSource.getConnection();
+            statement = connection.prepareStatement(sql.toString());
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new IllegalArgumentException(e);
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    // ignore
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    // ignore
+                }
+            }
         }
     }
 }
