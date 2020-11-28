@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+
+        <encoder>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg %n
+            </Pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+    </appender>
+
+    <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>
+                D:\GitHub\rogue\beginner-javascript\snippets\servlets-examples\JavaLab\hometasks\hometask #5 (Loggs)\src\main\resourses\logs\slf4jlogback_%d{yyyy-MM-dd}.log
+            </FileNamePattern>
+
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <Pattern>%d{HH:mm:ss} %-5level %logger{35} - %msg %n</Pattern>
+        </encoder>
+    </appender>
+
+    <logger name="loggs.filter.Slf4jLogbackLogger" additivity="false">
+        <level value="DEBUG" />
+        <appender-ref ref="fileAppender"/>
+    </logger>
+
+    <root>
+        <level value="DEBUG" />
+        <appender-ref ref="fileAppender"/>
+    </root>
+</configuration>
