@@ -15,23 +15,24 @@
         <rollingPolicy
                 class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>LoggingFilter.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>slf4jlogbackexample.%d{yyyy-MM-dd}.log</fileNamePattern>
 
             <!-- Храним файлы логов 10 дней -->
             <maxHistory>10</maxHistory>
 
             <!-- Максимальный размер файлов лога 30 гигабайт -->
-            <totalSizeCap>5MB</totalSizeCap>
+            <totalSizeCap>10GB</totalSizeCap>
 
         </rollingPolicy>
         <encoder>
             <pattern>%d{dd.MM.yyyy HH:mm:ss.SSS} [%thread] %-5level  %logger{20} - %msg%n</pattern>
         </encoder>
     </appender>
-    <logger name="com.zaxxer.hikari" level="OFF" additivity="false"/>
-    <logger name="loggs.filter.LogFilter" level="INFO" />
 
-    <root level="error">
+    <logger name="com.zaxxer.hikari" level="OFF" additivity="false"/>
+    <logger name="ru.itis.filter.LoggingFilter" level="INFO" />
+
+    <root level="debug">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
     </root>
