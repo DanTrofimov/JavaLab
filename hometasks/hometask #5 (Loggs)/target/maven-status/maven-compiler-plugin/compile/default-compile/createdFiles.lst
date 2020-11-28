@@ -1,0 +1,11 @@
+loggs\servlets\ProfileServlet.class
+loggs\filter\AuthFilter.class
+loggs\repository\SimpleDataSource.class
+loggs\servlets\LoginServlet.class
+loggs\services\CookieService.class
+loggs\filter\Slf4jLogbackLogger.class
+loggs\filter\LogFilter.class
+loggs\repository\CookieRepository.class
+loggs\repository\RowMapper.class
+loggs\repository\SimpleJdbcTemplate.class
+loggs\listener\ContextListener.class
