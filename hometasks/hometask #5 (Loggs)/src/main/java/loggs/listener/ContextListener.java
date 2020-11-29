@@ -2,8 +2,8 @@ package loggs.listener;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import loggs.repository.CookieRepository;
-import loggs.services.CookieService;
+import loggs.repository.CookieRepositoryImpl;
+import loggs.services.CookieServiceImpl;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -33,9 +33,9 @@ public class ContextListener implements ServletContextListener {
 
         HikariDataSource dataSource = new HikariDataSource(hikariConfig);
 
-        CookieRepository authRepository = new CookieRepository(dataSource);
-        CookieService authService = new CookieService(authRepository);
+        CookieRepositoryImpl cookieRepo = new CookieRepositoryImpl(dataSource);
+        CookieServiceImpl cookieService = new CookieServiceImpl(cookieRepo);
 
-        sce.getServletContext().setAttribute("authService", authService);
+        sce.getServletContext().setAttribute("authService", cookieService);
     }
 }

@@ -1,6 +1,6 @@
 package loggs.servlets;
 
-import loggs.services.CookieService;
+import loggs.services.CookieServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +11,7 @@ import java.util.UUID;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        CookieService us = (CookieService) getServletContext().getAttribute("authService");
+        CookieServiceImpl us = (CookieServiceImpl) getServletContext().getAttribute("authService");
 
         UUID cookieValue = UUID.randomUUID(); // here u can add ur own cookie value
 

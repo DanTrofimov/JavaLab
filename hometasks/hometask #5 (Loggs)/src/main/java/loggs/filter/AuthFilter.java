@@ -1,6 +1,6 @@
 package loggs.filter;
 
-import loggs.services.CookieService;
+import loggs.services.CookieServiceImpl;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -15,7 +15,7 @@ public class AuthFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
-        CookieService cs = (CookieService) req.getServletContext().getAttribute("authService");
+        CookieServiceImpl cs = (CookieServiceImpl) req.getServletContext().getAttribute("authService");
 
         Cookie[] cookies = ((HttpServletRequest) request).getCookies(); // get all user's cookies
 
