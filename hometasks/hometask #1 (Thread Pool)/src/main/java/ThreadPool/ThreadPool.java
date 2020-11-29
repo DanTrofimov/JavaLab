@@ -34,7 +34,6 @@ public class ThreadPool {
 
     // класс - рабочий поток
     private class PoolWorker extends Thread {
-        @SneakyThrows
         @Override
         public void run() {
             while (true) {
@@ -44,7 +43,11 @@ public class ThreadPool {
                 }
                 synchronized (this) {
                     if (tasks.isEmpty()) {
-                        wait();
+                        try {
+                            wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }

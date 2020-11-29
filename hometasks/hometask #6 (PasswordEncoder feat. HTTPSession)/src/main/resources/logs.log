@@ -282,3 +282,12 @@
 29.11.2020 23:45:12.315 [http-nio-8094-exec-5] INFO   f.f.Slf4jLogbackLogger - current address:  /freecontext/login
 29.11.2020 23:45:12.904 [http-nio-8094-exec-6] INFO   f.f.Slf4jLogbackLogger - current address:  /freecontext/login
 29.11.2020 23:45:12.915 [http-nio-8094-exec-7] INFO   f.f.Slf4jLogbackLogger - current address:  /freecontext/profile
+29.11.2020 23:45:42.288 [http-nio-8094-exec-9] INFO   f.f.Slf4jLogbackLogger - current address:  /freecontext/
+29.11.2020 23:45:44.476 [http-nio-8094-exec-10] INFO   f.f.Slf4jLogbackLogger - current address:  /freecontext/login
+29.11.2020 23:45:44.486 [http-nio-8094-exec-1] INFO   f.f.Slf4jLogbackLogger - current address:  /freecontext/profile
+29.11.2020 23:46:06.830 [http-nio-8094-exec-1] INFO   f.f.Slf4jLogbackLogger - current address:  /freecontext/
+29.11.2020 23:46:07.250 [http-nio-8094-exec-3] INFO   f.f.Slf4jLogbackLogger - current address:  /freecontext/
+29.11.2020 23:46:08.902 [http-nio-8094-exec-5] INFO   f.f.Slf4jLogbackLogger - current address:  /freecontext/login
+29.11.2020 23:46:08.918 [http-nio-8094-exec-6] INFO   f.f.Slf4jLogbackLogger - current address:  /freecontext/login
+29.11.2020 23:46:11.547 [http-nio-8094-exec-8] INFO   f.f.Slf4jLogbackLogger - current address:  /freecontext/login
+29.11.2020 23:46:11.558 [http-nio-8094-exec-9] INFO   f.f.Slf4jLogbackLogger - current address:  /freecontext/profile
