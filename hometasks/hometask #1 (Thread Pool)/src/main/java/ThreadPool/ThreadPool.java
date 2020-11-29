@@ -46,7 +46,7 @@ public class ThreadPool {
                         try {
                             wait();
                         } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            Thread.currentThread().interrupt();
                         }
                     }
                 }
