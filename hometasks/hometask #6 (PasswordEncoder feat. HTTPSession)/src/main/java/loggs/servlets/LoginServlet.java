@@ -1,7 +1,5 @@
 package loggs.servlets;
 
-import loggs.services.CookieService;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
