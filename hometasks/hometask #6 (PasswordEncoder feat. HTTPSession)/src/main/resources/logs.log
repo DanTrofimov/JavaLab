@@ -90,3 +90,9 @@
 29.11.2020 12:36:16.744 [http-nio-8098-exec-6] INFO   l.f.Slf4jLogbackLogger - current address:  /context/login
 29.11.2020 12:36:16.754 [http-nio-8098-exec-7] INFO   l.f.Slf4jLogbackLogger - current address:  /context/profile
 29.11.2020 12:36:24.552 [http-nio-8098-exec-8] INFO   l.f.Slf4jLogbackLogger - current address:  /context/login
+29.11.2020 15:24:04.102 [http-nio-8098-exec-1] INFO   l.f.Slf4jLogbackLogger - current address:  /context/
+29.11.2020 15:24:05.758 [http-nio-8098-exec-3] INFO   l.f.Slf4jLogbackLogger - current address:  /context/
+29.11.2020 15:24:07.573 [http-nio-8098-exec-7] INFO   l.f.Slf4jLogbackLogger - current address:  /context/login
+29.11.2020 15:24:07.582 [http-nio-8098-exec-8] INFO   l.f.Slf4jLogbackLogger - current address:  /context/login
+29.11.2020 15:24:08.730 [http-nio-8098-exec-5] INFO   l.f.Slf4jLogbackLogger - current address:  /context/login
+29.11.2020 15:24:08.745 [http-nio-8098-exec-6] INFO   l.f.Slf4jLogbackLogger - current address:  /context/profile
