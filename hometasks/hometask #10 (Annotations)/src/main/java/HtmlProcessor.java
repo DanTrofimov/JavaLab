@@ -14,13 +14,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Set;
 
-/**
- * 03.12.2020
- * 15.Annotations_SOURCE
- *
- * @author Sidikov Marsel (First Software Engineering Platform)
- * @version v1.0
- */
 @AutoService(Processor.class)
 @SupportedAnnotationTypes(value = {"HtmlForm"})
 public class HtmlProcessor extends AbstractProcessor {
