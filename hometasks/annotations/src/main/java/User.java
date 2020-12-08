@@ -1,5 +1,7 @@
 @HtmlForm(method = "post", action = "/users")
-public class User {
+public class
+
+User {
     @HtmlInput(name = "nickname", placeholder = "Ваш ник")
     private String nickname;
     @HtmlInput(name = "email",type = "email", placeholder = "Ваша почта")
