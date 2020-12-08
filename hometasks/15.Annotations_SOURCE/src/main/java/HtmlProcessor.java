@@ -6,15 +6,12 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import javax.tools.Diagnostic;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Set;
-
-import freemarker.template.Configuration;
 
 @AutoService(Processor.class)
 @SupportedAnnotationTypes(value = {"HtmlForm"})
