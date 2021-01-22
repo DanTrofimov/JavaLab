@@ -31,7 +31,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        ru.itis.trofimoff.app.program.Main
+                                        ru.itis.trofimoff.app.main.Main
                                     </mainClass>
                                 </manifest>
                             </archive>

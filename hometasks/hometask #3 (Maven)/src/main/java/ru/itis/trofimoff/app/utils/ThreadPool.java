@@ -1,77 +1,61 @@
 package ru.itis.trofimoff.app.utils;
 
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Deque;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
+// wait, notify, synchronized
 public class ThreadPool {
+    // очередь задач
+    private Deque<Runnable> tasks;
 
-    private Queue<Runnable> tasks;
-    private PoolWorker[] threads;
+    // пул потоков
+    private PoolWorker threads[];
 
     public ThreadPool(int threadsCount) {
-        this.tasks = new ConcurrentLinkedQueue<>();
+        this.tasks = new ConcurrentLinkedDeque<>();
         this.threads = new PoolWorker[threadsCount];
 
-        for (int i = 0; i < threadsCount; i++) {
-            threads[i] = new PoolWorker();
-            threads[i].start();
+        for (int i = 0; i < this.threads.length; i++) {
+            this.threads[i] = new PoolWorker();
+            this.threads[i].start();
         }
     }
 
     public void submit(Runnable task) {
-        addTask(task);
-        giveToThread();
-    }
-
-    private void addTask(Runnable task) {
-        synchronized (tasks) {
-            tasks.offer(task);
-        }
-    }
-
-    private void giveToThread() {
-        boolean dontGiveToThread = true;
-        while (dontGiveToThread) {
-            for (PoolWorker worker : threads) {
-                if (worker.getState().equals(Thread.State.WAITING)) {
-                    synchronized (worker) {
-                        worker.notify();
-                    }
-                    dontGiveToThread = false;
-                    break;
-                }
+        tasks.add(task);
+        for (int i = 0; i < this.threads.length; i++) {
+            synchronized (threads[i]) {
+                threads[i].notify();
             }
         }
     }
 
+    // класс - рабочий поток
     private class PoolWorker extends Thread {
-
         @Override
         public void run() {
             while (true) {
-                waitThread();
-                takeAndDoTask();
-            }
-        }
-
-        private void waitThread() {
-            synchronized (this) {
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                    throw new IllegalArgumentException();
+                Runnable task = tasks.poll();
+                if (task != null) {
+                    task.run();
+                }
+                synchronized (this) {
+                    if (tasks.isEmpty()) {
+                        try {
+                            wait();
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                        }
+                    }
                 }
             }
         }
-
-        private void takeAndDoTask() {
-            Runnable task;
-            synchronized (tasks) {
-                task = tasks.poll();
-            }
-            if (task != null) task.run();
-        }
-
     }
 
+    /*
+        useful links:
+            1) wait & notify - https://metanit.com/java/tutorial/8.5.php
+            2) synchronized - https://metanit.com/java/tutorial/8.3.php
+     */
 }
+

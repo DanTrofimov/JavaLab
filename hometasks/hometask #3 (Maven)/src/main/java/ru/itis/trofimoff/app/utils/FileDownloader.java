@@ -6,38 +6,30 @@ import java.nio.file.Path;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class Downloader {
+public class FileDownloader {
 
-    private final int BUFFER_SIZE = 512;
     private byte[] byteBuffer;
-    Queue<InputStream> inputStreams;
-    Queue<OutputStream> outputStreams;
+    private Queue<InputStream> inputStreams;
+    private Queue<OutputStream> outputStreams;
 
-    public Downloader() {
-        byteBuffer = new byte[BUFFER_SIZE];
+    public FileDownloader() {
+        byteBuffer = new byte[512];
         inputStreams = new ConcurrentLinkedQueue<>();
         outputStreams = new ConcurrentLinkedQueue<>();
     }
 
-    public void prepareAndDownload(URL url, Path file) {
-        prepareForDownload(url, file);
-        download();
-    }
-
-    public void prepareForDownload(URL url, Path file) {
-        setInputStreamFromURL(url);
-        setOutputStreamFromPath(file);
-    }
-
-    public void setInputStreamFromURL(URL url) {
+    public void prepare(URL url, Path file) {
         try {
             inputStreams.add(url.openStream());
         } catch (IOException e) {
             throw new IllegalArgumentException();
         }
-    }
+        try {
+            outputStreams.add(new FileOutputStream(file.toAbsolutePath().toString()));
+        } catch (FileNotFoundException e) {
+            throw new IllegalArgumentException();
+        }
 
-    public void setOutputStreamFromPath(Path file) {
         try {
             outputStreams.add(new FileOutputStream(file.toAbsolutePath().toString()));
         } catch (FileNotFoundException e) {
@@ -53,7 +45,7 @@ public class Downloader {
             boolean end = false;
             while (!end) {
                 synchronized (byteBuffer) {
-                    if ((byteRead = inputStream.read(byteBuffer, 0, BUFFER_SIZE)) != -1) {
+                    if ((byteRead = inputStream.read(byteBuffer, 0, 512)) != -1) {
                         outputStream.write(byteBuffer, 0, byteRead);
                     } else {
                         end = true;
@@ -62,7 +54,7 @@ public class Downloader {
             }
             inputStream.close();
             outputStream.close();
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

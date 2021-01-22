@@ -1,4 +1,4 @@
-package ru.itis.trofimoff.app.program;
+package ru.itis.trofimoff.app.main;
 
 import com.beust.jcommander.JCommander;
 import java.net.MalformedURLException;
@@ -6,8 +6,8 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import ru.itis.trofimoff.app.utils.Downloader;
-import ru.itis.trofimoff.app.utils.FileNamer;
+import ru.itis.trofimoff.app.utils.FileDownloader;
+import ru.itis.trofimoff.app.utils.Namer;
 import ru.itis.trofimoff.app.utils.ThreadPool;
 import ru.itis.trofimoff.app.utils.Args;
 
@@ -18,23 +18,28 @@ public class Main {
                 .addObject(args)
                 .build()
                 .parse(argv);
+
+        // закинули все урлы в массив
         String[] urls = args.getUrls().split(";");
+
+        // передали количество потоков
         ThreadPool threadPool = new ThreadPool(args.getCount());
-        Downloader downloader = new Downloader();
+        FileDownloader fileDownloader = new FileDownloader();
+
         for (int i = 0; i < urls.length; i++){
-            int finalI = i;
+            int index = i;
             threadPool.submit(() -> {
                 URL url;
                 try {
-                    url = new URL(urls[finalI].trim());
+                    url = new URL(urls[index].trim());
                 } catch (MalformedURLException e) {
                     throw new IllegalArgumentException();
                 }
-                String fileName = FileNamer.makeNameFileForFileFromURL(url);
+
+                String fileName = Namer.createFileName(url);
                 Path path = Paths.get(args.getPath(), fileName);
-                System.out.println("Starting download " + fileName);
-                downloader.prepareAndDownload(url, path);
-                System.out.println("End download " + fileName);
+                fileDownloader.prepare(url, path);
+                fileDownloader.download();
             });
         }
     }
