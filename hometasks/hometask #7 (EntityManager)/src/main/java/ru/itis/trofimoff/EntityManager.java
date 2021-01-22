@@ -12,7 +12,7 @@ public class EntityManager {
     //language=SQL
     private static final String SQL_CREATE_TABLE = "create table ";
     //language=SQL
-    private static final String SQL_DROP_TABLE = "drop table if exists ";
+    private static final String SQL_DROP_TABLE = "drop table ";
     //language=SQL
     private static final String SQL_SAVE = "insert into ";
     //language=SQL
