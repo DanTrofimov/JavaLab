@@ -41,24 +41,16 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
     }
 
     @Override
-    public void save(User entity) {
-
-    }
+    public void save(User entity) {}
 
     @Override
-    public void update(User entity) {
-
-    }
+    public void update(User entity) {}
 
     @Override
-    public void delete(User entity) {
-
-    }
+    public void delete(User entity) {}
 
     @Override
     public Optional<User> findById(Long id) {
         return Optional.empty();
     }
-
-
 }
