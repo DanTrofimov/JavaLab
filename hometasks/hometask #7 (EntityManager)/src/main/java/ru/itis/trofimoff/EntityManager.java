@@ -8,44 +8,19 @@ import java.util.HashMap;
 public class EntityManager {
     private final DataSource dataSource;
 
-    private final HashMap<String, String> types = new HashMap<>();
-    //language=SQL
-    private static final String SQL_CREATE_TABLE = "create table ";
-    //language=SQL
-    private static final String SQL_DROP_TABLE = "drop table ";
-    //language=SQL
-    private static final String SQL_SAVE = "insert into ";
-    //language=SQL
-    private static final String SQL_FIND = "select * from ";
-
     public EntityManager(DataSource dataSource) {
         this.dataSource = dataSource;
-        this.types.put("string", "varchar");
-        this.types.put("long", "bigint");
-        this.types.put("integer", "int");
-    }
-
-    private String getDbType(String fieldType) {
-        String type = types.get(fieldType);
-        return type != null ? type : fieldType;
     }
 
     public void save(String tableName, Object entity) {
         Connection connection = null;
         PreparedStatement statement = null;
-        Class<?> entityClass = entity.getClass();
 
-        // constructing full sql query
-        StringBuilder sql = new StringBuilder(SQL_SAVE);
-        sql.append(tableName.trim()).append(" values(");
+        Class<?> entityClass = entity.getClass();
         Field[] fields = entityClass.getDeclaredFields();
-        for (int i = 0; i < fields.length; i++) {
-            sql.append("?");
-            if (i + 1 != fields.length) {
-                sql.append(", ");
-            }
-        }
-        sql.append(");");
+
+        QueryConstructor.init();
+        StringBuilder sql = QueryConstructor.save(tableName, fields);
 
         // adding entity into the db
         try {
@@ -79,18 +54,10 @@ public class EntityManager {
 
     public <T> void createTable(String tableName, Class<T> entityClass) {
 
-        // constructing full sql query
-        StringBuilder sql = new StringBuilder(SQL_CREATE_TABLE);
-        sql.append(tableName.trim()).append("(");
         Field[] fields = entityClass.getDeclaredFields();
-        for (int i = 0; i < fields.length; i++) {
-            sql.append(fields[i].getName()).append(" ");
-            sql.append(getDbType(fields[i].getType().getSimpleName().toLowerCase()));
-            if (i + 1 != fields.length) {
-                sql.append(",");
-            }
-        }
-        sql.append(");");
+
+        QueryConstructor.init();
+        StringBuilder sql = QueryConstructor.createTable(tableName, fields);
 
         Connection connection = null;
         Statement statement = null;
@@ -122,10 +89,10 @@ public class EntityManager {
 
     public <T, ID> T findById(String tableName, Class<T> resultType, ID idValue) {
 
-        // constructing sql query
-        StringBuilder sql = new StringBuilder(SQL_FIND);
         T result;
-        sql.append(tableName.trim()).append(" WHERE id=?");
+
+        QueryConstructor.init();
+        StringBuilder sql = QueryConstructor.findById(tableName);
 
         ResultSet resultSet = null;
         Connection connection = null;
@@ -180,8 +147,8 @@ public class EntityManager {
     public void dropTable(String tableName) {
 
         // constructing sql query
-        StringBuilder sql = new StringBuilder(SQL_DROP_TABLE);
-        sql.append(tableName);
+        QueryConstructor.init();
+        StringBuilder sql = QueryConstructor.dropTable(tableName);
 
         Connection connection = null;
         PreparedStatement statement = null;

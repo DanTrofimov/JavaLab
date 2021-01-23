@@ -29,6 +29,7 @@ public class Main {
         for (int i = 0; i < urls.length; i++){
             int index = i;
             threadPool.submit(() -> {
+
                 URL url;
                 try {
                     url = new URL(urls[index].trim());
