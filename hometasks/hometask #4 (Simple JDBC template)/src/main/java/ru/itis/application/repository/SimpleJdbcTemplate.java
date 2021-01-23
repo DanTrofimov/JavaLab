@@ -15,20 +15,20 @@ public class SimpleJdbcTemplate {
     // на update, insert и пр
     public <T> int execute(String sql, Object ... args) {
         Connection connection = null;
-        PreparedStatement statement = null;
+        PreparedStatement preparedStatement = null;
         try {
             connection = dataSource.getConnection();
-            statement = connection.prepareStatement(sql);
+            preparedStatement = connection.prepareStatement(sql);
             for (int i = 0; i < args.length; i++) {
-                statement.setObject(i + 1, args[i]);
+                preparedStatement.setObject(i + 1, args[i]);
             }
-            return statement.executeUpdate();
+            return preparedStatement.executeUpdate();
         } catch (SQLException ex) {
             throw new IllegalStateException(ex);
         } finally {
-            if (statement != null) {
+            if (preparedStatement != null) {
                 try {
-                    statement.close();
+                    preparedStatement.close();
                 } catch (SQLException ex) {
                 }
             }
@@ -45,16 +45,16 @@ public class SimpleJdbcTemplate {
     public <T> List<T> query(String sql, RowMapper<T> rowMapper, Object ... args) {
         ResultSet resultSet = null;
         Connection connection = null;
-        PreparedStatement statement = null;
+        PreparedStatement preparedStatement = null;
         List<T> resultEntities = new ArrayList<>();
 
         try {
             connection = dataSource.getConnection();
-            statement = connection.prepareStatement(sql);
+            preparedStatement = connection.prepareStatement(sql);
             for (int i = 0; i < args.length; i++) {
-                statement.setObject(i + 1, args[i]);
+                preparedStatement.setObject(i + 1, args[i]);
             }
-            resultSet = statement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 resultEntities.add(rowMapper.mapRow(resultSet));
             }
@@ -62,9 +62,9 @@ public class SimpleJdbcTemplate {
         } catch (SQLException ex) {
             throw new IllegalStateException(ex);
         } finally {
-            if (statement != null) {
+            if (preparedStatement != null) {
                 try {
-                    statement.close();
+                    preparedStatement.close();
                 } catch (SQLException ex) {
                 }
             }
