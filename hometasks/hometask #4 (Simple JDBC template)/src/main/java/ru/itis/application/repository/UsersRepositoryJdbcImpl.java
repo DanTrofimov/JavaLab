@@ -2,8 +2,6 @@ package ru.itis.application.repository;
 import ru.itis.application.models.User;
 
 import javax.sql.DataSource;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
