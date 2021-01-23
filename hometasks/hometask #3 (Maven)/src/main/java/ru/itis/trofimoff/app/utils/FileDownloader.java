@@ -20,7 +20,7 @@ public class FileDownloader {
         outputStreams = new ConcurrentLinkedQueue<>();
     }
 
-    public void prepare(URL url, Path file) {
+    public void prepareStreams(URL url, Path file) {
         try {
             inputStreams.add(url.openStream());
         } catch (IOException e) {

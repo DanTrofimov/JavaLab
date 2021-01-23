@@ -38,7 +38,7 @@ public class Main {
 
                 String fileName = fileDownloader.generateName(url);
                 Path path = Paths.get(args.getPath(), fileName);
-                fileDownloader.prepare(url, path);
+                fileDownloader.prepareStreams(url, path);
                 fileDownloader.download();
             });
         }
