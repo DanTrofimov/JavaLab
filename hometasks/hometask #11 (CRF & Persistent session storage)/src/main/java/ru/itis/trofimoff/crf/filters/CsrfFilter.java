@@ -12,7 +12,6 @@ import static ru.itis.trofimoff.crf.filters.ResponseUtil.sendForbidden;
 
 
 public class CsrfFilter implements Filter {
-    private Set<String> csrfTokens = new HashSet<>();
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -27,9 +26,9 @@ public class CsrfFilter implements Filter {
         if (request.getMethod().equals("POST")) {
             String requestCsrf = request.getParameter("_csrf_token");
             String sessionCsrf = (String) request.getSession(false).getAttribute("_csrf_token");
-            if (sessionCsrf.equals(requestCsrf)) {
+            // if csrf token is already exist
+            if (sessionCsrf.contains(requestCsrf)) {
                 filterChain.doFilter(servletRequest, servletResponse);
-                csrfTokens.add(requestCsrf);
                 return;
             } else {
                 sendForbidden(request, response);
@@ -39,7 +38,15 @@ public class CsrfFilter implements Filter {
         if (request.getMethod().equals("GET")) {
             String csrf = UUID.randomUUID().toString();
             request.setAttribute("_csrf_token", csrf);
-            request.getSession().setAttribute("_csrf_token", csrf);
+            // if that's first crf token
+            if (request.getSession().getAttribute("_csrf_tokens") == null) {
+                Set<String> csrfTokens = new HashSet<>();
+                csrfTokens.add(csrf);
+                request.getSession().setAttribute("_csrf_token", csrfTokens);
+            } else {
+                Set csrfTokens = (Set) request.getSession().getAttribute("_csrf_tokens");
+                csrfTokens.add(csrf);
+            }
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
