@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import ru.itis.trofimoff.app.utils.FileDownloader;
-import ru.itis.trofimoff.app.utils.Namer;
 import ru.itis.trofimoff.app.utils.ThreadPool;
 import ru.itis.trofimoff.app.utils.Args;
 
@@ -37,7 +36,7 @@ public class Main {
                     throw new IllegalArgumentException();
                 }
 
-                String fileName = Namer.createFileName(url);
+                String fileName = fileDownloader.generateName(url);
                 Path path = Paths.get(args.getPath(), fileName);
                 fileDownloader.prepare(url, path);
                 fileDownloader.download();
