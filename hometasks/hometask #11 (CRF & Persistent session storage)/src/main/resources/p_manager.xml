@@ -1,0 +1,12 @@
+<Manager className="org.apache.catalina.session.PersistentManager" maxActiveSessions="10" minIdleSwap="-1"
+         maxIdleSwap="-1" maxIdleBackup="-1">
+    <Store className="org.apache.catalina.session.JDBCStore"
+           driverName="org.postgresql.Driver"
+           connectionURL="jdbc:postgresql://localhost:5432/crf?user=postgres&amp;password=admin"
+           sessionTable="tomcat_sessions"
+           sessionIdCol="id"
+           sessionDataCol="data"
+           sessionValidCol="valid"
+           sessionMaxInactiveCol="maxinactive"
+           sessionLastAccessedCol="lastaccess"/>
+</Manager>
