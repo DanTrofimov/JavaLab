@@ -1,0 +1,30 @@
+* {
+    font-family: Consolas, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+.registration-content, .sign-in-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 50px);
+    color: #757575;
+    gap: 30px;
+}
+
+.welcome-image {
+    height: 450px;
+    width: 450px;
+}
+
+.link-container {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 7px;
+}
+
+.error-message {
+    color: #ff0539;
+}

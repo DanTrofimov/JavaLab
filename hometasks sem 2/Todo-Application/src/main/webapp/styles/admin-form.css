@@ -1,0 +1,55 @@
+.add-todo-form__wrapper {
+    width: 600px;
+    height: fit-content;
+    background-color: #e1e1e1;
+    border-radius: 20px;
+    margin: 40px 0 0 40px;
+    padding: 40px 40px 20px 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-checkbox {
+    background-color: white;
+    border-radius: 10px;
+    min-height: 25px;
+    padding: 12px 10px 5px 10px;
+    max-width: 90px;
+}
+
+.users {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin: 10px 0 20px 0;
+    flex-wrap: wrap;
+}
+
+.todo-textarea {
+    width: 520px;
+    min-height: 220px;
+    border-radius: 20px;
+    font-size: 15px;
+    color: #757575;
+    padding: 15px;
+    margin-top: 20px;
+    border: 2px dashed #757575;
+    outline: none;
+}
+
+.admin-todo-button {
+    margin: 15px auto 0 200px;
+    width: 100px;
+    height: 40px;
+    padding: auto;
+    color: white;
+    background-color: #9fb3d9;
+    border: none;
+    box-shadow: none;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.admin-todo-button:hover {
+    background-color: #7d9cd9;
+}

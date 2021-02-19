@@ -1,0 +1,8 @@
+.user-card {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    gap: 100px;
+    padding: 20px;
+    border-bottom: 2px dashed #c0c0c0;
+}

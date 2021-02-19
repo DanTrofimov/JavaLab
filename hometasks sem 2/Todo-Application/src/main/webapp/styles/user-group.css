@@ -1,0 +1,15 @@
+.user-group {
+    display: grid;
+    place-items: center;
+    background-color: #bfe0c2;
+    border-radius: 20px;
+    color: #757575;
+    min-height: 130px;
+    width: auto;
+    padding: 10px;
+    text-align: center;
+}
+
+.user-group:hover {
+    border: 3px dashed #757575;
+}

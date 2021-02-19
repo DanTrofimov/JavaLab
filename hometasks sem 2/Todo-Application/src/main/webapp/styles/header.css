@@ -1,0 +1,8 @@
+header {
+    min-height: 50px;
+    background-color: #7d9cd9;
+    color: white;
+    text-align: center;
+    display: grid;
+    place-items: center;
+}
