@@ -11,28 +11,28 @@
     <t:header>
     </t:header>
     <div class="registration-content">
-<%--        <div>--%>
-<%--            <t:registration-form>--%>
-<%--            </t:registration-form>--%>
-<%--            <c:if test="${empty sessionScope.get('current-user')}">--%>
-<%--                <p class="link-container">--%>
-<%--                    <a href="<c:url value="/sign-in"/>">Sign In</a>--%>
-<%--                </p>--%>
-<%--            </c:if>--%>
-<%--            <c:if test="${not empty sessionScope.get('current-user')}">--%>
-<%--                <p class="link-container">--%>
-<%--                    <a href="<c:url value="/main"/>">Profile</a>--%>
-<%--                </p>--%>
-<%--            </c:if>--%>
-<%--            <c:if test="${not empty sessionScope.get('sign-up-error')}">--%>
-<%--                <p class="link-container error-message">--%>
-<%--                    ${sessionScope.get('sign-up-error')}--%>
-<%--                </p>--%>
-<%--            </c:if>--%>
-<%--        </div>--%>
-<%--        <div>--%>
-<%--            <img src="${pageContext.request.contextPath}/assets/welcome-image.png" alt="welcome-image" class="welcome-image">--%>
-<%--        </div>--%>
+        <div>
+            <t:registration-form>
+            </t:registration-form>
+            <c:if test="${empty sessionScope.get('current-user')}">
+                <p class="link-container">
+                    <a href="<c:url value="/sign-in"/>">Sign In</a>
+                </p>
+            </c:if>
+            <c:if test="${not empty sessionScope.get('current-user')}">
+                <p class="link-container">
+                    <a href="<c:url value="/main"/>">Profile</a>
+                </p>
+            </c:if>
+            <c:if test="${not empty sessionScope.get('sign-up-error')}">
+                <p class="link-container error-message">
+                    ${sessionScope.get('sign-up-error')}
+                </p>
+            </c:if>
+        </div>
+        <div>
+            <img src="${pageContext.request.contextPath}/assets/welcome-image.png" alt="welcome-image" class="welcome-image">
+        </div>
     </div>
 </body>
 </html>
