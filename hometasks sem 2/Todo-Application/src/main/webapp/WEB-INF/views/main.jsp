@@ -42,7 +42,7 @@
                 </t:todo>
             </c:forEach>
             <form class="todo-form" action="add-todo" method="post">
-                <input type="text" name="todo-text" placeholder="type your task here...">
+                <input type="text" name="todoText" placeholder="type your task here...">
                 <button type="submit">add</button>
             </form>
             <c:if test="${empty sessionScope.get('todos')}">

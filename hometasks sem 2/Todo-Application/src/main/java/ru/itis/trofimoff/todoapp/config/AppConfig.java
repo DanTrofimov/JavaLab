@@ -14,7 +14,9 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import ru.itis.trofimoff.todoapp.repositories.TodoRepository;
 import ru.itis.trofimoff.todoapp.repositories.UserRepository;
+import ru.itis.trofimoff.todoapp.services.todo.TodoServiceImpl;
 import ru.itis.trofimoff.todoapp.services.user.UserServiceImpl;
 //import ru.itis.trofimoff.form.repository.user.UserRepositoryImpl;
 //import ru.itis.trofimoff.form.services.user.UserServiceImpl;
@@ -47,6 +49,16 @@ public class AppConfig implements WebMvcConfigurer {
 //  public UserValidator validator(){
 //    return new UserValidator();
 //  }
+
+  @Bean
+  public TodoServiceImpl todoService() {
+    return new TodoServiceImpl(todoRepository());
+  }
+
+  @Bean
+  public TodoRepository todoRepository() {
+    return new TodoRepository(dataSource());
+  }
 
   @Bean
   public UserServiceImpl userService() {

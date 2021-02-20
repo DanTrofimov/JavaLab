@@ -1,14 +1,10 @@
 package ru.itis.trofimoff.todoapp.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import ru.itis.trofimoff.todoapp.dto.SignInFormDto;
 import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
 
-@Getter
-@Setter
+@Data
 @Builder
 @AllArgsConstructor
 public class User {

@@ -5,11 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.itis.trofimoff.todoapp.dto.SignInFormDto;
-import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
 import ru.itis.trofimoff.todoapp.models.User;
 import ru.itis.trofimoff.todoapp.services.user.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 @Controller
 public class SignInController {
@@ -24,12 +24,12 @@ public class SignInController {
 
     @RequestMapping(value = "/sign-in", method = RequestMethod.POST)
     public String getSignInPage(HttpServletRequest request, SignInFormDto signInForm){
-        if (true) { // if signInForm is valid
-            User user = userService.checkUser(new User(signInForm)); // is user in DB
-            if (user != null) {
-                request.getSession().setAttribute("current-user", user);
+        if (true) { // TODO: signInForm validation
+            Optional<User> user = userService.checkUser(signInForm);
+            if (user.isPresent()) {
+                request.getSession().setAttribute("current-user", user.get());
                 request.getSession().setAttribute("sign-in-error", null);
-                switch (user.getRole()) {
+                switch (user.get().getRole()) {
                     case "user":
                         return "redirect:" + request.getServletContext().getContextPath() + "/main";
                     case "admin":

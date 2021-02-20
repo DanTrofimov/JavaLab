@@ -1,4 +1,4 @@
-package ru.itis.trofimoff.todoapp.controllers;
+package ru.itis.trofimoff.todoapp.controllers.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

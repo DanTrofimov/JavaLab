@@ -1,6 +1,6 @@
 package ru.itis.trofimoff.todoapp.services.user;
 
-import org.springframework.stereotype.Component;
+import ru.itis.trofimoff.todoapp.dto.SignInFormDto;
 import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
 import ru.itis.trofimoff.todoapp.models.User;
 import ru.itis.trofimoff.todoapp.repositories.UserRepository;
@@ -22,8 +22,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User checkUser(User user) {
-        return null;
+    public Optional<User> checkUser(SignInFormDto userForm) {
+        return this.userRepository.checkUser(new User(userForm)); // email only
     }
 
     @Override

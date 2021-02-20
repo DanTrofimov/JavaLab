@@ -1,10 +1,7 @@
 package ru.itis.trofimoff.todoapp.repositories.utils;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,16 +13,17 @@ public class SqlJDBCTemplate<T> {
     }
 
     // на update, insert и пр
-    public <T> int execute(String sql, Object ... args) {
+    public ResultSet execute(String sql, Object ... args) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             for (int i = 0; i < args.length; i++) {
                 preparedStatement.setObject(i + 1, args[i]);
             }
-            return preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
+            return preparedStatement.getGeneratedKeys();
         } catch (SQLException ex) {
             throw new IllegalStateException(ex);
         } finally {
@@ -44,6 +42,8 @@ public class SqlJDBCTemplate<T> {
         }
     }
 
+    // todo: generated keys from SqlJDBCTemplate
+
     // на select и пр.
     public <T> List<T> query(String sql, RowMapper<T> rowMapper, Object ... args) {
         ResultSet resultSet = null;
@@ -56,6 +56,7 @@ public class SqlJDBCTemplate<T> {
             for (int i = 0; i < args.length; i++) {
                 preparedStatement.setObject(i + 1, args[i]);
             }
+            System.out.println(preparedStatement);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 resultEntities.add(rowMapper.mapRow(resultSet));

@@ -6,12 +6,14 @@ import ru.itis.trofimoff.todoapp.repositories.utils.SqlJDBCTemplate;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
 public class UserRepository implements CrudRepository<User> {
     //language=SQL
     private String SQL_INSERT_USER = "INSERT INTO users(name, email, password, role) VALUES(?, ?, ?, ?)";
     //language=SQL
-    private String SQL_SELECT_USER = "SELECT (?, ?, ?, ?, ?) FROM users";
+    private String SQL_SELECT_USER = "SELECT * FROM users WHERE email = ? ";
+    //language=SQL
     private String sqlDeleteFormat = "DELETE FROM users WHERE id = %d";
     private DataSource dataSource;
     private SqlJDBCTemplate sqlJDBCTemplate;
@@ -21,7 +23,7 @@ public class UserRepository implements CrudRepository<User> {
             .password(row.getString("password").trim())
             .name(row.getString("name").trim())
             .id(row.getInt("id"))
-            .role(row.getString("role"))
+            .role(row.getString("role").trim())
             .build();
 
 
@@ -38,39 +40,18 @@ public class UserRepository implements CrudRepository<User> {
 
     // finding user in the DB
     // user need to have password & email
-    public User checkUser(User user){
-        return sqlJDBCTemplate.query(SQL_SELECT_USER, userRowMapper, user.getEmail(), user.getPassword(), user.getName(), user.getId(), user.getRole())
+    // fixme: findByEmail, use only email
+    public Optional<User> checkUser(User user) {
+        User userResult;
+        try {
+            userResult = (User) sqlJDBCTemplate.query(SQL_SELECT_USER, userRowMapper, user.getEmail()).get(0);
+        } catch (Exception e) { // fixme
+            userResult = null;
+        }
+        return Optional.ofNullable(userResult);
     }
 
 
-//    // removing user from the table
-//    @Override
-//    public void deleteById(int id){
-//        try {
-//            DataBaseConnector connector = new DataBaseConnector();
-//            conn = connector.getConnection();
-//            preparedStatement = conn.prepareStatement(String.format(sqlDeleteFormat, id));
-//            preparedStatement.executeUpdate();
-//        }  catch(SQLException se) {
-//            System.out.println(se.getMessage());
-//        } finally {
-//            if (preparedStatement != null) {
-//                try {
-//                    preparedStatement.close();
-//                } catch (SQLException ex) {
-//                    System.out.println("Problems with a saving user. Can't close statement.");
-//                }
-//            }
-//            if (conn != null) {
-//                try {
-//                    conn.close();
-//                } catch (SQLException ex) {
-//                    System.out.println("Problems with a saving user. Can't close connection.");
-//                }
-//            }
-//        }
-//    }
-//
 //    @Override
 //    public User findById(int id) {
 //        try {

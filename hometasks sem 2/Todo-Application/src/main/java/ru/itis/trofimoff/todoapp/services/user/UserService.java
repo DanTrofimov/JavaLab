@@ -1,5 +1,6 @@
 package ru.itis.trofimoff.todoapp.services.user;
 
+import ru.itis.trofimoff.todoapp.dto.SignInFormDto;
 import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
 import ru.itis.trofimoff.todoapp.models.User;
 
@@ -9,7 +10,7 @@ import java.util.Optional;
 public interface UserService {
     //    Long saveUser(User user);
     void saveUser(SignUpFormDto user);
-    User checkUser(User user);
+    Optional<User> checkUser(SignInFormDto user);
     Optional<User> findUserByEMail(String name);
     void updateUser (User user, HttpServletRequest request);
     void deleteUser (User user, HttpServletRequest request);
