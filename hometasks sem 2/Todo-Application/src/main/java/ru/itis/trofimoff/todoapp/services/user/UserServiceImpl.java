@@ -22,6 +22,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User checkUser(User user) {
+        return null;
+    }
+
+    @Override
     public Optional<User> findUserByEMail(String name) {
         return Optional.empty();
     }

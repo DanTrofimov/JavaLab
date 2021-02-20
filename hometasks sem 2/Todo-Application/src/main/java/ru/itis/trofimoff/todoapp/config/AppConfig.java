@@ -28,7 +28,7 @@ import java.util.Objects;
 @ComponentScan("ru.itis.trofimoff.todoapp.repositories")
 @EnableWebMvc
 @PropertySource("classpath:db.properties")
-public class Config implements WebMvcConfigurer {
+public class AppConfig implements WebMvcConfigurer {
 
   @Autowired
   private Environment environment;

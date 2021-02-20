@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SqlJDBCTemplate {
+public class SqlJDBCTemplate<T> {
     private DataSource dataSource;
 
     public SqlJDBCTemplate(DataSource dataSource) {
@@ -50,7 +50,6 @@ public class SqlJDBCTemplate {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         List<T> resultEntities = new ArrayList<>();
-
         try {
             connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement(sql);
