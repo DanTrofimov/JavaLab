@@ -56,7 +56,7 @@ public class User {
     }
 
     public User(SignUpFormDto form) {
-        this.name = form.getUsername();
+        this.name = form.getName();
         this.email = form.getEmail();
         this.password = form.getPassword();
         this.role = "user";
