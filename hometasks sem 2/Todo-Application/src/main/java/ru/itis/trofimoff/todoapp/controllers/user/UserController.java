@@ -9,16 +9,12 @@ import ru.itis.trofimoff.todoapp.models.Todo;
 import ru.itis.trofimoff.todoapp.models.User;
 import ru.itis.trofimoff.todoapp.services.group.GroupService;
 import ru.itis.trofimoff.todoapp.services.todo.TodoService;
-import ru.itis.trofimoff.todoapp.services.user.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
 public class UserController {
-
-    @Autowired
-    public UserService userService;
 
     @Autowired
     public TodoService todoService;

@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> checkUser(SignInFormDto userForm) { // fixme: replace by email
-        return this.userRepository.checkUser(new User(userForm)); // email only
+    public Optional<User> findByEmail(SignInFormDto userForm) {
+        return this.userRepository.findByEmail(userForm.getEmail());
     }
 
     public UserStatisticsDto getUserStatistic(int userId) {

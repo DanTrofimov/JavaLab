@@ -28,7 +28,7 @@ public class FilterTodoController {
     }
 
     @RequestMapping(value = "/filter-todos", method = RequestMethod.POST)
-    public String postHandleTodo(HttpServletRequest request) {
+    public String postHandleTodo() {
         return "/main";
     }
 }

@@ -25,7 +25,7 @@ public class SignInController {
     @RequestMapping(value = "/sign-in", method = RequestMethod.POST)
     public String getSignInPage(HttpServletRequest request, SignInFormDto signInForm){
         if (true) { // TODO: signInForm validation
-            Optional<User> user = userService.checkUser(signInForm);
+            Optional<User> user = userService.findByEmail(signInForm);
             if (user.isPresent()) {
                 request.getSession().setAttribute("current-user", user.get());
                 request.getSession().setAttribute("sign-in-error", null);

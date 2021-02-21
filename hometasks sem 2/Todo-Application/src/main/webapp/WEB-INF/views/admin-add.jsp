@@ -33,7 +33,7 @@
                 </c:forEach>
             </div>
             <h3>todo text:</h3>
-            <textarea name="todo-text" class="todo-textarea" cols="30" rows="10" placeholder="type here"></textarea>
+            <textarea name="todoText" class="todo-textarea" cols="30" rows="10" placeholder="type here"></textarea>
             <button type="submit" class="admin-todo-button">add</button>
         </form>
     </div>

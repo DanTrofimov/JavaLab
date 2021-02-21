@@ -37,19 +37,15 @@ public class UserRepository implements CrudRepository<User> {
         this.sqlJDBCTemplate = new SqlJDBCTemplate(dataSource);
     }
 
-    // adding user into the DB
     @Override
     public void save(User user){
         sqlJDBCTemplate.execute(SQL_INSERT_USER, user.getName(), user.getEmail(), user.getPassword(), user.getRole());
     }
 
-    // finding user in the DB
-    // user need to have password & email
-    // fixme: findByEmail, use only email
-    public Optional<User> checkUser(User user) {
+    public Optional<User> findByEmail(String email) {
         User userResult;
         try {
-            userResult = (User) sqlJDBCTemplate.query(SQL_SELECT_USER_BY_EMAIL, userRowMapper, user.getEmail()).get(0);
+            userResult = (User) sqlJDBCTemplate.query(SQL_SELECT_USER_BY_EMAIL, userRowMapper, email).get(0);
         } catch (Exception e) { // fixme
             userResult = null;
         }

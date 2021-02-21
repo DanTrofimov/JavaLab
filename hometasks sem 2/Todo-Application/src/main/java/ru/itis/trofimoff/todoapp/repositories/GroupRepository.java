@@ -1,16 +1,10 @@
 package ru.itis.trofimoff.todoapp.repositories;
 
 import ru.itis.trofimoff.todoapp.models.Group;
-import ru.itis.trofimoff.todoapp.models.User;
 import ru.itis.trofimoff.todoapp.repositories.utils.RowMapper;
 import ru.itis.trofimoff.todoapp.repositories.utils.SqlJDBCTemplate;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GroupRepository implements CrudRepository {

@@ -1,14 +1,11 @@
 package ru.itis.trofimoff.todoapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
 import ru.itis.trofimoff.todoapp.services.user.UserService;
-
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
@@ -24,7 +21,7 @@ public class SignUpController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String postRegistrationPage(HttpServletRequest request, SignUpFormDto signUpForm) {
-        if (true) { // form is valid
+        if (true) { // TODO: add signUpForm validation
             userService.saveUser(signUpForm);
             return "redirect:" + request.getServletContext().getContextPath() + "/sign-in";
         } else {

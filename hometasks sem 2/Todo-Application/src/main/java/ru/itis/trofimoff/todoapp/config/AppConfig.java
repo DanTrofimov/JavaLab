@@ -2,7 +2,6 @@ package ru.itis.trofimoff.todoapp.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -23,9 +22,6 @@ import ru.itis.trofimoff.todoapp.services.admin.AdminServiceImpl;
 import ru.itis.trofimoff.todoapp.services.group.GroupServiceImpl;
 import ru.itis.trofimoff.todoapp.services.todo.TodoServiceImpl;
 import ru.itis.trofimoff.todoapp.services.user.UserServiceImpl;
-//import ru.itis.trofimoff.form.repository.user.UserRepositoryImpl;
-//import ru.itis.trofimoff.form.services.user.UserServiceImpl;
-//import ru.itis.trofimoff.form.services.validators.UserValidator;
 
 import javax.sql.DataSource;
 import java.util.Objects;
@@ -54,6 +50,7 @@ public class AppConfig implements WebMvcConfigurer {
 //  public UserValidator validator(){
 //    return new UserValidator();
 //  }
+
   @Bean
   public AdminService adminService() {
     return new AdminServiceImpl(userService(), todoService());

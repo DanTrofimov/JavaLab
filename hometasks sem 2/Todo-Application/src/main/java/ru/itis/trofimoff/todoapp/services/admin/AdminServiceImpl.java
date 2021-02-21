@@ -1,7 +1,7 @@
 package ru.itis.trofimoff.todoapp.services.admin;
 
 import org.springframework.stereotype.Component;
-import ru.itis.trofimoff.todoapp.dto.TodoDto;
+import ru.itis.trofimoff.todoapp.dto.AdminTodoDto;
 import ru.itis.trofimoff.todoapp.models.Todo;
 import ru.itis.trofimoff.todoapp.models.User;
 import ru.itis.trofimoff.todoapp.services.todo.TodoService;
@@ -27,11 +27,12 @@ public class AdminServiceImpl implements AdminService {
 
     // на самом деле здесь написан быдлокод, как и в принципе во всем остальном проекте, но конкретно здесь он берет свое начало
     @Override
-    public void addTodoForSeveralUsers(String[] usersStr, Todo adminTodo) {
-        int[] users = new int[usersStr.length];
+    public void addTodoForSeveralUsers(AdminTodoDto adminDto) {
+        Todo adminTodo = new Todo(adminDto.getTodoText());
+        int[] users = new int[adminDto.getUsers().length];
         adminTodo.setGroupId(2); // admin
         for (int i = 0; i < users.length; i++) {
-            users[i] = Integer.parseInt(usersStr[i]);
+            users[i] = Integer.parseInt(adminDto.getUsers()[i]);
         }
 
         todoService.addTodo(adminTodo);
