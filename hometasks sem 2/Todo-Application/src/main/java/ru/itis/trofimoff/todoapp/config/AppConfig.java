@@ -2,6 +2,7 @@ package ru.itis.trofimoff.todoapp.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,8 +15,10 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import ru.itis.trofimoff.todoapp.repositories.GroupRepository;
 import ru.itis.trofimoff.todoapp.repositories.TodoRepository;
 import ru.itis.trofimoff.todoapp.repositories.UserRepository;
+import ru.itis.trofimoff.todoapp.services.group.GroupServiceImpl;
 import ru.itis.trofimoff.todoapp.services.todo.TodoServiceImpl;
 import ru.itis.trofimoff.todoapp.services.user.UserServiceImpl;
 //import ru.itis.trofimoff.form.repository.user.UserRepositoryImpl;
@@ -49,6 +52,16 @@ public class AppConfig implements WebMvcConfigurer {
 //  public UserValidator validator(){
 //    return new UserValidator();
 //  }
+
+  @Bean
+  public GroupServiceImpl groupService() {
+    return new GroupServiceImpl(groupRepository());
+  }
+
+  @Bean
+  public GroupRepository groupRepository() {
+    return new GroupRepository(dataSource());
+  }
 
   @Bean
   public TodoServiceImpl todoService() {

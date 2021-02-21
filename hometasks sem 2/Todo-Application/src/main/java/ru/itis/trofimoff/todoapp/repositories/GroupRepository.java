@@ -1,76 +1,46 @@
-//package ru.itis.trofimoff.todoapp.repositories;
-//
-//import SemesterWork1.models.Group;
-//import SemesterWork1.services.DataBaseConnector;
-//
-//import java.sql.Connection;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-//import java.sql.SQLException;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//public class GroupRepository implements CrudRepository {
-//    private Connection conn;
-//    private ResultSet result;
-//    private PreparedStatement preparedStatement;
-//    private String sqlSelectAllGroups = "SELECT groups.id, groups.name FROM groups";
-//
-//    @Override
-//    public List<Group> findAll() {
-//        List<Group> groups = new ArrayList<Group>();
-//        try {
-//            DataBaseConnector connector = new DataBaseConnector();
-//            conn = connector.getConnection();
-//            preparedStatement = conn.prepareStatement(sqlSelectAllGroups);
-//            result = preparedStatement.executeQuery();
-//            while(result.next()){
-//                int groupId = result.getInt(1);
-//                String groupName = result.getString(2);
-//                Group group = new Group(groupName, groupId);
-//                groups.add(group);
-//            }
-//            preparedStatement.close();
-//            conn.close();
-//            return groups;
-//        }  catch(SQLException se) {
-//            System.out.println(se.getMessage());
-//        } finally {
-//            if (preparedStatement != null) {
-//                try {
-//                    preparedStatement.close();
-//                } catch (SQLException ex) {
-//                    System.out.println("Problems with a saving user. Can't close statement.");
-//                }
-//            }
-//            if (conn != null) {
-//                try {
-//                    conn.close();
-//                } catch (SQLException ex) {
-//                    System.out.println("Problems with a saving user. Can't close connection.");
-//                }
-//            }
-//        }
-//        return null;
-//    }
-//
-//    @Override
-//    public Object findById(int id) {
-//        return null;
-//    }
-//
-//    @Override
-//    public void save(Object entity) {
-//
-//    }
-//
-//    @Override
-//    public void update(Object entity) {
-//
-//    }
-//
-//    @Override
-//    public void deleteById(int id) {
-//
-//    }
-//}
+package ru.itis.trofimoff.todoapp.repositories;
+
+import ru.itis.trofimoff.todoapp.models.Group;
+import ru.itis.trofimoff.todoapp.models.User;
+import ru.itis.trofimoff.todoapp.repositories.utils.RowMapper;
+import ru.itis.trofimoff.todoapp.repositories.utils.SqlJDBCTemplate;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class GroupRepository implements CrudRepository {
+
+    //language=SQL
+    private String SQL_SELECT_ALL_GROUPS = "SELECT groups.id, groups.name FROM groups";
+    private DataSource dataSource;
+    private SqlJDBCTemplate sqlJDBCTemplate;
+
+    private RowMapper<Group> groupRowMapper = row -> Group.builder()
+            .name(row.getString("name"))
+            .id(row.getInt("id"))
+            .build();
+
+    public GroupRepository(DataSource dataSource) {
+        this.dataSource = dataSource;
+        this.sqlJDBCTemplate = new SqlJDBCTemplate(dataSource);
+    }
+
+    @Override
+    public List<Group> findAll() {
+        return this.sqlJDBCTemplate.query(SQL_SELECT_ALL_GROUPS, groupRowMapper);
+    }
+
+    @Override
+    public void save(Object entity) {}
+
+    @Override
+    public void update(Object entity) {}
+
+    @Override
+    public void delete(Object entity) {}
+}

@@ -51,6 +51,11 @@ public class UserRepository implements CrudRepository<User> {
         return Optional.ofNullable(userResult);
     }
 
+//    @Override
+//    public User findById(int id) {
+//        this.sqlJDBCTemplate
+//    }
+
 
 //    @Override
 //    public User findById(int id) {
