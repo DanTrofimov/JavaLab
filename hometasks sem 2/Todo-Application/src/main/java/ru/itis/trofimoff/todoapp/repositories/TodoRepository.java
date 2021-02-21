@@ -7,7 +7,9 @@ import ru.itis.trofimoff.todoapp.repositories.utils.SqlJDBCTemplate;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class TodoRepository implements CrudRepository<Todo> {
@@ -18,8 +20,9 @@ public class TodoRepository implements CrudRepository<Todo> {
     private String sqlSelectAllTodosFormat = "SELECT userstodo.userid, todos.text, todos.id, todos.todogroup FROM userstodo JOIN todos ON userstodo.todoid = todos.id WHERE userstodo.userid = %d";
     private String sqlUpdateTodoFormat = "UPDATE todos SET text = '%s' WHERE id = %d";
     //language=SQL
-    private String SQL_INCREMENT_USER_STAT = "UPDATE users SET ? = ? + 1 WHERE id = ?";
-    private String sqlInsertUserTodoFormat = "INSERT INTO userstodo(userid, todoid) VALUES(%d, %d)";
+    private String SQL_INCREMENT_USER_STAT = "UPDATE users SET alltodos = alltodos + 1 WHERE id = ?";
+    //language=SQL
+    private String SQL_USERSTODO_INSERT = "INSERT INTO userstodo(userid, todoid) VALUES(?, ?)";
     private DataSource dataSource;
     private SqlJDBCTemplate sqlJDBCTemplate;
 
@@ -35,52 +38,12 @@ public class TodoRepository implements CrudRepository<Todo> {
     }
 
     public void saveUserTodo(Todo todo, int userId) {
-        ResultSet resultSet = this.sqlJDBCTemplate.execute(SQL_INSERT_TODO, todo.getText(), todo.getGroupId());
-        try {
-            System.out.println(resultSet.getInt("id"));
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+        HashMap keys = new HashMap();
+        this.sqlJDBCTemplate.execute(SQL_INSERT_TODO, keys, todo.getText(), todo.getGroupId());
+        int todoId = (int) keys.get("id");
+        this.sqlJDBCTemplate.execute(SQL_USERSTODO_INSERT, userId, todoId);
+        this.sqlJDBCTemplate.execute(SQL_INCREMENT_USER_STAT, userId);
     }
-
-//        public void saveUserTodo(Todo todo, int userId) {
-//        String text = todo.getText();
-//        int todoGroup = todo.getGroupId();
-//        try {
-//            DataBaseConnector connector = new DataBaseConnector();
-//            conn = connector.getConnection();
-//            preparedStatement = conn.prepareStatement(String.format(SQL_INSERT_TODO, text, todoGroup), Statement.RETURN_GENERATED_KEYS);
-//            preparedStatement.executeUpdate();
-//            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-//            if (generatedKeys.next()) {
-//                preparedStatement = conn.prepareStatement(String.format(sqlInsertUserTodoFormat, userId, generatedKeys.getInt("id")));
-//                preparedStatement.executeUpdate();
-//            } else {
-//                throw new SQLException("Problem with retrieve id");
-//            }
-//            preparedStatement = conn.prepareStatement(String.format(sqlIncrementUserStatFormat, "alltodos", "alltodos", userId));
-//            preparedStatement.executeUpdate();
-//            preparedStatement.close();
-//            conn.close();
-//        } catch(SQLException se) {
-//            System.out.println(se.getMessage());
-//        } finally {
-//            if (preparedStatement != null) {
-//                try {
-//                    preparedStatement.close();
-//                } catch (SQLException ex) {
-//                    System.out.println("Problems with a saving user. Can't close statement.");
-//                }
-//            }
-//            if (conn != null) {
-//                try {
-//                    conn.close();
-//                } catch (SQLException ex) {
-//                    System.out.println("Problems with a saving user. Can't close connection.");
-//                }
-//            }
-//        }
-//    }
 
 //    public void saveTodo(Todo todo) {
 //        String text = todo.getText();
