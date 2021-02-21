@@ -59,6 +59,7 @@ public class SqlJDBCTemplate<T> {
             int result = preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
+                // uses only for todos, but need to replace by more generic version
                 generatedKeys.put("id", resultSet.getInt("id"));
             }
             return result;

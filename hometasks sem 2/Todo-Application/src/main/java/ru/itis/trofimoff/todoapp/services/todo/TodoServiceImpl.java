@@ -6,8 +6,7 @@ import ru.itis.trofimoff.todoapp.repositories.TodoRepository;
 
 import java.util.List;
 
-//public class TodoServiceImpl implements TodoService {
-public class TodoServiceImpl  {
+public class TodoServiceImpl implements TodoService {
 
     private TodoRepository todoRepository;
 
@@ -15,14 +14,14 @@ public class TodoServiceImpl  {
         this.todoRepository = todoRepository;
     }
 
-//    @Override
+    @Override
     public void addUsersTodo(TodoDto todoDto, int userId, String rights) {
         Todo todo = new Todo(todoDto);
         switch (rights) {
-//            case "admin":
-//                todo.setGroupId(2);
-//                todoRepository.bindUserWithTodo(todo.getId(), userId);
-//                break;
+            case "admin":
+                todo.setGroupId(2);
+                todoRepository.bindUserWithTodo(todo.getId(), userId);
+                break;
             case "users" :
                 todo.setGroupId(1);
                 todoRepository.saveUserTodo(todo, userId);
@@ -31,28 +30,28 @@ public class TodoServiceImpl  {
         }
     }
 
-//    @Override
-//    public void deleteTodo(int todoId, int userId) {
-//        todoRepository.deleteById(todoId, userId);
-//    }
-//
-//    @Override
-//    public void addTodo(Todo todo) {
-//        todoRepository.saveTodo(todo);
-//    }
-//
-//    @Override
-//    public List<Todo> getUserTodos(int userId) {
-//        return todoRepository.getUserTodos(userId);
-//    }
-//
-//    @Override
-//    public List<Todo> getUserTodosByGroup(int userId, int groupId) {
-//        return todoRepository.getUserTodos(userId, groupId);
-//    }
-//
-//    @Override
-//    public void updateTodo(Todo todo) {
-//        todoRepository.update(todo);
-//    }
+    @Override
+    public void deleteTodo(int todoId, int userId) {
+        todoRepository.deleteById(todoId, userId);
+    }
+
+    @Override
+    public void addTodo(Todo todo) {
+        todoRepository.saveTodo(todo);
+    }
+
+    @Override
+    public List<Todo> getUserTodos(int userId) {
+        return todoRepository.getUserTodos(userId);
+    }
+
+    @Override
+    public List<Todo> getUserTodosByGroup(int userId, int groupId) {
+        return todoRepository.getUserTodos(userId, groupId);
+    }
+
+    @Override
+    public void updateTodo(Todo todo) {
+        todoRepository.update(todo);
+    }
 }
