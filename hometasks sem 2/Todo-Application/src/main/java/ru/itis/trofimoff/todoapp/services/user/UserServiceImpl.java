@@ -2,10 +2,12 @@ package ru.itis.trofimoff.todoapp.services.user;
 
 import ru.itis.trofimoff.todoapp.dto.SignInFormDto;
 import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
+import ru.itis.trofimoff.todoapp.dto.UserStatisticsDto;
 import ru.itis.trofimoff.todoapp.models.User;
 import ru.itis.trofimoff.todoapp.repositories.UserRepository;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
@@ -22,22 +24,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> checkUser(SignInFormDto userForm) {
+    public Optional<User> checkUser(SignInFormDto userForm) { // fixme: replace by email
         return this.userRepository.checkUser(new User(userForm)); // email only
     }
 
-    @Override
-    public Optional<User> findUserByEMail(String name) {
-        return Optional.empty();
+    public UserStatisticsDto getUserStatistic(int userId) {
+        Optional<User> user = userRepository.findById(userId);
+        return user.map(value -> new UserStatisticsDto(value.getAllTodos(), value.getDoneTodos())).orElse(null);
     }
 
     @Override
-    public void updateUser(User user, HttpServletRequest request) {
-
+    public List<User> findAll() {
+        return this.userRepository.findAll();
     }
 
     @Override
-    public void deleteUser(User user, HttpServletRequest request) {
+    public Optional<User> findUserByEMail(String name) {return Optional.empty();}
 
-    }
+    @Override
+    public void updateUser(User user, HttpServletRequest request) {}
+
+    @Override
+    public void deleteUser(User user, HttpServletRequest request) {}
 }

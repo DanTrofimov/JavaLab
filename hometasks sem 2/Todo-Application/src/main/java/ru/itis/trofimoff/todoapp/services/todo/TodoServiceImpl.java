@@ -15,8 +15,8 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public void addUsersTodo(TodoDto todoDto, int userId, String rights) {
-        Todo todo = new Todo(todoDto);
+    public void addUsersTodo(Todo todo, int userId, String rights) {
+        System.out.println(todo);
         switch (rights) {
             case "admin":
                 todo.setGroupId(2);

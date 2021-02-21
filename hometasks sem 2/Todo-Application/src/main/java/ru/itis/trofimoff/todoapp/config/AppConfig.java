@@ -18,6 +18,8 @@ import org.springframework.web.servlet.view.JstlView;
 import ru.itis.trofimoff.todoapp.repositories.GroupRepository;
 import ru.itis.trofimoff.todoapp.repositories.TodoRepository;
 import ru.itis.trofimoff.todoapp.repositories.UserRepository;
+import ru.itis.trofimoff.todoapp.services.admin.AdminService;
+import ru.itis.trofimoff.todoapp.services.admin.AdminServiceImpl;
 import ru.itis.trofimoff.todoapp.services.group.GroupServiceImpl;
 import ru.itis.trofimoff.todoapp.services.todo.TodoServiceImpl;
 import ru.itis.trofimoff.todoapp.services.user.UserServiceImpl;
@@ -52,6 +54,10 @@ public class AppConfig implements WebMvcConfigurer {
 //  public UserValidator validator(){
 //    return new UserValidator();
 //  }
+  @Bean
+  public AdminService adminService() {
+    return new AdminServiceImpl(userService(), todoService());
+  }
 
   @Bean
   public GroupServiceImpl groupService() {

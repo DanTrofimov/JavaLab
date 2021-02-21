@@ -12,9 +12,13 @@ public class UserRepository implements CrudRepository<User> {
     //language=SQL
     private String SQL_INSERT_USER = "INSERT INTO users(name, email, password, role) VALUES(?, ?, ?, ?)";
     //language=SQL
-    private String SQL_SELECT_USER = "SELECT * FROM users WHERE email = ? ";
+    private String SQL_SELECT_USER_BY_EMAIL = "SELECT * FROM users WHERE email = ? ";
     //language=SQL
-    private String sqlDeleteFormat = "DELETE FROM users WHERE id = %d";
+    private String sqlDeleteFormat = "DELETE FROM users WHERE id = ?";
+    //language=SQL
+    private String SQL_SELECT_USER_BY_ID = "SELECT * FROM users WHERE id = ?";
+    //language=SQL
+    private String SQL_SELECT_ALL_USERS = "SELECT * FROM users WHERE role = 'user'";
     private DataSource dataSource;
     private SqlJDBCTemplate sqlJDBCTemplate;
 
@@ -24,8 +28,9 @@ public class UserRepository implements CrudRepository<User> {
             .name(row.getString("name").trim())
             .id(row.getInt("id"))
             .role(row.getString("role").trim())
+            .allTodos(row.getInt("alltodos"))
+            .doneTodos(row.getInt("donetodos"))
             .build();
-
 
     public UserRepository(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -44,111 +49,31 @@ public class UserRepository implements CrudRepository<User> {
     public Optional<User> checkUser(User user) {
         User userResult;
         try {
-            userResult = (User) sqlJDBCTemplate.query(SQL_SELECT_USER, userRowMapper, user.getEmail()).get(0);
+            userResult = (User) sqlJDBCTemplate.query(SQL_SELECT_USER_BY_EMAIL, userRowMapper, user.getEmail()).get(0);
         } catch (Exception e) { // fixme
             userResult = null;
         }
         return Optional.ofNullable(userResult);
     }
 
-//    @Override
-//    public User findById(int id) {
-//        this.sqlJDBCTemplate
-//    }
+    public Optional<User> findById(int id) {
+        User userResult;
+        try {
+            userResult =  (User) this.sqlJDBCTemplate.query(SQL_SELECT_USER_BY_ID, userRowMapper, id).get(0);
+        } catch (Exception ex) { // fixme
+            userResult = null;
+        }
+        return Optional.ofNullable(userResult);
+    }
 
-
-//    @Override
-//    public User findById(int id) {
-//        try {
-//            DataBaseConnector connector = new DataBaseConnector();
-//            conn = connector.getConnection();
-//            preparedStatement = conn.prepareStatement(String.format(sqlSelectFormat, "users.id, users.email, users.password, users.name, users.alltodos, users.donetodos"));
-//            result = preparedStatement.executeQuery();
-//            while(result.next()){
-//                int userId = result.getInt(1);
-//
-//                if (userId == id) {
-//                    String email = result.getString(2);
-//                    String password = result.getString(3);
-//                    String name = result.getString(4);
-//                    int allTodos = result.getInt(5);
-//                    int doneTodos = result.getInt(6);
-//                    preparedStatement.close();
-//                    conn.close();
-//                    return new User(name, email, password, allTodos, doneTodos);
-//                }
-//            }
-//        }  catch(SQLException se) {
-//            System.out.println(se.getMessage());
-//        } finally {
-//            if (preparedStatement != null) {
-//                try {
-//                    preparedStatement.close();
-//                } catch (SQLException ex) {
-//                    System.out.println("Problems with a saving user. Can't close statement.");
-//                }
-//            }
-//            if (conn != null) {
-//                try {
-//                    conn.close();
-//                } catch (SQLException ex) {
-//                    System.out.println("Problems with a saving user. Can't close connection.");
-//                }
-//            }
-//        }
-//        return null;
-//    }
-//
-//    // get all users without passwords
-//    @Override
-//    public List<User> findAll() {
-//        List<User> users = new ArrayList();
-//        try {
-//            DataBaseConnector connector = new DataBaseConnector();
-//            conn = connector.getConnection();
-//            preparedStatement = conn.prepareStatement(String.format(sqlSelectFormat, "users.id, users.email, users.name, users.role"));
-//            result = preparedStatement.executeQuery();
-//            while(result.next()) {
-//                String role = result.getString(4);
-//                if (role.equals("user")) {
-//                    int id = result.getInt(1);
-//                    String email = result.getString(2);
-//                    String name = result.getString(3);
-//                    users.add(new User(id, name, email));
-//                }
-//            }
-//            preparedStatement.close();
-//            conn.close();
-//            return users;
-//        }  catch(SQLException se) {
-//            System.out.println(se.getMessage());
-//        } finally {
-//            if (preparedStatement != null) {
-//                try {
-//                    preparedStatement.close();
-//                } catch (SQLException ex) {
-//                    System.out.println("Problems with a saving user. Can't close statement.");
-//                }
-//            }
-//            if (conn != null) {
-//                try {
-//                    conn.close();
-//                } catch (SQLException ex) {
-//                    System.out.println("Problems with a saving user. Can't close connection.");
-//                }
-//            }
-//        }
-//        return null;
-//    };
+    @Override
+    public List<User> findAll() {
+        return this.sqlJDBCTemplate.query(SQL_SELECT_ALL_USERS, userRowMapper);
+    }
 
     @Override
     public void update(User entity) {}
 
     @Override
     public void delete(User entity) {}
-
-    @Override
-    public List<User> findAll() {
-        return null;
-    }
 }

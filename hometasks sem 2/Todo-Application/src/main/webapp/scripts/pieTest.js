@@ -5,9 +5,11 @@ function getUsersData(userId, context) {
         dataType: "json",
         success: [
             function (response) {
-                console.log(response.doneTodo);
-                console.log(response.needTodo)
-                pieChartInit(response.doneTodo, response.needTodo, userId)
+                console.group();
+                console.log("response from /user-staistics");
+                console.log(response);
+                console.groupEnd();
+                pieChartInit(response.doneTodos, response.needTodo, userId)
             }
         ]
     });
