@@ -23,7 +23,9 @@ public class TodoRepository implements CrudRepository<Todo> {
     //language=SQL
     private final String SQL_UPDATE_TODO = "UPDATE todos SET text = ? WHERE id = ?";
     //language=SQL
-    private final String SQL_INCREMENT_USER_STAT = "UPDATE users SET ? = ? + 1 WHERE id = ?";
+    private final String SQL_INCREMENT_USER_STAT_ALL = "UPDATE users SET alltodos = alltodos + 1 WHERE id = ?";
+    //language=SQL
+    private final String SQL_INCREMENT_USER_STAT_DONE = "UPDATE users SET donetodos = donetodos + 1 WHERE id = ?";
     //language=SQL
     private final String SQL_USERSTODO_INSERT = "INSERT INTO userstodo(userid, todoid) VALUES(?, ?)";
     private DataSource dataSource;
@@ -45,7 +47,7 @@ public class TodoRepository implements CrudRepository<Todo> {
         this.sqlJDBCTemplate.execute(SQL_INSERT_TODO, keys, todo.getText(), todo.getGroupId());
         int todoId = (int) keys.get("id");
         this.sqlJDBCTemplate.execute(SQL_USERSTODO_INSERT, userId, todoId);
-        this.sqlJDBCTemplate.execute(SQL_INCREMENT_USER_STAT,"alltodos", "alltodos", userId);
+        this.sqlJDBCTemplate.execute(SQL_INCREMENT_USER_STAT_ALL, userId);
     }
 
     public void saveTodo(Todo todo) {
@@ -56,7 +58,7 @@ public class TodoRepository implements CrudRepository<Todo> {
 
     public void bindUserWithTodo(int todoId, int userId) {
         this.sqlJDBCTemplate.execute(SQL_USERSTODO_INSERT, userId, todoId);
-        this.sqlJDBCTemplate.execute(SQL_INCREMENT_USER_STAT, userId);
+        this.sqlJDBCTemplate.execute(SQL_INCREMENT_USER_STAT_ALL, userId);
     }
 
      public List<Todo> getUserTodos(int userId) {
@@ -74,7 +76,7 @@ public class TodoRepository implements CrudRepository<Todo> {
 
     public void deleteById(int todoId, int userId) {
         this.sqlJDBCTemplate.execute(SQL_DELETE_TODO, todoId);
-        this.sqlJDBCTemplate.execute(SQL_INCREMENT_USER_STAT, "donetodos", "donetodos", userId);
+        this.sqlJDBCTemplate.execute(SQL_INCREMENT_USER_STAT_DONE, userId);
     }
 
 

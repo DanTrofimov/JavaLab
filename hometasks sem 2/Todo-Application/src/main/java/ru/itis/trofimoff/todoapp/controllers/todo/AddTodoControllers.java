@@ -6,9 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.itis.trofimoff.todoapp.dto.TodoDto;
 import ru.itis.trofimoff.todoapp.models.User;
-import ru.itis.trofimoff.todoapp.repositories.TodoRepository;
 import ru.itis.trofimoff.todoapp.services.todo.TodoService;
-import ru.itis.trofimoff.todoapp.services.todo.TodoServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,18 +14,18 @@ import javax.servlet.http.HttpServletRequest;
 public class AddTodoControllers {
 
     @Autowired
-    public TodoServiceImpl todoService; // fixme: replace by interface
+    public TodoService todoService;
 
     @RequestMapping(value = "/add-todo", method = RequestMethod.GET)
-    public String getSignInPage() {
-        return "main";
+    public String getAddTodo(HttpServletRequest request) {
+        return "redirect:" + request.getServletContext().getContextPath() + "/main";
     }
 
     @RequestMapping(value = "/add-todo", method = RequestMethod.POST)
-    public String postSignInPage(HttpServletRequest request, TodoDto todoDto) {
+    public String postAddTodo(HttpServletRequest request, TodoDto todoDto) {
         // add todo_ here
         User currentUser = (User) request.getSession().getAttribute("current-user");
         todoService.addUsersTodo(todoDto, currentUser.getId(), "users");
-        return "main";
+        return "redirect:" + request.getServletContext().getContextPath() + "/main";
     }
 }
