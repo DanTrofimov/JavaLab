@@ -25,6 +25,7 @@
 
     <!-- Spring -->
     <spring.version>5.1.4.RELEASE</spring.version>
+    <java.validator.version>2.0.1.Final</java.validator.version>
 
     <!-- Other stuff dependencies -->
     <jackson.version>2.9.8</jackson.version>
@@ -128,6 +129,12 @@
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-core</artifactId>
       <version>5.3.6.RELEASE</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>${java.validator.version}</version>
     </dependency>
   </dependencies>
 

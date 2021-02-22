@@ -48,6 +48,16 @@ public class AppConfig implements WebMvcConfigurer {
     return resolver;
   }
 
+  @Bean
+  public ViewResolver freemarkerViewresolver() {
+    InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+    resolver.setPrefix("/WEB-INF/freemarker/");
+    resolver.setSuffix(".ftlh");
+    resolver.setViewClass(JstlView.class);
+    resolver.setRedirectContextRelative(false);
+    return resolver;
+  }
+
 //  @Bean
 //  public UserValidator validator(){
 //    return new UserValidator();
@@ -59,7 +69,7 @@ public class AppConfig implements WebMvcConfigurer {
   }
 
   @Bean
-  public AdminService adminService() {
+  public AdminServiceImpl adminService() {
     return new AdminServiceImpl(userService(), todoService());
   }
 

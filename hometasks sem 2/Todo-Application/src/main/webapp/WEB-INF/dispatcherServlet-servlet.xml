@@ -12,4 +12,11 @@
         <mvc:resources mapping="/scripts/**" location="/scripts/" />
         <context:component-scan base-package="ru.itis.trofimoff"/>
         <mvc:annotation-driven/>
+
+        <mvc:interceptors>
+                <mvc:interceptor>
+                        <mvc:mapping path="/**"/>
+                        <bean class="ru.itis.trofimoff.todoapp.interceptors.AuthInterceptor"/>
+                </mvc:interceptor>
+        </mvc:interceptors>
 </beans>
