@@ -10,12 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    //    Long saveUser(User user);
     void saveUser(SignUpFormDto user);
     Optional<User> findByEmail(SignInFormDto user);
-    Optional<User> findUserByEMail(String name);
     UserStatisticsDto getUserStatistic(int userId);
     List<User> findAll();
-    void updateUser (User user, HttpServletRequest request);
-    void deleteUser (User user, HttpServletRequest request);
+    boolean equalsRowPasswordWithHashPassword(String rowPassword, String hashPassword);
 }

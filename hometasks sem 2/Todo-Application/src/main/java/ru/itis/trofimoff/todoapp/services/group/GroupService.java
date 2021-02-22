@@ -5,5 +5,5 @@ import ru.itis.trofimoff.todoapp.models.Group;
 import java.util.List;
 
 public interface GroupService {
-    public List<Group> getAllGroups();
+    List<Group> getAllGroups();
 }

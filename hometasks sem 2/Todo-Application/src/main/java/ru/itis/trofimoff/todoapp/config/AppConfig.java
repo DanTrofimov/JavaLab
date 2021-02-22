@@ -8,6 +8,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -52,6 +54,11 @@ public class AppConfig implements WebMvcConfigurer {
 //  }
 
   @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
+
+  @Bean
   public AdminService adminService() {
     return new AdminServiceImpl(userService(), todoService());
   }
@@ -78,7 +85,7 @@ public class AppConfig implements WebMvcConfigurer {
 
   @Bean
   public UserServiceImpl userService() {
-    return new UserServiceImpl(userRepository());
+    return new UserServiceImpl(userRepository(), passwordEncoder());
   }
 
   @Bean

@@ -26,7 +26,7 @@ public class SignInController {
     public String getSignInPage(HttpServletRequest request, SignInFormDto signInForm){
         if (true) { // TODO: signInForm validation
             Optional<User> user = userService.findByEmail(signInForm);
-            if (user.isPresent()) {
+            if (user.isPresent() && userService.equalsRowPasswordWithHashPassword(signInForm.getPassword(), user.get().getPassword())) {
                 request.getSession().setAttribute("current-user", user.get());
                 request.getSession().setAttribute("sign-in-error", null);
                 switch (user.get().getRole()) {

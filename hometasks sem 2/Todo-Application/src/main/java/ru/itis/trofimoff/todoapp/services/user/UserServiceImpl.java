@@ -1,31 +1,41 @@
 package ru.itis.trofimoff.todoapp.services.user;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.itis.trofimoff.todoapp.dto.SignInFormDto;
 import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
 import ru.itis.trofimoff.todoapp.dto.UserStatisticsDto;
 import ru.itis.trofimoff.todoapp.models.User;
 import ru.itis.trofimoff.todoapp.repositories.UserRepository;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public void saveUser(SignUpFormDto userForm) {
-        this.userRepository.save(new User(userForm));
+        User user = new User(userForm);
+        String hashPassword = passwordEncoder.encode(userForm.getPassword());
+        user.setPassword(hashPassword);
+        this.userRepository.save(user);
     }
 
     @Override
     public Optional<User> findByEmail(SignInFormDto userForm) {
         return this.userRepository.findByEmail(userForm.getEmail());
+    }
+
+    @Override
+    public boolean equalsRowPasswordWithHashPassword(String rowPassword, String hashPassword) {
+        return passwordEncoder.matches(rowPassword, hashPassword);
     }
 
     public UserStatisticsDto getUserStatistic(int userId) {
@@ -37,13 +47,4 @@ public class UserServiceImpl implements UserService {
     public List<User> findAll() {
         return this.userRepository.findAll();
     }
-
-    @Override
-    public Optional<User> findUserByEMail(String name) {return Optional.empty();}
-
-    @Override
-    public void updateUser(User user, HttpServletRequest request) {}
-
-    @Override
-    public void deleteUser(User user, HttpServletRequest request) {}
 }
