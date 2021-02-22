@@ -12,7 +12,6 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-        System.out.println("hello interceptor");
         boolean isProtected = false;
         String currentPath = request.getRequestURI();
         currentPath = currentPath.substring(request.getContextPath().length());
