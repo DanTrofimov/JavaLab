@@ -28,11 +28,11 @@
         </div>
     </div>
     <div class="user-list">
-        <c:forEach var="user" items="${sessionScope.get('all-users')}">
+        <c:forEach var="user" items="${sessionScope.get('allUsers')}">
             <t:user-card name="${user.getName()}" email="${user.getEmail()}" userId="${user.getId()}">
             </t:user-card>
         </c:forEach>
-        <c:if test="${empty sessionScope.get('all-users')}">
+        <c:if test="${empty sessionScope.get('allUsers')}">
             <div class="empty-todos empty-users">
                 <div>
                     <img src="${pageContext.request.contextPath}/assets/empty-box.png" alt="empty-users" class="empty-todos-image empty-users-image">

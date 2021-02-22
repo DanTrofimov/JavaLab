@@ -1,7 +1,7 @@
 <#import "spring.ftl" as spring/>
 <#import "pieChart.ftl" as macro/>
 
-<#macro userGroup name email userId>
+<#macro userCard name email userId>
  <div class="user-card">
     <div>${name}</div>
     <div>${email}</div>

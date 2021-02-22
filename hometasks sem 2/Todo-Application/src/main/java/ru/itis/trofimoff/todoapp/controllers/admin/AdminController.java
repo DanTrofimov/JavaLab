@@ -16,7 +16,7 @@ public class AdminController {
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String getAdminPage(HttpServletRequest request){
-        request.getSession().setAttribute("all-users", adminService.getAllUsers());
+        request.getSession().setAttribute("allUsers", adminService.getAllUsers());
         return "/adminExample";
     }
 }
