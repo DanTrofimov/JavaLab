@@ -17,7 +17,7 @@
         <div class="user">
             <div class="user__name">
                 <p>User:</p>
-                <p>${sessionScope.get("current-user").getName()}</p>
+                <p>${sessionScope.get("currentUser").getName()}</p>
                 <div class="button-container">
                     <form action="${pageContext.request.contextPath}/sign-out" method="get"><input type="submit" class="sign-out-button" value="sign-out"></form>
                     <button class="sign-out-button filter-button" id="filter-button">eye filter</button>
@@ -56,7 +56,7 @@
         </div>
         <div class="statistics">
             <p>Your activity:</p>
-            <t:pieChart userId="${sessionScope.get('current-user').getId()}">
+            <t:pieChart userId="${sessionScope.get('currentUser').getId()}">
             </t:pieChart>
         </div>
     </div>

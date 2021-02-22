@@ -21,7 +21,7 @@ public class FilterTodoController {
     @RequestMapping(value = "/filter-todos", method = RequestMethod.GET)
     public String getHandleTodo(HttpServletRequest request) {
         int groupId = Integer.parseInt(request.getParameter("group"));
-        UserDto currentUser = (UserDto) request.getSession().getAttribute("current-user");
+        UserDto currentUser = (UserDto) request.getSession().getAttribute("currentUser");
         List<Todo> todos = todoService.getUserTodosByGroup(currentUser.getId(), groupId);
 
         request.getSession().setAttribute("todos", todos);

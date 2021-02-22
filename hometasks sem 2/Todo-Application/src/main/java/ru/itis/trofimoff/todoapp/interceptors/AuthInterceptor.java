@@ -22,7 +22,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             }
         }
 
-        UserDto user = (UserDto) request.getSession().getAttribute("current-user");
+        UserDto user = (UserDto) request.getSession().getAttribute("currentUser");
 
         if (user == null) {
             if (isProtected) {

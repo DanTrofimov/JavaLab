@@ -14,12 +14,12 @@
         <div>
             <t:registration-form>
             </t:registration-form>
-            <c:if test="${empty sessionScope.get('current-user')}">
+            <c:if test="${empty sessionScope.get('currentUser')}">
                 <p class="link-container">
                     <a href="<c:url value="/sign-in"/>">Sign In</a>
                 </p>
             </c:if>
-            <c:if test="${not empty sessionScope.get('current-user')}">
+            <c:if test="${not empty sessionScope.get('currentUser')}">
                 <p class="link-container">
                     <a href="<c:url value="/main"/>">Profile</a>
                 </p>

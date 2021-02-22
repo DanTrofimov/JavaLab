@@ -26,7 +26,7 @@ public class HandleTodoController {
     public String postHandleTodo(HttpServletRequest request) {
         String text = request.getParameter("change-todo-text");
         int todoId = Integer.parseInt(request.getParameter("todo-id"));
-        UserDto currentUser = (UserDto) request.getSession().getAttribute("current-user");
+        UserDto currentUser = (UserDto) request.getSession().getAttribute("currentUser");
         int userId = currentUser.getId();
         switch (request.getParameter("todo-action")) {
             case "change":

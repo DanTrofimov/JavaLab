@@ -1,7 +1,7 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@tag description="registration form" pageEncoding="UTF-8"%>
+<#import "spring.ftl" as spring/>
 
-<form action="registration" method="POST" class="form">
+<#macro registrationForm>
+<form action="<@spring.url'/registration'/>" method="POST" class="form">
     <h3 class="form__title">Registration</h3>
     <input name="name" placeholder="name">
     <input name="email" placeholder="e-mail">
@@ -14,4 +14,5 @@
     <input type="submit" value="sing up" class="send-button">
 </form>
 
-<link rel="stylesheet" href='<c:url value="/styles/form.css"/>' type="text/css">
+<link rel="stylesheet" href="<@spring.url '/styles/form.css' />" type="text/css">
+</#macro>

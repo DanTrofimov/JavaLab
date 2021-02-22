@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 public class SignOutController {
     @RequestMapping(value = "/sign-out", method = RequestMethod.GET)
     public String getSignInPage(HttpServletRequest request){
-        request.getSession().setAttribute("current-user", null);
+        request.getSession().setAttribute("currentUser", null);
         return "redirect:" + request.getServletContext().getContextPath() + "/sign-in";
     }
 }

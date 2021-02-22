@@ -19,7 +19,7 @@
     <div class="user">
         <div class="user__name">
             <p>Admin:</p>
-            <p>${sessionScope.get("current-user").getName()}</p>
+            <p>${sessionScope.get("currentUser").getName()}</p>
             <form action="sign-out" method="get"><input type="submit" class="sign-out-button" value="sign-out"></form>
         </div>
         <div class="user__groups user__groups--admin">

@@ -25,7 +25,7 @@ public class AddTodoControllers {
 
     @RequestMapping(value = "/add-todo", method = RequestMethod.POST)
     public String postAddTodo(HttpServletRequest request, TodoDto todoDto) {
-        UserDto currentUser = (UserDto) request.getSession().getAttribute("current-user");
+        UserDto currentUser = (UserDto) request.getSession().getAttribute("currentUser");
         if (true) { // TODO: validate here todo
             todoService.addUsersTodo(new Todo(todoDto), currentUser.getId(), "users");
         }

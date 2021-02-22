@@ -27,13 +27,13 @@ public class SignInController {
         if (true) { // TODO: signInForm validation
             Optional<UserDto> userDto = userService.findByEmail(signInForm.getEmail());
             if (userDto.isPresent() && userService.equalsRowPasswordWithHashPassword(signInForm.getPassword(), userDto.get().getPassword())) {
-                request.getSession().setAttribute("current-user", userDto.get());
+                request.getSession().setAttribute("currentUser", userDto.get());
                 request.getSession().setAttribute("sign-in-error", null);
                 switch (userDto.get().getRole()) {
                     case "user":
                         return "redirect:" + request.getServletContext().getContextPath() + "/main";
                     case "admin":
-                        return "redirect:" + request.getServletContext().getContextPath() + "/admin";
+                        return "redirect:" + request.getServletContext().getContextPath() + "/adminExample";
                     default:
                         return "redirect:" + request.getServletContext().getContextPath() + "/sign-in";
                 }

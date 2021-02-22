@@ -25,7 +25,7 @@ public class UserController {
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String getMainPage(HttpServletRequest request){
-        UserDto currentUser = (UserDto) request.getSession().getAttribute("current-user");
+        UserDto currentUser = (UserDto) request.getSession().getAttribute("currentUser");
 
         List<Todo> todoObjects = todoService.getUserTodos(currentUser.getId());
         List<Group> groupObjects = groupService.getAllGroups();

@@ -16,6 +16,8 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 import ru.itis.trofimoff.todoapp.repositories.GroupRepository;
 import ru.itis.trofimoff.todoapp.repositories.TodoRepository;
 import ru.itis.trofimoff.todoapp.repositories.UserRepository;
@@ -49,13 +51,17 @@ public class AppConfig implements WebMvcConfigurer {
   }
 
   @Bean
-  public ViewResolver freemarkerViewresolver() {
-    InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-    resolver.setPrefix("/WEB-INF/freemarker/");
-    resolver.setSuffix(".ftlh");
-    resolver.setViewClass(JstlView.class);
-    resolver.setRedirectContextRelative(false);
+  public FreeMarkerViewResolver freeMarkerViewResolver(){
+    FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
+    resolver.setSuffix(".ftl");
     return resolver;
+  }
+
+  @Bean
+  public FreeMarkerConfigurer freeMarkerConfig(){
+    FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
+    configurer.setTemplateLoaderPath("/WEB-INF/fremarker/");
+    return configurer;
   }
 
 //  @Bean
