@@ -1,7 +1,6 @@
 package ru.itis.trofimoff.todoapp.services.user;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.itis.trofimoff.todoapp.dto.SignInFormDto;
 import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
 import ru.itis.trofimoff.todoapp.dto.UserStatisticsDto;
 import ru.itis.trofimoff.todoapp.models.User;
@@ -29,8 +28,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findByEmail(SignInFormDto userForm) {
-        return this.userRepository.findByEmail(userForm.getEmail());
+    public Optional<User> findByEmail(String email) {
+        return this.userRepository.findByEmail(email);
     }
 
     @Override

@@ -15,40 +15,22 @@ public class SqlJDBCTemplate<T> {
 
     // на update, insert и пр
     public <T> int execute(String sql, Object ... args) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             for (int i = 0; i < args.length; i++) {
                 preparedStatement.setObject(i + 1, args[i]);
             }
             return preparedStatement.executeUpdate();
         } catch (SQLException ex) {
             throw new IllegalStateException(ex);
-        } finally {
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException ex) {
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                }
-            }
         }
     }
 
     // на update, insert и пр + generated keys
     public <T> int execute(String sql, Map<String, Object> generatedKeys, Object ... args) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        try (
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {;
             for (int i = 0; i < args.length; i++) {
                 preparedStatement.setObject(i + 1, args[i]);
             }
@@ -61,35 +43,37 @@ public class SqlJDBCTemplate<T> {
             return result;
         } catch (SQLException ex) {
             throw new IllegalStateException(ex);
-        } finally {
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException ex) {
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                }
-            }
         }
+    }
+
+    public T queryForObject(String sql, RowMapper<T> rowMapper, Object ... args) {
+        ResultSet resultSet = null;
+        try (
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {;
+            for (int i = 0; i < args.length; i++) {
+                preparedStatement.setObject(i + 1, args[i]);
+            }
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return rowMapper.mapRow(resultSet);
+            }
+        } catch (SQLException ex) {
+            throw new IllegalStateException(ex);
+        }
+        return null;
     }
 
     // на select и пр.
     public <T> List<T> query(String sql, RowMapper<T> rowMapper, Object ... args) {
         ResultSet resultSet = null;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
         List<T> resultEntities = new ArrayList<>();
-        try {
-            connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement(sql);
+        try (
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)){;
             for (int i = 0; i < args.length; i++) {
                 preparedStatement.setObject(i + 1, args[i]);
             }
-            System.out.println(preparedStatement);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 resultEntities.add(rowMapper.mapRow(resultSet));
@@ -97,25 +81,6 @@ public class SqlJDBCTemplate<T> {
             return resultEntities;
         } catch (SQLException ex) {
             throw new IllegalStateException(ex);
-        } finally {
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException ex) {
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                }
-            }
-            if (resultSet != null) {
-                try {
-                    resultSet.close();
-                } catch (SQLException ex) {
-                }
-            }
         }
     }
 }

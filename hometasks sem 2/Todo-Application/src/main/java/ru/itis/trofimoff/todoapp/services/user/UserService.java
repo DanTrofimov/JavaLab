@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface UserService {
     void saveUser(SignUpFormDto user);
-    Optional<User> findByEmail(SignInFormDto user);
+    Optional<User> findByEmail(String email);
     UserStatisticsDto getUserStatistic(int userId);
     List<User> findAll();
     boolean equalsRowPasswordWithHashPassword(String rowPassword, String hashPassword);
