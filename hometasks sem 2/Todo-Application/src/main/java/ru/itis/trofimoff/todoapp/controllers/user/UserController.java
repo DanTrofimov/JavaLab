@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import ru.itis.trofimoff.todoapp.dto.UserDto;
 import ru.itis.trofimoff.todoapp.models.Group;
 import ru.itis.trofimoff.todoapp.models.Todo;
 import ru.itis.trofimoff.todoapp.models.User;
@@ -24,7 +25,7 @@ public class UserController {
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String getMainPage(HttpServletRequest request){
-        User currentUser = (User) request.getSession().getAttribute("current-user");
+        UserDto currentUser = (UserDto) request.getSession().getAttribute("current-user");
 
         List<Todo> todoObjects = todoService.getUserTodos(currentUser.getId());
         List<Group> groupObjects = groupService.getAllGroups();

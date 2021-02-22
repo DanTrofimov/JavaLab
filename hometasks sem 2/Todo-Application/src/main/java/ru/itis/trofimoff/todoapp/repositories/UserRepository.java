@@ -43,12 +43,12 @@ public class UserRepository implements CrudRepository<User> {
     }
 
     public Optional<User> findByEmail(String email) {
-        User userResult = (User) this.sqlJDBCTemplate.queryForObject(SQL_SELECT_USER_BY_EMAIL, userRowMapper, email);
+        User userResult =  (User) this.sqlJDBCTemplate.queryForObject(SQL_SELECT_USER_BY_EMAIL, userRowMapper, email);
         return Optional.ofNullable(userResult);
     }
 
     public Optional<User> findById(int id) {
-        User userResult = (User) this.sqlJDBCTemplate.queryForObject(SQL_SELECT_USER_BY_ID, userRowMapper, id);
+        User userResult =  (User) this.sqlJDBCTemplate.queryForObject(SQL_SELECT_USER_BY_ID, userRowMapper, id);
         return Optional.ofNullable(userResult);
     }
 

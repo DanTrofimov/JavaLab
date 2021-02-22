@@ -1,12 +1,11 @@
 package ru.itis.trofimoff.todoapp.services.todo;
 
-import ru.itis.trofimoff.todoapp.dto.TodoDto;
 import ru.itis.trofimoff.todoapp.models.Todo;
 
 import java.util.List;
 
 public interface TodoService {
-    void addUsersTodo(Todo todo, int userId, String rights);
+    void addUsersTodo(Todo todDto, int userId, String rights);
     void deleteTodo(int todoId, int userId);
     void addTodo(Todo todo);
     void updateTodo(Todo todo);

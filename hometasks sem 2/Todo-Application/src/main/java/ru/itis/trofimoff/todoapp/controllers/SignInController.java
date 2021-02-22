@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.itis.trofimoff.todoapp.dto.SignInFormDto;
-import ru.itis.trofimoff.todoapp.models.User;
+import ru.itis.trofimoff.todoapp.dto.UserDto;
 import ru.itis.trofimoff.todoapp.services.user.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,11 +25,11 @@ public class SignInController {
     @RequestMapping(value = "/sign-in", method = RequestMethod.POST)
     public String getSignInPage(HttpServletRequest request, SignInFormDto signInForm){
         if (true) { // TODO: signInForm validation
-            Optional<User> user = userService.findByEmail(signInForm.getEmail());
-            if (user.isPresent() && userService.equalsRowPasswordWithHashPassword(signInForm.getPassword(), user.get().getPassword())) {
-                request.getSession().setAttribute("current-user", user.get());
+            Optional<UserDto> userDto = userService.findByEmail(signInForm.getEmail());
+            if (userDto.isPresent() && userService.equalsRowPasswordWithHashPassword(signInForm.getPassword(), userDto.get().getPassword())) {
+                request.getSession().setAttribute("current-user", userDto.get());
                 request.getSession().setAttribute("sign-in-error", null);
-                switch (user.get().getRole()) {
+                switch (userDto.get().getRole()) {
                     case "user":
                         return "redirect:" + request.getServletContext().getContextPath() + "/main";
                     case "admin":

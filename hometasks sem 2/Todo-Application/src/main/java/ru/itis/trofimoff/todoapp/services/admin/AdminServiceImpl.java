@@ -2,6 +2,7 @@ package ru.itis.trofimoff.todoapp.services.admin;
 
 import org.springframework.stereotype.Component;
 import ru.itis.trofimoff.todoapp.dto.AdminTodoDto;
+import ru.itis.trofimoff.todoapp.dto.UserDto;
 import ru.itis.trofimoff.todoapp.models.Todo;
 import ru.itis.trofimoff.todoapp.models.User;
 import ru.itis.trofimoff.todoapp.services.todo.TodoService;
@@ -21,11 +22,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<UserDto> getAllUsers() {
         return userService.findAll();
     }
 
     // на самом деле здесь написан быдлокод, как и в принципе во всем остальном проекте, но конкретно здесь он берет свое начало
+    // fixme: пофиксить dto для Todo model, отсутствует поле groupId
     @Override
     public void addTodoForSeveralUsers(AdminTodoDto adminDto) {
         Todo adminTodo = new Todo(adminDto.getTodoText());
