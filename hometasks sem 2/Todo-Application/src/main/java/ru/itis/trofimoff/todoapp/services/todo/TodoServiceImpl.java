@@ -1,11 +1,13 @@
 package ru.itis.trofimoff.todoapp.services.todo;
 
+import org.springframework.stereotype.Service;
 import ru.itis.trofimoff.todoapp.dto.TodoDto;
 import ru.itis.trofimoff.todoapp.models.Todo;
 import ru.itis.trofimoff.todoapp.repositories.TodoRepository;
 
 import java.util.List;
 
+@Service
 public class TodoServiceImpl implements TodoService {
 
     private TodoRepository todoRepository;

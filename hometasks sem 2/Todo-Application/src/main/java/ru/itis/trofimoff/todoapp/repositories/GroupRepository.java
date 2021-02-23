@@ -1,5 +1,6 @@
 package ru.itis.trofimoff.todoapp.repositories;
 
+import org.springframework.stereotype.Repository;
 import ru.itis.trofimoff.todoapp.models.Group;
 import ru.itis.trofimoff.todoapp.repositories.utils.RowMapper;
 import ru.itis.trofimoff.todoapp.repositories.utils.SqlJDBCTemplate;
@@ -7,6 +8,7 @@ import ru.itis.trofimoff.todoapp.repositories.utils.SqlJDBCTemplate;
 import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 public class GroupRepository implements CrudRepository {
 
     //language=SQL

@@ -1,6 +1,7 @@
 package ru.itis.trofimoff.todoapp.repositories;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ru.itis.trofimoff.todoapp.models.Todo;
 import ru.itis.trofimoff.todoapp.repositories.utils.RowMapper;
 import ru.itis.trofimoff.todoapp.repositories.utils.SqlJDBCTemplate;
@@ -9,7 +10,7 @@ import javax.sql.DataSource;;
 import java.util.HashMap;
 import java.util.List;
 
-@Component
+@Repository
 public class TodoRepository implements CrudRepository<Todo> {
 
     //language=SQL

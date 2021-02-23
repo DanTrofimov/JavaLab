@@ -1,10 +1,12 @@
 package ru.itis.trofimoff.todoapp.services.group;
 
+import org.springframework.stereotype.Service;
 import ru.itis.trofimoff.todoapp.models.Group;
 import ru.itis.trofimoff.todoapp.repositories.GroupRepository;
 
 import java.util.List;
 
+@Service
 public class GroupServiceImpl implements GroupService {
 
     private GroupRepository groupRepository;

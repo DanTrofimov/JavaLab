@@ -1,5 +1,6 @@
 package ru.itis.trofimoff.todoapp.repositories;
 
+import org.springframework.stereotype.Repository;
 import ru.itis.trofimoff.todoapp.models.User;
 import ru.itis.trofimoff.todoapp.repositories.utils.RowMapper;
 import ru.itis.trofimoff.todoapp.repositories.utils.SqlJDBCTemplate;
@@ -8,6 +9,7 @@ import javax.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class UserRepository implements CrudRepository<User> {
     //language=SQL
     private String SQL_INSERT_USER = "INSERT INTO users(name, email, password, role) VALUES(?, ?, ?, ?)";

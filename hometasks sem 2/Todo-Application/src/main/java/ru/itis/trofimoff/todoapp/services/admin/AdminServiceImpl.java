@@ -1,6 +1,7 @@
 package ru.itis.trofimoff.todoapp.services.admin;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.itis.trofimoff.todoapp.dto.AdminTodoDto;
 import ru.itis.trofimoff.todoapp.dto.UserDto;
 import ru.itis.trofimoff.todoapp.models.Todo;
@@ -10,7 +11,7 @@ import ru.itis.trofimoff.todoapp.services.user.UserService;
 
 import java.util.List;
 
-@Component
+@Service
 public class AdminServiceImpl implements AdminService {
 
     private UserService userService;

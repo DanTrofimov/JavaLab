@@ -1,17 +1,24 @@
 package ru.itis.trofimoff.todoapp.services.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
 import ru.itis.trofimoff.todoapp.dto.UserDto;
 import ru.itis.trofimoff.todoapp.dto.UserStatisticsDto;
 import ru.itis.trofimoff.todoapp.models.User;
 import ru.itis.trofimoff.todoapp.repositories.UserRepository;
+import ru.itis.trofimoff.todoapp.utils.MailsGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class UserServiceImpl implements UserService {
+
+//    @Autowired
+//    public MailsGenerator mailsGenerator;
 
     private UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;

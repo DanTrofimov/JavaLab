@@ -2,27 +2,24 @@ package ru.itis.trofimoff.todoapp.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import freemarker.template.TemplateExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassRelativeResourceLoader;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
+import org.springframework.ui.freemarker.SpringTemplateLoader;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
+import ru.itis.trofimoff.todoapp.interceptors.AuthInterceptor;
 import ru.itis.trofimoff.todoapp.repositories.GroupRepository;
 import ru.itis.trofimoff.todoapp.repositories.TodoRepository;
 import ru.itis.trofimoff.todoapp.repositories.UserRepository;
-import ru.itis.trofimoff.todoapp.services.admin.AdminService;
 import ru.itis.trofimoff.todoapp.services.admin.AdminServiceImpl;
 import ru.itis.trofimoff.todoapp.services.group.GroupServiceImpl;
 import ru.itis.trofimoff.todoapp.services.todo.TodoServiceImpl;
@@ -48,6 +45,11 @@ public class AppConfig implements WebMvcConfigurer {
     registry.addResourceHandler("/scripts/**").addResourceLocations("/scripts/");
   }
 
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/*");
+  }
+
   @Bean
   public FreeMarkerViewResolver freeMarkerViewResolver(){
     FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
@@ -61,6 +63,18 @@ public class AppConfig implements WebMvcConfigurer {
     configurer.setTemplateLoaderPath("/WEB-INF/freemarker/views");
     return configurer;
   }
+
+  @Bean
+  public freemarker.template.Configuration configuration() {
+    freemarker.template.Configuration configuration = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_30);
+    configuration.setDefaultEncoding("UTF-8");
+    configuration.setTemplateLoader(
+            new SpringTemplateLoader(new ClassRelativeResourceLoader(this.getClass()),
+                    "/"));
+    configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+    return configuration;
+  }
+
 
 //  @Bean
 //  public UserValidator validator(){
