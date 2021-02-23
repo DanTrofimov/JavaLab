@@ -1,4 +1,3 @@
-<#--<#import "spring.ftl" as spring/>-->
 <#import "pieChart.ftl" as macro/>
 
 <#macro userCard name email userId>

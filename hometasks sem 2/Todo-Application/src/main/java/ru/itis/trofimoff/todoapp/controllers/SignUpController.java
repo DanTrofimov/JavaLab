@@ -28,7 +28,7 @@ public class SignUpController {
     public String postRegistrationPage(HttpServletRequest request, @Valid SignUpFormDto signUpForm, BindingResult bindingResult, Model model) {
         if (!bindingResult.hasErrors()) { // TODO: add signUpForm validation
             userService.saveUser(signUpForm);
-            return "redirect:" + request.getServletContext().getContextPath() + "/sign-in";
+            return "redirect:/sign-in";
         } else {
             model.addAttribute("signUpForm", signUpForm);
             return "registration";

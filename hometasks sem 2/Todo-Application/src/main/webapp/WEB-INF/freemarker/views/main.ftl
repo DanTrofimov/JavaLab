@@ -11,7 +11,6 @@
     <link rel="stylesheet" href='<@spring.url "/styles/main.css"/>' type="text/css">
     <link rel="stylesheet" href="<@spring.url '/styles/header.css' />" type="text/css">
     <@imports.imports />
-
 </head>
 <body>
     <script src="<@spring.url "/scripts/todo.js"/>"></script>

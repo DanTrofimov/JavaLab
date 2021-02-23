@@ -2,15 +2,13 @@
 <#import "tags/header.ftl" as header/>
 <#import "tags/registration-form.ftl" as regForm/>
 <#import "tags/headerImports.ftl" as imports/>
+<#import "tags/footerImports.ftl" as footerImports/>
 
 <html>
 <head>
     <title>Registration</title>
     <link rel="stylesheet" href='<@spring.url "/styles/auth.css"/>' type="text/css">
-    <link rel="stylesheet" href="<@spring.url '/styles/header.css' />" type="text/css">
-    <link rel="stylesheet" href="<@spring.url '/styles/form.css' />" type="text/css">
     <@imports.imports />
-
 </head>
 <body>
     <@header.header />
@@ -36,3 +34,6 @@
             <img src="${ springMacroRequestContext.contextPath }/assets/welcome-image.png" alt="welcome-image" class="welcome-image">
         </div>
     </div>
+    <@footerImports.footerImports />
+</body>
+</html>

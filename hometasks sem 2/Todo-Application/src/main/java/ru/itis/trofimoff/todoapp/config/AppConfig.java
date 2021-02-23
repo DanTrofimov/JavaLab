@@ -40,16 +40,6 @@ public class AppConfig implements WebMvcConfigurer {
   @Autowired
   private Environment environment;
 
-//  @Bean
-//  public ViewResolver viewResolver() {
-//    InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-//    resolver.setPrefix("/WEB-INF/views/");
-//    resolver.setSuffix(".jsp");
-//    resolver.setViewClass(JstlView.class);
-//    resolver.setRedirectContextRelative(false);
-//    return resolver;
-//  }
-
   @Bean
   public FreeMarkerViewResolver freeMarkerViewResolver(){
     FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();

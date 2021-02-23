@@ -7,9 +7,7 @@
 <head>
     <title>Sign In</title>
     <link rel="stylesheet" href='<@spring.url "/styles/auth.css"/>' type="text/css">
-    <link rel="stylesheet" href="<@spring.url '/styles/header.css' />" type="text/css">
     <@imports.imports />
-
 </head>
 <body>
     <@header.header />
@@ -31,3 +29,5 @@
             <img src="${ springMacroRequestContext.contextPath }/assets/welcome-image.png" alt="welcome-image" class="welcome-image">
         </div>
     </div>
+</body>
+</html>

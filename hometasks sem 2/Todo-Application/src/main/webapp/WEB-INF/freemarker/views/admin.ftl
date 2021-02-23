@@ -3,6 +3,7 @@
 <#import "tags/group.ftl" as group/>
 <#import "tags/user-card.ftl" as card/>
 <#import "tags/headerImports.ftl" as imports/>
+<#import "tags/footerImports.ftl" as footerImports/>
 
 <!doctype html>
 <html lang="en">
@@ -50,5 +51,6 @@
             </#if>
         </div>
     </div>
+    <@footerImports.footerImports />
 </body>
 </html>
