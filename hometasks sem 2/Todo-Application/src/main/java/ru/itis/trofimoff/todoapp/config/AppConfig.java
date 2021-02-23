@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassRelativeResourceLoader;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.freemarker.SpringTemplateLoader;
@@ -24,15 +26,22 @@ import ru.itis.trofimoff.todoapp.services.admin.AdminServiceImpl;
 import ru.itis.trofimoff.todoapp.services.group.GroupServiceImpl;
 import ru.itis.trofimoff.todoapp.services.todo.TodoServiceImpl;
 import ru.itis.trofimoff.todoapp.services.user.UserServiceImpl;
+import ru.itis.trofimoff.todoapp.utils.EmailUtil;
+import ru.itis.trofimoff.todoapp.utils.EmailUtilImpl;
+import ru.itis.trofimoff.todoapp.utils.FreemarkerMailsGenerator;
+import ru.itis.trofimoff.todoapp.utils.MailsGenerator;
 
 import javax.sql.DataSource;
 import java.util.Objects;
+import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Configuration
 @ComponentScan("ru.itis.trofimoff.todoapp.controllers")
 @ComponentScan("ru.itis.trofimoff.todoapp.repositories")
 @EnableWebMvc
-@PropertySource("classpath:db.properties")
+@PropertySource("classpath:application.properties")
 public class AppConfig implements WebMvcConfigurer {
 
   @Autowired
@@ -75,6 +84,38 @@ public class AppConfig implements WebMvcConfigurer {
     return configuration;
   }
 
+  @Bean
+  public MailsGenerator mailsGenerator() {
+    return new FreemarkerMailsGenerator();
+  }
+
+  @Bean
+  public JavaMailSender javaMailSender() {
+    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+    mailSender.setHost(environment.getProperty("spring.mail.host"));
+    mailSender.setPort(Integer.parseInt(Objects.requireNonNull(environment.getProperty("spring.mail.port"))));
+
+    mailSender.setUsername(environment.getProperty("spring.mail.username"));
+    mailSender.setPassword(environment.getProperty("spring.mail.password"));
+
+    Properties props = mailSender.getJavaMailProperties();
+    props.put("spring.mail.properties.mail.smtp.starttls.enable", "true");
+    props.put("spring.mail.properties.mail.smtp.allow8bitmime", "true");
+    props.put("spring.mail.properties.mail.debug", "true");
+    props.put("spring.mail.properties.mail.smtp.ssl.trust", "true");
+
+    return mailSender;
+  }
+
+  @Bean
+  public ExecutorService executorService() {
+    return Executors.newCachedThreadPool();
+  }
+
+  @Bean
+  public EmailUtil emailUtil() {
+    return new EmailUtilImpl();
+  }
 
 //  @Bean
 //  public UserValidator validator(){

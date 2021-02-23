@@ -32,6 +32,7 @@ public class UserRepository implements CrudRepository<User> {
             .role(row.getString("role").trim())
             .allTodos(row.getInt("alltodos"))
             .doneTodos(row.getInt("donetodos"))
+            .confirmCode(row.getString("confirm_code"))
             .build();
 
     public UserRepository(DataSource dataSource) {

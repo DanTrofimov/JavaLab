@@ -4,6 +4,7 @@ import lombok.*;
 import ru.itis.trofimoff.todoapp.dto.SignInFormDto;
 import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
 
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -15,6 +16,10 @@ public class User {
     String role; // user / admin
     int allTodos;
     int doneTodos;
+
+    private Boolean state;
+    private String confirmCode;
+
 
     // safe
     public User(int id, String name, String email) {

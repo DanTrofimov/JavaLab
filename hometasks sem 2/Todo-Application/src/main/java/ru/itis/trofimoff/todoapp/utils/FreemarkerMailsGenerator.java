@@ -21,7 +21,7 @@ public class FreemarkerMailsGenerator implements MailsGenerator {
     public String getMailForConfirm(String serverUrl, String code) {
         Template confirmMailTemplate;
         try {
-            confirmMailTemplate = configuration.getTemplate("mails/confirm_mail.ftlh");
+            confirmMailTemplate = configuration.getTemplate("mail/confirm_mail.ftl");
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
