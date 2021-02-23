@@ -28,7 +28,7 @@ public class SignInController {
             Optional<UserDto> userDto = userService.findByEmail(signInForm.getEmail());
             if (userDto.isPresent() && userService.equalsRowPasswordWithHashPassword(signInForm.getPassword(), userDto.get().getPassword())) {
                 request.getSession().setAttribute("currentUser", userDto.get());
-                request.getSession().setAttribute("sign-in-error", null);
+                request.getSession().setAttribute("signInError", null);
                 switch (userDto.get().getRole()) {
                     case "user":
                         return "redirect:" + request.getServletContext().getContextPath() + "/main";
@@ -38,11 +38,11 @@ public class SignInController {
                         return "redirect:" + request.getServletContext().getContextPath() + "/sign-in";
                 }
             } else {
-                request.getSession().setAttribute("sign-in-error", "Unknown user");
+                request.getSession().setAttribute("signInError", "Unknown user");
                 return "redirect:" + request.getServletContext().getContextPath() + "/sign-in";
             }
         } else {
-            request.getSession().setAttribute("sign-in-error", "Incorrect input");
+            request.getSession().setAttribute("signInError", "Incorrect input");
             return "redirect:" + request.getServletContext().getContextPath() + "/sign-in";
         }
     }

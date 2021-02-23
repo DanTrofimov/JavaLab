@@ -33,16 +33,17 @@
             </div>
         </div>
         <div class="user-list">
-            <#list allUsers as user>
-                <@card.userCard name="${user.getName()}" email="${user.getEmail()}" userId="${user.getId()}"/>
-            </#list>
-            <#if !allUsers??>
-                <div class="empty-todos empty-users">
-                    <div>
-                        <img src="${ springMacroRequestContext.contextPath }/assets/empty-box.png" alt="empty-users" class="empty-todos-image empty-users-image">
-                        <p>there are no users here yet</p>
+            <#if allUsers??>
+                <#list allUsers as user>
+                    <@card.userCard name="${user.getName()}" email="${user.getEmail()}" userId="${user.getId()}"/>
+                </#list>
+                <#else>
+                    <div class="empty-todos empty-users">
+                        <div>
+                            <img src="${ springMacroRequestContext.contextPath }/assets/empty-box.png" alt="empty-users" class="empty-todos-image empty-users-image">
+                            <p>there are no users here yet</p>
+                        </div>
                     </div>
-                </div>
             </#if>
         </div>
     </div>

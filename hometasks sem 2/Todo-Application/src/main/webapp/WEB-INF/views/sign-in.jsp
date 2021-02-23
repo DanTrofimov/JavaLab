@@ -17,9 +17,9 @@
             <p class="link-container">
                 <a href='<c:url value="/registration"/>'>Back to registration</a>
             </p>
-            <c:if test="${not empty sessionScope.get('sign-in-error')}">
+            <c:if test="${not empty sessionScope.get('signInError')}">
                 <p class="link-container error-message">
-                        ${sessionScope.get('sign-in-error')}
+                        ${sessionScope.get('signInError')}
                 </p>
             </c:if>
         </div>

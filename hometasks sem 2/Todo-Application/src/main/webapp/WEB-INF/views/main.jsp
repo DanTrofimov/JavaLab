@@ -48,7 +48,7 @@
             <c:if test="${empty sessionScope.get('todos')}">
                 <div class="empty-todos">
                     <div>
-                        <img src="${pageContext.request.contextPath}/assets/empty-todos-image.png"  alt="emty-todos" class="empty-todos-image">
+                        <img src="${pageContext.request.contextPath}/assets/empty-todos-image.png"  alt="empty-todos" class="empty-todos-image">
                         <p>waiting for your todos</p>
                     </div>
                 </div>

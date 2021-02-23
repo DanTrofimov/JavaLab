@@ -24,9 +24,9 @@
                     <a href="<c:url value="/main"/>">Profile</a>
                 </p>
             </c:if>
-            <c:if test="${not empty sessionScope.get('sign-up-error')}">
+            <c:if test="${not empty sessionScope.get('signUpError')}">
                 <p class="link-container error-message">
-                    ${sessionScope.get('sign-up-error')}
+                    ${sessionScope.get('signUpError')}
                 </p>
             </c:if>
         </div>
