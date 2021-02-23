@@ -28,7 +28,7 @@ public class AdminAddTodoController {
             adminService.addTodoForSeveralUsers(adminDto);
         }
 
-        return "redirect:" + request.getServletContext().getContextPath() + "/admin-add";
+        return "redirect:/admin-add";
     }
 
     @RequestMapping(value = "/admin-add", method = RequestMethod.GET)

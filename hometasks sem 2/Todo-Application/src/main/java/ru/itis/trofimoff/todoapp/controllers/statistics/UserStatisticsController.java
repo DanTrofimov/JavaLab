@@ -24,6 +24,6 @@ public class UserStatisticsController {
 
     @RequestMapping(value = "/user-statistics", method = RequestMethod.POST)
     public String postAddTodo(HttpServletRequest request) {
-        return "redirect:" + request.getServletContext().getContextPath() + "/main";
+        return "redirect:/main";
     }
 }

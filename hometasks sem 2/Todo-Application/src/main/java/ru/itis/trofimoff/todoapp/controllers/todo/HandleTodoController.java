@@ -39,6 +39,6 @@ public class HandleTodoController {
                 todoService.deleteTodo(todoId, userId);
                 break;
         }
-        return "redirect:" + request.getServletContext().getContextPath() + "/main";
+        return "redirect:/main";
     }
 }

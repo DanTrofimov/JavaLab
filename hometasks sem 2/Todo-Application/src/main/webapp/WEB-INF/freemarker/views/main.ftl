@@ -66,3 +66,6 @@
             <@pieChart.pieChart userId="${ currentUser.getId() }"/>
         </div>
     </div>
+    <script src="<@spring.url "/scripts/viewFilter.js"/>"></script>
+</body>
+</html>

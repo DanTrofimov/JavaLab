@@ -20,7 +20,7 @@ public class AddTodoControllers {
 
     @RequestMapping(value = "/add-todo", method = RequestMethod.GET)
     public String getAddTodo(HttpServletRequest request) {
-        return "redirect:" + request.getServletContext().getContextPath() + "/main";
+        return "redirect:/main";
     }
 
     @RequestMapping(value = "/add-todo", method = RequestMethod.POST)
@@ -29,6 +29,6 @@ public class AddTodoControllers {
         if (true) { // TODO: validate here todo
             todoService.addUsersTodo(new Todo(todoDto), currentUser.getId(), "users");
         }
-        return "redirect:" + request.getServletContext().getContextPath() + "/main";
+        return "redirect:/main";
     }
 }
