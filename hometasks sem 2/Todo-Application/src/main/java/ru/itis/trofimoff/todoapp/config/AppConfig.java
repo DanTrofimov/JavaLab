@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -39,6 +40,13 @@ public class AppConfig implements WebMvcConfigurer {
 
   @Autowired
   private Environment environment;
+
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("/styles/**").addResourceLocations("/styles/");
+    registry.addResourceHandler("/assets/**").addResourceLocations("/assets/");
+    registry.addResourceHandler("/scripts/**").addResourceLocations("/scripts/");
+  }
 
   @Bean
   public FreeMarkerViewResolver freeMarkerViewResolver(){

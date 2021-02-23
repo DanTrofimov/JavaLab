@@ -29,6 +29,7 @@
 
     <!-- Other stuff dependencies -->
     <jackson.version>2.9.8</jackson.version>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
   </properties>
 
   <dependencies>
