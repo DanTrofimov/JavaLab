@@ -8,6 +8,7 @@
 <head>
     <title>Registration</title>
     <link rel="stylesheet" href='<@spring.url "/styles/auth.css"/>' type="text/css">
+    <link rel="icon" href='<@spring.url "/assets/favicon.ico"/>' type="image/x-icon" />
     <@imports.imports />
 </head>
 <body>

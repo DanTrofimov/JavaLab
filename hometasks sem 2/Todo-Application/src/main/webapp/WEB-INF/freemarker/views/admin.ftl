@@ -14,6 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin panel</title>
     <link rel="stylesheet" href='<@spring.url '/styles/main.css' />' type="text/css">
+    <link rel="icon" href='<@spring.url "/assets/favicon.ico"/>' type="image/x-icon" />
     <@imports.imports />
 </head>
 <body>
@@ -37,7 +38,7 @@
             </div>
         </div>
         <div class="user-list">
-            <#if allUsers??>
+            <#if allUsers?has_content>
                 <#list allUsers as user>
                     <@card.userCard name="${user.getName()}" email="${user.getEmail()}" userId="${user.getId()}"/>
                 </#list>

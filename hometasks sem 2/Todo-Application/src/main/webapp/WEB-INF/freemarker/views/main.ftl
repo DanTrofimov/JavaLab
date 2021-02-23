@@ -10,6 +10,7 @@
     <title>Main</title>
     <link rel="stylesheet" href='<@spring.url "/styles/main.css"/>' type="text/css">
     <link rel="stylesheet" href="<@spring.url '/styles/header.css' />" type="text/css">
+    <link rel="icon" href='<@spring.url "/assets/favicon.ico"/>' type="image/x-icon" />
     <@imports.imports />
 </head>
 <body>
@@ -43,14 +44,10 @@
             </div>
         </div>
         <div class="todo-list">
-            <#if todos??>
+            <#if todos?has_content>
                 <#list todos as todo>
                     <@userTodo.todo text="${todo.getText()}" id="${todo.getId()}" todoGroup="${todo.getGroupId()}"/>
                 </#list>
-                <form class="todo-form" action="add-todo" method="post">
-                    <input type="text" name="todoText" placeholder="type your task here...">
-                    <button type="submit">add</button>
-                </form>
                 <#else>
                 <div class="empty-todos">
                     <div>
@@ -59,6 +56,10 @@
                     </div>
                 </div>
             </#if>
+            <form class="todo-form" action="add-todo" method="post">
+                <input type="text" name="todoText" placeholder="type your task here...">
+                <button type="submit">add</button>
+            </form>
         </div>
         <div class="statistics">
             <p>Your activity:</p>

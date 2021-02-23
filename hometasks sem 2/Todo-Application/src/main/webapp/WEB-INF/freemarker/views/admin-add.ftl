@@ -9,6 +9,7 @@
     <title>Admin panel</title>
     <link rel="stylesheet" href='<@spring.url "/styles/main.css"/>' type="text/css">
     <link rel="stylesheet" href='<@spring.url "/styles/admin-form.css"/>' type="text/css">
+    <link rel="icon" href='<@spring.url "/assets/favicon.ico"/>' type="image/x-icon" />
     <@imports.imports />
 </head>
 <body>
