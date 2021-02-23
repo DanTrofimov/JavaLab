@@ -44,6 +44,10 @@
             </div>
         </div>
         <div class="todo-list">
+            <form class="todo-form" action="add-todo" method="post">
+                <input type="text" name="todoText" placeholder="type your task here...">
+                <button type="submit">add</button>
+            </form>
             <#if todos?has_content>
                 <#list todos as todo>
                     <@userTodo.todo text="${todo.getText()}" id="${todo.getId()}" todoGroup="${todo.getGroupId()}"/>
@@ -56,10 +60,6 @@
                     </div>
                 </div>
             </#if>
-            <form class="todo-form" action="add-todo" method="post">
-                <input type="text" name="todoText" placeholder="type your task here...">
-                <button type="submit">add</button>
-            </form>
         </div>
         <div class="statistics">
             <p>Your activity:</p>
