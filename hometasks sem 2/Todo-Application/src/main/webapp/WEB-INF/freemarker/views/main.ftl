@@ -44,15 +44,19 @@
             </div>
         </div>
         <div class="todo-list">
-            <form class="todo-form" action="add-todo" method="post">
-                <input type="text" name="todoText" placeholder="type your task here...">
-                <button type="submit">add</button>
-            </form>
             <#if todos?has_content>
                 <#list todos as todo>
                     <@userTodo.todo text="${todo.getText()}" id="${todo.getId()}" todoGroup="${todo.getGroupId()}"/>
                 </#list>
+                <form class="todo-form" action="add-todo" method="post">
+                    <input type="text" name="todoText" placeholder="type your task here...">
+                    <button type="submit">add</button>
+                </form>
                 <#else>
+                <form class="todo-form" action="add-todo" method="post">
+                    <input type="text" name="todoText" placeholder="type your task here...">
+                    <button type="submit">add</button>
+                </form>
                 <div class="empty-todos">
                     <div>
                         <img src="${ springMacroRequestContext.contextPath }/assets/empty-todos-image.png"  alt="emty-todos" class="empty-todos-image">
