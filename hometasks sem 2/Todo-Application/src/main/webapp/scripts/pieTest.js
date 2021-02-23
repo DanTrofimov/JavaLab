@@ -16,7 +16,7 @@ function getUsersData(userId, context) {
 }
 
 function pieChartInit(value1, value2, userId) {
-    console.log('chart init', userId)
+    console.log('chart init for userId: ', userId)
 
     let element = document.getElementById(userId + "-myPieChart")
     new Chart(element.getContext('2d'), {

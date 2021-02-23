@@ -1,5 +1,3 @@
-<#--<#import "spring.ftl" as spring/>-->
-
 <#macro pieChart userId>
     <div class="chart-container">
         <canvas id="${userId}-myPieChart"></canvas>

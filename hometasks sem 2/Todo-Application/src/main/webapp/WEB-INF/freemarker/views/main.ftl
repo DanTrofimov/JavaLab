@@ -15,8 +15,6 @@
 </head>
 <body>
     <script src="<@spring.url "/scripts/todo.js"/>"></script>
-<#--    <script src="<@spring.url "/https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"/>"></script>-->
-<#--    <script src="<<@spring.url "/https://yastatic.net/jquery/3.3.1/jquery.min.js"/>"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
     <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
 
