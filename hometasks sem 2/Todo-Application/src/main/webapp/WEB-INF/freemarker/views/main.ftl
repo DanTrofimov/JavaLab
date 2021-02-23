@@ -1,18 +1,24 @@
 <#import "spring.ftl" as spring/>
-<#import "../tags/header.ftl" as header/>
-<#import "../tags/group.ftl" as group/>
-<#import "../tags/todo.ftl" as todo/>
-<#import "../tags/pieChart.ftl" as pieChart/>
+<#import "tags/header.ftl" as header/>
+<#import "tags/group.ftl" as userGroup/>
+<#import "tags/todo.ftl" as userTodo/>
+<#import "tags/pieChart.ftl" as pieChart/>
+<#import "tags/headerImports.ftl" as imports/>
 
 <html>
 <head>
     <title>Main</title>
     <link rel="stylesheet" href='<@spring.url "/styles/main.css"/>' type="text/css">
+    <link rel="stylesheet" href="<@spring.url '/styles/header.css' />" type="text/css">
+    <@imports.imports />
+
 </head>
 <body>
     <script src="<@spring.url "/scripts/todo.js"/>"></script>
-    <script src="<@spring.url "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"/>"></script>
-    <script src="<<@spring.url "https://yastatic.net/jquery/3.3.1/jquery.min.js"/>"></script>
+<#--    <script src="<@spring.url "/https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"/>"></script>-->
+<#--    <script src="<<@spring.url "/https://yastatic.net/jquery/3.3.1/jquery.min.js"/>"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
 
     <@header.header />
     <div class="main-content">
@@ -27,12 +33,13 @@
             </div>
             <div class="user__groups">
 
-                <a href="<@spring.url "/main"/>"><@group.group title="all todos" color="#f2eab2"/></a>
+                <a href="<@spring.url "/main"/>"><@userGroup.group title="all todos" color="#f2eab2"/></a>
+
 
                 <#list groups as group>
                     <form action="filter-todos" method="get">
                         <button type="submit" value="${group.getId()}" name="group">
-                            <@group.group  title="${group.getName()}" color=""/>
+                            <@userGroup.group  title="${group.getName()}" color=""/>
                         </button>
                     </form>
                 </#list>
@@ -41,7 +48,7 @@
         <div class="todo-list">
             <#if todos??>
                 <#list todos as todo>
-                    <@todo.todo text="${todo.getText()}" id="${todo.getId()}" todoGroup="${todo.getGroupId()}"/>
+                    <@userTodo.todo text="${todo.getText()}" id="${todo.getId()}" todoGroup="${todo.getGroupId()}"/>
                 </#list>
                 <form class="todo-form" action="add-todo" method="post">
                     <input type="text" name="todoText" placeholder="type your task here...">

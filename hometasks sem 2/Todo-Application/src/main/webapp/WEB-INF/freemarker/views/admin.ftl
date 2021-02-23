@@ -1,7 +1,8 @@
 <#import "spring.ftl" as spring/>
-<#import "../tags/header.ftl" as header/>
-<#import "../tags/group.ftl" as group/>
-<#import "../tags/user-card.ftl" as card/>
+<#import "tags/header.ftl" as header/>
+<#import "tags/group.ftl" as group/>
+<#import "tags/user-card.ftl" as card/>
+<#import "tags/headerImports.ftl" as imports/>
 
 <!doctype html>
 <html lang="en">
@@ -12,6 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin panel</title>
     <link rel="stylesheet" href='<@spring.url '/styles/main.css' />' type="text/css">
+    <@imports.imports />
 </head>
 <body>
     <script src="<@spring.url "/scripts/todo.js"/>"></script>

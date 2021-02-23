@@ -1,11 +1,11 @@
-<#import "spring.ftl" as spring/>
+<#--<#import "spring.ftl" as spring/>-->
 
 <#macro pieChart userId>
     <div class="chart-container">
         <canvas id="${userId}-myPieChart"></canvas>
     </div>
 
-    <script src="<@spring.url '/scripts/pieTest.css' />"></script>
+    <script src="<@spring.url '/scripts/pieTest.js' />"></script>
 
     <script>
         getUsersData(${userId}, "${springMacroRequestContext.contextPath}")

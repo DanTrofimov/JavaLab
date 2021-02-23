@@ -40,15 +40,15 @@ public class AppConfig implements WebMvcConfigurer {
   @Autowired
   private Environment environment;
 
-  @Bean
-  public ViewResolver viewResolver() {
-    InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-    resolver.setPrefix("/WEB-INF/views/");
-    resolver.setSuffix(".jsp");
-    resolver.setViewClass(JstlView.class);
-    resolver.setRedirectContextRelative(false);
-    return resolver;
-  }
+//  @Bean
+//  public ViewResolver viewResolver() {
+//    InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+//    resolver.setPrefix("/WEB-INF/views/");
+//    resolver.setSuffix(".jsp");
+//    resolver.setViewClass(JstlView.class);
+//    resolver.setRedirectContextRelative(false);
+//    return resolver;
+//  }
 
   @Bean
   public FreeMarkerViewResolver freeMarkerViewResolver(){
@@ -60,7 +60,7 @@ public class AppConfig implements WebMvcConfigurer {
   @Bean
   public FreeMarkerConfigurer freeMarkerConfig(){
     FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
-    configurer.setTemplateLoaderPath("/WEB-INF/fremarker/");
+    configurer.setTemplateLoaderPath("/WEB-INF/freemarker/views");
     return configurer;
   }
 

@@ -1,12 +1,16 @@
 <#import "spring.ftl" as spring/>
-<#import "../tags/header.ftl" as header/>
-<#import "../tags/group.ftl" as group/>
+<#import "tags/header.ftl" as header/>
+<#import "tags/group.ftl" as group/>
+<#import "tags/headerImports.ftl" as imports/>
 
 <html>
 <head>
     <title>Admin panel</title>
     <link rel="stylesheet" href='<@spring.url "/styles/main.css"/>' type="text/css">
     <link rel="stylesheet" href='<@spring.url "/styles/admin-form.css"/>' type="text/css">
+    <link rel="stylesheet" href="<@spring.url '/styles/header.css' />" type="text/css">
+    <@imports.imports />
+
 </head>
 <body>
 <script src="<@spring.url "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"/>"></script>

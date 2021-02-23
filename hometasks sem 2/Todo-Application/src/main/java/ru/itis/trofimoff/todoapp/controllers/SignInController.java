@@ -31,19 +31,24 @@ public class SignInController {
                 request.getSession().setAttribute("signInError", null);
                 switch (userDto.get().getRole()) {
                     case "user":
-                        return "redirect:" + request.getServletContext().getContextPath() + "/main";
+//                        return "redirect:" + request.getServletContext().getContextPath() + "/main";
+                        return "redirect:/main";
                     case "admin":
-                        return "redirect:" + request.getServletContext().getContextPath() + "/adminExample";
+//                        return "redirect:" + request.getServletContext().getContextPath() + "/admin";
+                        return "redirect:/admin";
                     default:
-                        return "redirect:" + request.getServletContext().getContextPath() + "/sign-in";
+//                        return "redirect:" + request.getServletContext().getContextPath() + "/sign-in";
+                        return "redirect:/sign-in";
                 }
             } else {
                 request.getSession().setAttribute("signInError", "Unknown user");
-                return "redirect:" + request.getServletContext().getContextPath() + "/sign-in";
+//                return "redirect:" + request.getServletContext().getContextPath() + "/sign-in";
+                return "redirect:/sign-in";
             }
         } else {
             request.getSession().setAttribute("signInError", "Incorrect input");
-            return "redirect:" + request.getServletContext().getContextPath() + "/sign-in";
+//            return "redirect:" + request.getServletContext().getContextPath() + "/sign-in";
+            return "redirect:/sign-in";
         }
     }
 }

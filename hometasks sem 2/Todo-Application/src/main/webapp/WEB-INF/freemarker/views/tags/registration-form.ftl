@@ -1,4 +1,4 @@
-<#import "spring.ftl" as spring/>
+<#--<#import "spring.ftl" as spring/>-->
 
 <#macro registrationForm>
 <form action="<@spring.url'/registration'/>" method="POST" class="form">
