@@ -20,7 +20,6 @@ public class User {
     private Boolean state;
     private String confirmCode;
 
-
     // safe
     public User(int id, String name, String email) {
         this.id = id;

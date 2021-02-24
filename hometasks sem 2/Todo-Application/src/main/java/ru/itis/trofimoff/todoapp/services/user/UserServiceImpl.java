@@ -27,12 +27,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private EmailUtil emailUtil;
 
-    @Value("${server.url}")
+    @Value(value = "${server.url}")
     private String serverUrl;
 
-    @Value("${spring.mail.username}")
+    @Value(value = "${spring.mail.username}")
     private String from;
-
 
     private UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -52,7 +51,6 @@ public class UserServiceImpl implements UserService {
 
         String confirmMail = mailsGenerator.getMailForConfirm(serverUrl, user.getConfirmCode());
         emailUtil.sendMail(user.getEmail(), "Регистрация", from, confirmMail);
-        System.out.println("sended");
     }
 
     @Override

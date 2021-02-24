@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public class UserRepository implements CrudRepository<User> {
     //language=SQL
-    private String SQL_INSERT_USER = "INSERT INTO users(name, email, password, role) VALUES(?, ?, ?, ?)";
+    private String SQL_INSERT_USER = "INSERT INTO users(name, email, password, role, confirm_code) VALUES(?, ?, ?, ?, ?)";
     //language=SQL
     private String SQL_SELECT_USER_BY_EMAIL = "SELECT * FROM users WHERE email = ? ";
     //language=SQL
@@ -42,7 +42,7 @@ public class UserRepository implements CrudRepository<User> {
 
     @Override
     public void save(User user){
-        sqlJDBCTemplate.execute(SQL_INSERT_USER, user.getName(), user.getEmail(), user.getPassword(), user.getRole());
+        sqlJDBCTemplate.execute(SQL_INSERT_USER, user.getName(), user.getEmail(), user.getPassword(), user.getRole(), user.getConfirmCode());
     }
 
     public Optional<User> findByEmail(String email) {
