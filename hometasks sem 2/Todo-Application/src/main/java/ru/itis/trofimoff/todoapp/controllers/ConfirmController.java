@@ -21,9 +21,7 @@ public class ConfirmController {
     public String getMainPage(HttpServletRequest request, @PathVariable String code, Model model){
 
         System.out.println(code);
-
         userService.confirmUser(code);
-
         model.addAttribute("confirmMessage",  "Confirmed!");
 
         return "sign-in";
