@@ -2,6 +2,7 @@ package ru.itis.trofimoff.todoapp.services.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Profile(value = "master")
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -83,5 +85,10 @@ public class UserServiceImpl implements UserService {
             userDtos.add(new UserDto(user));
         });
         return userDtos;
+    }
+
+    @Override
+    public void confirmUser(String code) {
+        userRepository.confirmUser(code);
     }
 }

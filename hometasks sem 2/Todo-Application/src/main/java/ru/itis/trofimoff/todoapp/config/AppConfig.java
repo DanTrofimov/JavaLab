@@ -4,10 +4,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import freemarker.template.TemplateExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassRelativeResourceLoader;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -38,10 +35,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Configuration
-@ComponentScan("ru.itis.trofimoff.todoapp.controllers")
-@ComponentScan("ru.itis.trofimoff.todoapp.repositories")
+@ComponentScan("ru.itis.trofimoff.todoapp")
 @EnableWebMvc
 @PropertySource("classpath:application.properties")
+@PropertySource("classpath:db.properties")
 public class AppConfig implements WebMvcConfigurer {
 
   @Autowired
@@ -131,40 +128,40 @@ public class AppConfig implements WebMvcConfigurer {
     return new BCryptPasswordEncoder();
   }
 
-  @Bean
-  public AdminServiceImpl adminService() {
-    return new AdminServiceImpl(userService(), todoService());
-  }
-
-  @Bean
-  public GroupServiceImpl groupService() {
-    return new GroupServiceImpl(groupRepository());
-  }
-
-  @Bean
-  public GroupRepository groupRepository() {
-    return new GroupRepository(dataSource());
-  }
-
-  @Bean
-  public TodoServiceImpl todoService() {
-    return new TodoServiceImpl(todoRepository());
-  }
-
-  @Bean
-  public TodoRepository todoRepository() {
-    return new TodoRepository(dataSource());
-  }
-
-  @Bean
-  public UserServiceImpl userService() {
-    return new UserServiceImpl(userRepository(), passwordEncoder());
-  }
-
-  @Bean
-  public UserRepository userRepository() {
-    return new UserRepository(dataSource());
-  }
+//  @Bean
+//  public AdminServiceImpl adminService() {
+//    return new AdminServiceImpl(userService(), todoService());
+//  }
+//
+//  @Bean
+//  public GroupServiceImpl groupService() {
+//    return new GroupServiceImpl(groupRepository());
+//  }
+//
+//  @Bean
+//  public GroupRepository groupRepository() {
+//    return new GroupRepository(dataSource());
+//  }
+//
+//  @Bean
+//  public TodoServiceImpl todoService() {
+//    return new TodoServiceImpl(todoRepository());
+//  }
+//
+//  @Bean
+//  public TodoRepository todoRepository() {
+//    return new TodoRepository(dataSource());
+//  }
+//
+//  @Bean
+//  public UserServiceImpl userService() {
+//    return new UserServiceImpl(userRepository(), passwordEncoder());
+//  }
+//
+//  @Bean
+//  public UserRepository userRepository() {
+//    return new UserRepository(dataSource());
+//  }
 
   @Bean
   public DataSource dataSource() {

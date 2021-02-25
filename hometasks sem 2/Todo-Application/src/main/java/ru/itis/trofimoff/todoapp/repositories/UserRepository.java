@@ -21,6 +21,8 @@ public class UserRepository implements CrudRepository<User> {
     private String SQL_SELECT_USER_BY_ID = "SELECT * FROM users WHERE id = ?";
     //language=SQL
     private String SQL_SELECT_ALL_USERS = "SELECT * FROM users WHERE role = 'user'";
+    //language=SQL
+    private String SQL_UPDATE_CONFIRM = "UPDATE users SET confirmed = true WHERE confirm_code = ?";
     private DataSource dataSource;
     private SqlJDBCTemplate sqlJDBCTemplate;
 
@@ -65,4 +67,8 @@ public class UserRepository implements CrudRepository<User> {
 
     @Override
     public void delete(User entity) {}
+
+    public void confirmUser(String code) {
+        this.sqlJDBCTemplate.execute(SQL_UPDATE_CONFIRM, code);
+    }
 }

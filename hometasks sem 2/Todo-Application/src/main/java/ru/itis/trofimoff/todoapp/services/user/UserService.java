@@ -13,4 +13,5 @@ public interface UserService {
     UserStatisticsDto getUserStatistic(int userId);
     List<UserDto> findAll();
     boolean equalsRowPasswordWithHashPassword(String rowPassword, String hashPassword);
+    void confirmUser(String code);
 }
