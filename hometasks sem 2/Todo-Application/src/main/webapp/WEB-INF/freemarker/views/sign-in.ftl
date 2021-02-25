@@ -25,6 +25,11 @@
                     ${signInError}
                 </p>
             </#if>
+            <#if confirmMessage??>
+                <p class="link-container error-message" style="color: green">
+                    ${confirmMessage}
+                </p>
+            </#if>
         </div>
         <div>
             <img src="${ springMacroRequestContext.contextPath }/assets/welcome-image.png" alt="welcome-image" class="welcome-image">

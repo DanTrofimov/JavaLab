@@ -26,10 +26,10 @@ import ru.itis.trofimoff.todoapp.services.admin.AdminServiceImpl;
 import ru.itis.trofimoff.todoapp.services.group.GroupServiceImpl;
 import ru.itis.trofimoff.todoapp.services.todo.TodoServiceImpl;
 import ru.itis.trofimoff.todoapp.services.user.UserServiceImpl;
-import ru.itis.trofimoff.todoapp.utils.EmailUtil;
-import ru.itis.trofimoff.todoapp.utils.EmailUtilImpl;
-import ru.itis.trofimoff.todoapp.utils.FreemarkerMailsGenerator;
-import ru.itis.trofimoff.todoapp.utils.MailsGenerator;
+import ru.itis.trofimoff.todoapp.utils.mail.sender.EmailUtil;
+import ru.itis.trofimoff.todoapp.utils.mail.sender.EmailUtilImpl;
+import ru.itis.trofimoff.todoapp.utils.mail.generator.FreemarkerMailsGenerator;
+import ru.itis.trofimoff.todoapp.utils.mail.generator.MailsGenerator;
 
 import javax.sql.DataSource;
 import java.util.Objects;

@@ -1,4 +1,4 @@
-package ru.itis.trofimoff.todoapp.utils;
+package ru.itis.trofimoff.todoapp.utils.mail.sender;
 
 import org.springframework.stereotype.Component;
 

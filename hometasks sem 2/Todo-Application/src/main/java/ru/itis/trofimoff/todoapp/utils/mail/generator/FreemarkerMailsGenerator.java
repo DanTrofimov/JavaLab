@@ -1,4 +1,4 @@
-package ru.itis.trofimoff.todoapp.utils;
+package ru.itis.trofimoff.todoapp.utils.mail.generator;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -18,7 +18,7 @@ public class FreemarkerMailsGenerator implements MailsGenerator {
     private Configuration configuration;
 
     @Override
-    public String getMailForConfirm(String serverUrl, String code) {
+    public String getMailForConfirm(String serverUrl, String code, String contextApp) {
         Template confirmMailTemplate;
         try {
             confirmMailTemplate = configuration.getTemplate("mail/confirm_mail.ftl");
@@ -27,6 +27,7 @@ public class FreemarkerMailsGenerator implements MailsGenerator {
         }
         // подготовили данные для шаблона
         Map<String, String> attributes = new HashMap<>();
+        attributes.put("server_contextapp", contextApp);
         attributes.put("confirm_code", code);
         attributes.put("server_url", serverUrl);
 

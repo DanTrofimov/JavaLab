@@ -9,10 +9,9 @@ import ru.itis.trofimoff.todoapp.dto.UserDto;
 import ru.itis.trofimoff.todoapp.dto.UserStatisticsDto;
 import ru.itis.trofimoff.todoapp.models.User;
 import ru.itis.trofimoff.todoapp.repositories.UserRepository;
-import ru.itis.trofimoff.todoapp.utils.EmailUtil;
-import ru.itis.trofimoff.todoapp.utils.MailsGenerator;
+import ru.itis.trofimoff.todoapp.utils.mail.sender.EmailUtil;
+import ru.itis.trofimoff.todoapp.utils.mail.generator.MailsGenerator;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +32,9 @@ public class UserServiceImpl implements UserService {
     @Value(value = "${spring.mail.username}")
     private String from;
 
+    @Value(value = "${server.context.application}")
+    private String springContextValue;
+
     private UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -49,8 +51,8 @@ public class UserServiceImpl implements UserService {
         user.setPassword(hashPassword);
         this.userRepository.save(user);
 
-        String confirmMail = mailsGenerator.getMailForConfirm(serverUrl, user.getConfirmCode());
-        emailUtil.sendMail(user.getEmail(), "Регистрация", from, confirmMail);
+        String confirmMail = mailsGenerator.getMailForConfirm(serverUrl, user.getConfirmCode(), springContextValue);
+        emailUtil.sendMail(user.getEmail(), "Registration", from, confirmMail);
     }
 
     @Override

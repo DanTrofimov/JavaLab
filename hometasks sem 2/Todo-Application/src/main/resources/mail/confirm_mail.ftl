@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <title>Спасибо за регистрацию</title>
+    <title>Thx for registration</title>
     <style>
         h1 {
             color: cadetblue;
         }
-        h2 {
+        a {
             color: red;
         }
     </style>
 </head>
 <body>
-<h1>Ссылка на регистрацию:</h1>
-<img src="https://kpfu.ru//portal/docs/F_1313344075/02_logotip_3_stroki_cvetnoj.png" alt="">
-<h2><a href="${server_url}/confirm/${confirm_code}">Пройдите по ссылке</a></h2>
+<h1>Please click the link below to confirm your email:</h1>
+<img src="https://www.meme-arsenal.com/memes/d06842366e1b8012d92fde048446e016.jpg" alt="">
+<h2><a href="${server_url}/${server_contextapp}/confirm/${confirm_code}">Click me!</a></h2>
 </body>
 </html>
