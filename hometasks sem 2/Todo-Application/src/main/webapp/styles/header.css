@@ -6,3 +6,14 @@ header {
     display: grid;
     place-items: center;
 }
+
+.lang-changer {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
+
+.lang-changer a {
+    margin-left: 10px;
+    color: #fff;
+}

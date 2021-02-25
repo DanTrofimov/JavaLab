@@ -53,6 +53,7 @@ public class AppConfig implements WebMvcConfigurer {
   public FreeMarkerViewResolver freeMarkerViewResolver(){
     FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
     resolver.setSuffix(".ftl");
+    resolver.setContentType("text/html; charset=utf-8");
     return resolver;
   }
 
