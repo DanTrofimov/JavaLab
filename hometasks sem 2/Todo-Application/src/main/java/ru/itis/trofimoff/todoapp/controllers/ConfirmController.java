@@ -22,7 +22,7 @@ public class ConfirmController {
 
         System.out.println(code);
 
-//        userService.confirmUser(code);
+        userService.confirmUser(code);
 
         model.addAttribute("confirmMessage",  "Confirmed!");
 
