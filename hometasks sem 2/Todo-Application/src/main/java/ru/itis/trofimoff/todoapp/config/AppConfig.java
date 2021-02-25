@@ -16,13 +16,6 @@ import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 import ru.itis.trofimoff.todoapp.interceptors.AuthInterceptor;
-import ru.itis.trofimoff.todoapp.repositories.GroupRepository;
-import ru.itis.trofimoff.todoapp.repositories.TodoRepository;
-import ru.itis.trofimoff.todoapp.repositories.UserRepository;
-import ru.itis.trofimoff.todoapp.services.admin.AdminServiceImpl;
-import ru.itis.trofimoff.todoapp.services.group.GroupServiceImpl;
-import ru.itis.trofimoff.todoapp.services.todo.TodoServiceImpl;
-import ru.itis.trofimoff.todoapp.services.user.UserServiceImpl;
 import ru.itis.trofimoff.todoapp.utils.mail.sender.EmailUtil;
 import ru.itis.trofimoff.todoapp.utils.mail.sender.EmailUtilImpl;
 import ru.itis.trofimoff.todoapp.utils.mail.generator.FreemarkerMailsGenerator;
@@ -127,41 +120,6 @@ public class AppConfig implements WebMvcConfigurer {
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
-
-//  @Bean
-//  public AdminServiceImpl adminService() {
-//    return new AdminServiceImpl(userService(), todoService());
-//  }
-//
-//  @Bean
-//  public GroupServiceImpl groupService() {
-//    return new GroupServiceImpl(groupRepository());
-//  }
-//
-//  @Bean
-//  public GroupRepository groupRepository() {
-//    return new GroupRepository(dataSource());
-//  }
-//
-//  @Bean
-//  public TodoServiceImpl todoService() {
-//    return new TodoServiceImpl(todoRepository());
-//  }
-//
-//  @Bean
-//  public TodoRepository todoRepository() {
-//    return new TodoRepository(dataSource());
-//  }
-//
-//  @Bean
-//  public UserServiceImpl userService() {
-//    return new UserServiceImpl(userRepository(), passwordEncoder());
-//  }
-//
-//  @Bean
-//  public UserRepository userRepository() {
-//    return new UserRepository(dataSource());
-//  }
 
   @Bean
   public DataSource dataSource() {
