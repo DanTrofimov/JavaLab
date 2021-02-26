@@ -1,7 +1,6 @@
 package ru.itis.trofimoff.todoapp.services.todo;
 
 import org.springframework.stereotype.Service;
-import ru.itis.trofimoff.todoapp.dto.TodoDto;
 import ru.itis.trofimoff.todoapp.models.Todo;
 import ru.itis.trofimoff.todoapp.repositories.TodoRepository;
 
@@ -18,6 +17,7 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public void addUsersTodo(Todo todo, int userId, String rights) {
+        if (todo.getText().trim().equals("")) return;
         switch (rights) {
             case "admin":
                 todo.setGroupId(2);
@@ -38,7 +38,9 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public void addTodo(Todo todo) {
-        todoRepository.saveTodo(todo);
+        if (!todo.getText().trim().equals("")) {
+            todoRepository.saveTodo(todo);
+        }
     }
 
     @Override

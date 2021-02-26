@@ -31,6 +31,8 @@ public class AdminServiceImpl implements AdminService {
     // fixme: пофиксить dto для Todo model, отсутствует поле groupId
     @Override
     public void addTodoForSeveralUsers(AdminTodoDto adminDto) {
+        System.out.println(adminDto);
+        if (adminDto.getTodoText().equals("") || adminDto.getUsers() == null) return;
         Todo adminTodo = new Todo(adminDto.getTodoText());
         int[] users = new int[adminDto.getUsers().length];
         adminTodo.setGroupId(2); // admin

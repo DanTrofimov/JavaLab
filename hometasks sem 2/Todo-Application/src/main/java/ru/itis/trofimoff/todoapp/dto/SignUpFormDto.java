@@ -20,6 +20,7 @@ public class SignUpFormDto {
     private String email;
     @ValidPassword(message = "{errors.invalid.password}")
     private String password;
+    @NotBlank(message = "{errors.blank.name}")
     private String repeatPassword;
     @NotBlank(message = "{errors.blank.agreement}")
     private String userAgreement;

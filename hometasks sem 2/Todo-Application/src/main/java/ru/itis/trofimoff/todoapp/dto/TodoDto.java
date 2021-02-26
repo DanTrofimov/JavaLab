@@ -1,12 +1,13 @@
 package ru.itis.trofimoff.todoapp.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+import javax.validation.constraints.NotBlank;
+
+@Data
 @AllArgsConstructor
 public class TodoDto {
+    @NotBlank
     String todoText;
 }
