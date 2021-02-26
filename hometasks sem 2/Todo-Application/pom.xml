@@ -107,12 +107,6 @@
       <scope>provided</scope>
     </dependency>
 
-    <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>jsp-api</artifactId>
-      <version>2.1</version>
-      <scope>provided</scope>
-    </dependency>
 
     <dependency>
       <groupId>org.postgresql</groupId>
@@ -144,11 +138,13 @@
       <version>2.3.30</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context-support</artifactId>
-      <version>5.3.1</version>
+      <version>5.2.13.RELEASE</version>
     </dependency>
+
 
     <dependency>
       <groupId>javax.mail</groupId>

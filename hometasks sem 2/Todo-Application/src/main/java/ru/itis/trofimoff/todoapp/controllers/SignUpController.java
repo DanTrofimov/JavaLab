@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
 import ru.itis.trofimoff.todoapp.services.user.UserService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Objects;
 
 @Controller
 public class SignUpController {
@@ -18,21 +18,31 @@ public class SignUpController {
     @Autowired
     public UserService userService;
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String getRegistrationPageEmptyPath(Model model){
+        model.addAttribute("signUpFormDto", new SignUpFormDto());
+        return "registration";
+    }
+
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String getRegistrationPage(Model model){
-        model.addAttribute("signUpForm", new SignUpFormDto());
+        model.addAttribute("signUpFormDto", new SignUpFormDto());
         return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String postRegistrationPage(@Valid SignUpFormDto signUpForm, BindingResult bindingResult, Model model) {
-        if (!bindingResult.hasErrors()) { // TODO: add signUpForm validation
-            userService.saveUser(signUpForm);
-            return "redirect:/sign-in";
-        } else {
-            model.addAttribute("signUpForm", signUpForm);
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().stream().anyMatch(error -> {
+                if (Objects.requireNonNull(error.getCodes())[0].equals("signUpFormDto.ValidFields")) {
+                    model.addAttribute("namesErrorMessage", error.getDefaultMessage());
+                }
+                return true;
+            });
+            model.addAttribute("signUpFormDto", signUpForm);
             return "registration";
-//            return "redirect:" + request.getServletContext().getContextPath() + "/registration";
         }
+        userService.saveUser(signUpForm);
+        return "redirect:/sign-in";
     }
 }
