@@ -23,9 +23,9 @@
     <div class="main-content main-content--admin">
         <div class="user">
             <div class="user__name">
-                <p>Admin:</p>
+                <p><@spring.message "admin.page.admin"/>:</p>
                 <p>${currentUser.getName()}</p>
-                <form action="sign-out" method="get"><input type="submit" class="sign-out-button" value="sign-out"></form>
+                <form action="sign-out" method="get"><input type="submit" class="sign-out-button" value="<@spring.message "admin.sign_out"/>"></form>
             </div>
             <div class="user__groups user__groups--admin">
                 <a href="<@spring.url "/admin"/>"><@group.group title="users" color=""/></a>
@@ -40,9 +40,9 @@
                         <p class="user-checkbox"><input name="users" value="${user.getId()}" type="checkbox"> ${user.getName()}</p>
                     </#list>
                 </div>
-                <h3>todo text:</h3>
-                <textarea name="todoText" class="todo-textarea" cols="30" rows="10" placeholder="type here"></textarea>
-                <button type="submit" class="admin-todo-button">add</button>
+                <h3><@spring.message "admin.add.form.textarea.title"/>:</h3>
+                <textarea name="todoText" class="todo-textarea" cols="30" rows="10" placeholder="<@spring.message "admin.add.form.textarea.placehorder"/>"></textarea>
+                <button type="submit" class="admin-todo-button"><@spring.message "admin.add.form.button"/></button>
             </form>
         </div>
     </div>

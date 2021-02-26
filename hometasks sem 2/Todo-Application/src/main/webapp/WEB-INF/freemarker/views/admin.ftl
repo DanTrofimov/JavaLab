@@ -28,9 +28,9 @@
     <div class="main-content main-content--admin">
         <div class="user">
             <div class="user__name">
-                <p>Admin:</p>
+                <p><@spring.message "admin.page.admin"/>:</p>
                 <p> ${currentUser.getName()} </p>
-                <form action="sign-out" method="get"><input type="submit" class="sign-out-button" value="sign-out"></form>
+                <form action="sign-out" method="get"><input type="submit" class="sign-out-button" value="<@spring.message "admin.sign_out"/>"></form>
             </div>
             <div class="user__groups user__groups--admin">
                 <a href="<@spring.url "/admin"/>"><@group.group title="users" color=""/></a>
@@ -46,7 +46,7 @@
                     <div class="empty-todos empty-users">
                         <div>
                             <img src="${ springMacroRequestContext.contextPath }/assets/empty-box.png" alt="empty-users" class="empty-todos-image empty-users-image">
-                            <p>there are no users here yet</p>
+                            <p><@spring.message "admin.empty_text"/></p>
                         </div>
                     </div>
             </#if>

@@ -26,11 +26,11 @@
     <div class="main-content">
         <div class="user">
             <div class="user__name">
-                <p>User:</p>
+                <p><@spring.message "main_page.user"/>:</p>
                 <p>${currentUser.getName()}</p>
                 <div class="button-container">
-                    <form action="${ springMacroRequestContext.contextPath }/sign-out" method="get"><input type="submit" class="sign-out-button" value="sign-out"></form>
-                    <button class="sign-out-button filter-button" id="filter-button">eye filter</button>
+                    <form action="${ springMacroRequestContext.contextPath }/sign-out" method="get"><input type="submit" class="sign-out-button" value="<@spring.message "main_page.sign_out"/>"></form>
+                    <button class="sign-out-button filter-button" id="filter-button"><@spring.message "main_page.filter"/></button>
                 </div>
             </div>
             <div class="user__groups">
@@ -53,24 +53,24 @@
                     <@userTodo.todo text="${todo.getText()}" id="${todo.getId()}" todoGroup="${todo.getGroupId()}"/>
                 </#list>
                 <form class="todo-form" action="add-todo" method="post">
-                    <input type="text" name="todoText" placeholder="type your task here...">
-                    <button type="submit">add</button>
+                    <input type="text" name="todoText" placeholder="<@spring.message "main_page.task.placeholder"/>">
+                    <button type="submit"><@spring.message "main_page.task.add"/></button>
                 </form>
                 <#else>
                 <form class="todo-form" action="add-todo" method="post">
-                    <input type="text" name="todoText" placeholder="type your task here...">
-                    <button type="submit">add</button>
+                    <input type="text" name="todoText" placeholder="<@spring.message "main_page.task.placeholder"/>">
+                    <button type="submit"><@spring.message "main_page.task.add"/></button>
                 </form>
                 <div class="empty-todos">
                     <div>
                         <img src="${ springMacroRequestContext.contextPath }/assets/empty-todos-image.png"  alt="emty-todos" class="empty-todos-image">
-                        <p>waiting for your todos</p>
+                        <p><@spring.message "main_page.empty_text"/></p>
                     </div>
                 </div>
             </#if>
         </div>
         <div class="statistics">
-            <p>Your activity:</p>
+            <p><@spring.message "main_page.activity"/>:</p>
             <@pieChart.pieChart userId="${ currentUser.getId() }"/>
         </div>
     </div>
