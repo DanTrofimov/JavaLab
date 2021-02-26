@@ -34,7 +34,7 @@
         </div>
         <div class="add-todo-form__wrapper">
             <form action="admin-add" method="POST">
-                <h3>Users:</h3>
+                <h3><@spring.message "admin.add.form.title"/>:</h3>
                 <div class="users">
                     <#list allUsers as user>
                         <p class="user-checkbox"><input name="users" value="${user.getId()}" type="checkbox"> ${user.getName()}</p>

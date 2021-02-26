@@ -19,7 +19,26 @@
     <@header.header />
     <div class="registration-content">
         <div>
-            <@regForm.registrationForm />
+<#--            <@regForm.registrationForm />-->
+
+            <@spring.bind "signUpForm"/>
+            <form action="<@spring.url'/registration'/>" method="POST" class="form">
+                <h3 class="form__title"><@spring.message 'sign_up_page.registration.title'/></h3>
+                <input name="name" placeholder="<@spring.message 'sign_up_page.registration.placeholder.name'/>">
+<#--                <input name="email" placeholder="<@spring.message 'sign_up_page.registration.placeholder.email'/>">-->
+                <@spring.formInput "signUpForm.email"/>
+                <@spring.showErrors "error-message"/>
+                <input name="password" type="password" placeholder="<@spring.message 'sign_up_page.registration.placeholder.password'/>">
+                <input name="password-repeat" type="password" placeholder="<@spring.message 'sign_up_page.registration.placeholder.password_repeat'/>">
+                <div class="checkbox-container">
+                    <input type="checkbox" name="user-agreement">
+                    <p class="agreement"><@spring.message 'sign_up_page.registration.placeholder.agreemet'/></p>
+                </div>
+                <input type="submit" value="<@spring.message 'sign_up_page.registration.button'/>" class="send-button">
+            </form>
+
+            <link rel="stylesheet" href="<@spring.url '/styles/form.css' />" type="text/css">
+
             <#if currentUser??>
                 <p class="link-container">
                     <a href="<@spring.url "/main"/>"><@spring.message 'sign_up_page.registration.profile'/></a>
