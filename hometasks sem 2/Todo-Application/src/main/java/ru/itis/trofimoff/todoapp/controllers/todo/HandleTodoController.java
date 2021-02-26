@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import ru.itis.trofimoff.todoapp.dto.TodoDto;
 import ru.itis.trofimoff.todoapp.dto.UserDto;
 import ru.itis.trofimoff.todoapp.models.Todo;
 import ru.itis.trofimoff.todoapp.models.User;
@@ -31,8 +32,9 @@ public class HandleTodoController {
         switch (request.getParameter("todo-action")) {
             case "change":
                 if (!text.trim().equals("")) {
-                    Todo todo = new Todo(todoId, text);
-                    todoService.updateTodo(todo);
+                    TodoDto todoDto = new TodoDto(text);
+                    todoDto.setId(todoId);
+                    todoService.updateTodo(todoDto);
                 }
                 break;
             case "remove":

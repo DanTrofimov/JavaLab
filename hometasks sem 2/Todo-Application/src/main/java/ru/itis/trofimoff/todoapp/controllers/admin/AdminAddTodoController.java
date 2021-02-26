@@ -22,10 +22,8 @@ public class AdminAddTodoController {
     public AdminService adminService;
 
     @RequestMapping(value = "/admin-add", method = RequestMethod.POST)
-    public String postAdminAddPage(HttpServletRequest request, @Valid AdminTodoDto adminDto, BindingResult bindingResult){
+    public String postAdminAddPage(@Valid AdminTodoDto adminDto, BindingResult bindingResult){
 
-//        if (request.getParameterValues("users") != null
-//                && request.getParameter("todoText").trim() != "") {
         if (!bindingResult.hasErrors()) {
             adminService.addTodoForSeveralUsers(adminDto);
         }

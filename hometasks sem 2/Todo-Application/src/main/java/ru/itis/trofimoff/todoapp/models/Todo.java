@@ -22,6 +22,8 @@ public class Todo {
 
     public Todo(TodoDto todoDto) {
         this.text = todoDto.getTodoText();
+        if (todoDto.getGroup() != 0) this.groupId = todoDto.getGroup();
+        if (todoDto.getId() != 0) this.id = todoDto.getId();
     }
 
     public Todo(int id, String text) {

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ru.itis.trofimoff.todoapp.dto.TodoDto;
 import ru.itis.trofimoff.todoapp.dto.UserDto;
 import ru.itis.trofimoff.todoapp.models.Todo;
-import ru.itis.trofimoff.todoapp.models.User;
 import ru.itis.trofimoff.todoapp.services.todo.TodoService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,8 +27,8 @@ public class AddTodoControllers {
     @RequestMapping(value = "/add-todo", method = RequestMethod.POST)
     public String postAddTodo(HttpServletRequest request, @Valid TodoDto todoDto, BindingResult bindingResult) {
         UserDto currentUser = (UserDto) request.getSession().getAttribute("currentUser");
-        if (!bindingResult.hasErrors()) { // Todo: validate todo
-            todoService.addUsersTodo(new Todo(todoDto), currentUser.getId(), "users");
+        if (!bindingResult.hasErrors()) {
+            todoService.addUsersTodo(todoDto, currentUser.getId(), "users");
         }
         return "redirect:/main";
     }
