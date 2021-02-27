@@ -112,12 +112,7 @@ public class AppConfig implements WebMvcConfigurer {
   public EmailUtil emailUtil() {
     return new EmailUtilImpl();
   }
-
-//  @Bean
-//  public UserValidator validator(){
-//    return new UserValidator();
-//  }
-
+  
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();

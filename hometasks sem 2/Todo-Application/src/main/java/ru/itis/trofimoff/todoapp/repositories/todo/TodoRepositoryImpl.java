@@ -1,6 +1,5 @@
-package ru.itis.trofimoff.todoapp.repositories;
+package ru.itis.trofimoff.todoapp.repositories.todo;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import ru.itis.trofimoff.todoapp.models.Todo;
 import ru.itis.trofimoff.todoapp.repositories.utils.RowMapper;
@@ -11,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Repository
-public class TodoRepository implements CrudRepository<Todo> {
+public class TodoRepositoryImpl implements TodoRepository {
 
     //language=SQL
     private final String SQL_INSERT_TODO = "INSERT INTO todos(text, todogroup) VALUES(?, ?)";
@@ -38,7 +37,7 @@ public class TodoRepository implements CrudRepository<Todo> {
             .groupId(row.getInt("todogroup"))
             .build();
 
-    public TodoRepository(DataSource dataSource) {
+    public TodoRepositoryImpl(DataSource dataSource) {
         this.dataSource = dataSource;
         this.sqlJDBCTemplate = new SqlJDBCTemplate(dataSource);
     }

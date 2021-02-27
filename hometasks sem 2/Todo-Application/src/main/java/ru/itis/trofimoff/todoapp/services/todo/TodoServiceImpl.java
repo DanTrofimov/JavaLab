@@ -3,7 +3,8 @@ package ru.itis.trofimoff.todoapp.services.todo;
 import org.springframework.stereotype.Service;
 import ru.itis.trofimoff.todoapp.dto.TodoDto;
 import ru.itis.trofimoff.todoapp.models.Todo;
-import ru.itis.trofimoff.todoapp.repositories.TodoRepository;
+import ru.itis.trofimoff.todoapp.repositories.todo.TodoRepository;
+import ru.itis.trofimoff.todoapp.repositories.todo.TodoRepositoryImpl;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class TodoServiceImpl implements TodoService {
 
     private TodoRepository todoRepository;
 
-    public TodoServiceImpl(TodoRepository todoRepository) {
+    public TodoServiceImpl(TodoRepositoryImpl todoRepository) {
         this.todoRepository = todoRepository;
     }
 

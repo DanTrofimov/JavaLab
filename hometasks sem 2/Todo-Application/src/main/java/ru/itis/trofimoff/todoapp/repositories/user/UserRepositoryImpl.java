@@ -1,7 +1,8 @@
-package ru.itis.trofimoff.todoapp.repositories;
+package ru.itis.trofimoff.todoapp.repositories.user;
 
 import org.springframework.stereotype.Repository;
 import ru.itis.trofimoff.todoapp.models.User;
+import ru.itis.trofimoff.todoapp.repositories.CrudRepository;
 import ru.itis.trofimoff.todoapp.repositories.utils.RowMapper;
 import ru.itis.trofimoff.todoapp.repositories.utils.SqlJDBCTemplate;
 
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UserRepository implements CrudRepository<User> {
+public class UserRepositoryImpl implements UserRepository {
     //language=SQL
     private String SQL_INSERT_USER = "INSERT INTO users(name, email, password, role, confirm_code) VALUES(?, ?, ?, ?, ?)";
     //language=SQL
@@ -37,7 +38,7 @@ public class UserRepository implements CrudRepository<User> {
             .confirmCode(row.getString("confirm_code"))
             .build();
 
-    public UserRepository(DataSource dataSource) {
+    public UserRepositoryImpl(DataSource dataSource) {
         this.dataSource = dataSource;
         this.sqlJDBCTemplate = new SqlJDBCTemplate(dataSource);
     }

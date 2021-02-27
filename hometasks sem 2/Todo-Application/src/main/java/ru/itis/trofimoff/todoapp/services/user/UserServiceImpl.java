@@ -9,7 +9,8 @@ import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
 import ru.itis.trofimoff.todoapp.dto.UserDto;
 import ru.itis.trofimoff.todoapp.dto.UserStatisticsDto;
 import ru.itis.trofimoff.todoapp.models.User;
-import ru.itis.trofimoff.todoapp.repositories.UserRepository;
+import ru.itis.trofimoff.todoapp.repositories.user.UserRepository;
+import ru.itis.trofimoff.todoapp.repositories.user.UserRepositoryImpl;
 import ru.itis.trofimoff.todoapp.utils.mail.sender.EmailUtil;
 import ru.itis.trofimoff.todoapp.utils.mail.generator.MailsGenerator;
 
@@ -40,7 +41,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepositoryImpl userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
