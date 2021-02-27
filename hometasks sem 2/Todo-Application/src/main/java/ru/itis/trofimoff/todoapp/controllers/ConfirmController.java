@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import ru.itis.trofimoff.todoapp.dto.SignInFormDto;
 import ru.itis.trofimoff.todoapp.services.user.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ public class ConfirmController {
         System.out.println(code);
         userService.confirmUser(code);
         model.addAttribute("confirmMessage",  "Confirmed!");
+        model.addAttribute("signInFormDto", new SignInFormDto());
 
         return "sign-in";
     }
