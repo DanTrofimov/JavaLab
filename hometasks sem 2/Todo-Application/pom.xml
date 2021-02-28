@@ -24,7 +24,7 @@
     <java.web.api.version>8.0</java.web.api.version>
 
     <!-- Spring -->
-    <spring.version>5.1.4.RELEASE</spring.version>
+    <spring.version>5.2.13.RELEASE</spring.version>
     <java.validator.version>2.0.1.Final</java.validator.version>
 
     <!-- Other stuff dependencies -->
@@ -107,7 +107,6 @@
       <scope>provided</scope>
     </dependency>
 
-
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
@@ -138,13 +137,24 @@
       <version>2.3.30</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context-support</artifactId>
-      <version>5.2.13.RELEASE</version>
+      <version>${spring.version}</version>
     </dependency>
-
 
     <dependency>
       <groupId>javax.mail</groupId>
@@ -153,10 +163,17 @@
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+    <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>5.4.28.Final</version>
+    </dependency>
+
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-validator</artifactId>
-      <version>6.2.0.Final</version>
+      <version>6.0.13.Final</version>
     </dependency>
 
     <dependency>
@@ -164,7 +181,6 @@
       <artifactId>spring-data-jpa</artifactId>
       <version>2.3.7.RELEASE</version>
     </dependency>
-
   </dependencies>
 
   <build>

@@ -7,8 +7,7 @@ import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
 import ru.itis.trofimoff.todoapp.dto.UserDto;
 import ru.itis.trofimoff.todoapp.dto.UserStatisticsDto;
 import ru.itis.trofimoff.todoapp.models.User;
-import ru.itis.trofimoff.todoapp.repositories.user.UserRepository;
-import ru.itis.trofimoff.todoapp.repositories.user.UserRepositoryImpl;
+import ru.itis.trofimoff.todoapp.repositories.jpa.UserRepository;
 import ru.itis.trofimoff.todoapp.utils.mail.MailLogger;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class FakeUserServiceImpl implements UserService {
     private UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public FakeUserServiceImpl(UserRepositoryImpl userRepository, PasswordEncoder passwordEncoder) {
+    public FakeUserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -71,6 +70,6 @@ public class FakeUserServiceImpl implements UserService {
 
     @Override
     public void confirmUser(String code) {
-        userRepository.confirmUser(code);
+//        userRepository.confirmUser(code);
     }
 }

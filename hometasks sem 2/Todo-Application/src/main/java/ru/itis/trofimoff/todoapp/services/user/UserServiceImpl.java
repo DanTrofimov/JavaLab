@@ -9,8 +9,7 @@ import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
 import ru.itis.trofimoff.todoapp.dto.UserDto;
 import ru.itis.trofimoff.todoapp.dto.UserStatisticsDto;
 import ru.itis.trofimoff.todoapp.models.User;
-import ru.itis.trofimoff.todoapp.repositories.user.UserRepository;
-import ru.itis.trofimoff.todoapp.repositories.user.UserRepositoryImpl;
+import ru.itis.trofimoff.todoapp.repositories.jpa.UserRepository;
 import ru.itis.trofimoff.todoapp.utils.mail.sender.EmailUtil;
 import ru.itis.trofimoff.todoapp.utils.mail.generator.MailsGenerator;
 
@@ -41,7 +40,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepositoryImpl userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -61,11 +60,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<UserDto> findByEmail(String email) {
         Optional<User> user = this.userRepository.findByEmail(email);
-        if (user.isPresent()) {
-            return Optional.of(new UserDto(user.get()));
-        } else {
-           return Optional.empty();
-        }
+        System.out.println(user);
+        return user.map(UserDto::new);
     }
 
     @Override
@@ -90,6 +86,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void confirmUser(String code) {
-        userRepository.confirmUser(code);
+//        userRepository.confirmUser(code);
     }
 }

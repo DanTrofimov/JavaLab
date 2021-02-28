@@ -29,6 +29,8 @@ public class LocalizationConfig implements WebMvcConfigurer {
         registry.addInterceptor(localeChangeInterceptor());
     }
 
+//    fixme: на самом деле я вообще понятия не имею почему
+//     если раскомментировать ето все упадет...
     @Bean
     public LocalValidatorFactoryBean getValidator() {
         LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();

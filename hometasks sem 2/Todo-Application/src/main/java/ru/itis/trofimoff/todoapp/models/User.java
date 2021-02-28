@@ -4,12 +4,20 @@ import lombok.*;
 import ru.itis.trofimoff.todoapp.dto.SignInFormDto;
 import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
 
+import javax.persistence.*;
+
 
 @Data
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
+
+// JPA
+@Entity
+@Table(name = "account")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String name;
     String email;
@@ -18,7 +26,7 @@ public class User {
     int allTodos;
     int doneTodos;
 
-    private Boolean state;
+    private Boolean confirmed;
     private String confirmCode;
 
     // safe
