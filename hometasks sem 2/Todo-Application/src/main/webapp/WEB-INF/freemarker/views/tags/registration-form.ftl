@@ -4,13 +4,21 @@
         <h3 class="form__title"><@spring.message 'sign_up_page.registration.title'/></h3>
 <#--        пока не нашел способа добавить локализованные плейсхолдеры-->
 <#--        <input name="name" placeholder="<@spring.message 'sign_up_page.registration.placeholder.name'/>">-->
-        <@spring.formInput "signUpFormDto.name" "placeholder='name'"/>
+<#--        assigns-->
+
+        <#assign namePlaceholder><@spring.message 'sign_up_page.registration.placeholder.name'/></#assign>
+        <#assign emailPlaceholder><@spring.message 'sign_up_page.registration.placeholder.email'/></#assign>
+        <#assign passPlaceholder><@spring.message 'sign_up_page.registration.placeholder.password'/></#assign>
+        <#assign passrepPlaceholder><@spring.message 'sign_up_page.registration.placeholder.password_repeat'/></#assign>
+
+
+        <@spring.formInput "signUpFormDto.name" "placeholder=" + namePlaceholder />
         <@spring.showErrors "<br>" "error-message"/>
-        <@spring.formInput "signUpFormDto.email" "placeholder='e-mail'"/>
+        <@spring.formInput "signUpFormDto.email" "placeholder=" + emailPlaceholder/>
         <@spring.showErrors "<br>" "error-message"/>
-        <@spring.formPasswordInput "signUpFormDto.password" "placeholder='password'"/>
+        <@spring.formPasswordInput "signUpFormDto.password" "placeholder=" + passPlaceholder/>
         <@spring.showErrors "<br>" "error-message"/>
-        <@spring.formPasswordInput "signUpFormDto.repeatPassword" "placeholder='repeat password'"/>
+        <@spring.formPasswordInput "signUpFormDto.repeatPassword" "placeholder=" + passrepPlaceholder/>
         <@spring.showErrors "<br>" "error-message"/>
         <#if namesErrorMessage??>
             <p class="error-message">${namesErrorMessage}</p>

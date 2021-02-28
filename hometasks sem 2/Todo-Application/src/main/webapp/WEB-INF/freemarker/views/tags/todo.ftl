@@ -9,10 +9,10 @@
         <input value="${id}" name="todo-id" style="display: none">
         <div class="todo-button-wrapper">
             <#if todoGroup == "1">
-                <button type="button" value="change" name="todo-action" class="change-todo-button" id="${id}-button" onmousedown="editTodo(${id}, event)">change</button>
+                <button type="button" value="change" name="todo-action" class="change-todo-button" id="${id}-button" onmousedown="editTodo(${id}, event)"><@spring.message "main_page.todo.change"/></button>
             </#if>
-            <button type="button" value="change" name="todo-action" class="change-edit-todo-button" id="${id}-cancel-button" onmousedown="editTodo(${id}, event)" style="display: none">cancel</button>
-            <button type="submit" value="remove" name="todo-action" id="${id}-delete-button">done</button>
+            <button type="button" value="change" name="todo-action" class="change-edit-todo-button" id="${id}-cancel-button" onmousedown="editTodo(${id}, event)" style="display: none"><@spring.message "main_page.todo.cancel"/></button>
+            <button type="submit" value="remove" name="todo-action" id="${id}-delete-button"><@spring.message "main_page.todo.done"/></button>
         </div>
     </form>
 </#macro>
