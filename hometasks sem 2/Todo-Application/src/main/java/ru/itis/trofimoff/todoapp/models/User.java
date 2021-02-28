@@ -6,6 +6,7 @@ import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
 
 
 @Data
+@NoArgsConstructor
 @Builder
 @AllArgsConstructor
 public class User {

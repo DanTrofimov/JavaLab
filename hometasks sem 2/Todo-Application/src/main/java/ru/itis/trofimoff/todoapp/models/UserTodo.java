@@ -1,12 +1,9 @@
 package ru.itis.trofimoff.todoapp.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class UserTodo {

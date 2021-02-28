@@ -1,13 +1,10 @@
 package ru.itis.trofimoff.todoapp.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import ru.itis.trofimoff.todoapp.dto.TodoDto;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Todo {
