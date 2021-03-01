@@ -53,6 +53,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(hashPassword);
         this.userRepository.save(user);
 
+        // sending email
         String confirmMail = mailsGenerator.getMailForConfirm(serverUrl, user.getConfirmCode(), springContextValue);
         emailUtil.sendMail(user.getEmail(), "Registration", from, confirmMail);
     }
@@ -86,6 +87,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void confirmUser(String code) {
-//        userRepository.confirmUser(code);
+        userRepository.confirmUser(code);
     }
 }

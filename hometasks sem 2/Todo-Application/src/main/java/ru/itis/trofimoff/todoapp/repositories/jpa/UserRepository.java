@@ -10,14 +10,9 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
     // находит по mail
-//    @Query("select user from User user where user.email = :email")
-//    Optional<User> findByEmail(@Param("email") String email);
-//
-    Optional<User> findByEmail(String email); // null
+    Optional<User> findByEmail(String email);
 
-
-
-//    // по коду сетает confirmed на true
-//    void confirmUser(String code);
-
+    // по коду сетает confirmed на true
+    @Query("UPDATE User user SET user.confirmed = true WHERE user.confirmCode = :code")
+    void confirmUser(@Param("code") String code);
 }

@@ -5,6 +5,7 @@ import ru.itis.trofimoff.todoapp.dto.SignInFormDto;
 import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Data
@@ -14,7 +15,7 @@ import javax.persistence.*;
 
 // JPA
 @Entity
-@Table(name = "account")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +29,12 @@ public class User {
 
     private Boolean confirmed;
     private String confirmCode;
+
+    @ManyToMany
+    @JoinTable(name = "users_todos",
+            joinColumns = {@JoinColumn(name = "users_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "todos_id", referencedColumnName = "id")})
+    private List<Todo> todos;
 
     // safe
     public User(int id, String name, String email) {

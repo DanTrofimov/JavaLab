@@ -34,7 +34,7 @@ public class TodoRepositoryImpl implements TodoRepository {
     private RowMapper<Todo> todoRowMapper = row -> Todo.builder()
             .text(row.getString("text").trim())
             .id(row.getInt("id"))
-            .groupId(row.getInt("todogroup"))
+            .group.getId(row.getInt("todogroup"))
             .build();
 
     public TodoRepositoryImpl(DataSource dataSource) {
