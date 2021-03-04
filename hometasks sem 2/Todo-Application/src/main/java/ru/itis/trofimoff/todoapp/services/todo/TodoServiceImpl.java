@@ -3,8 +3,7 @@ package ru.itis.trofimoff.todoapp.services.todo;
 import org.springframework.stereotype.Service;
 import ru.itis.trofimoff.todoapp.dto.TodoDto;
 import ru.itis.trofimoff.todoapp.models.Todo;
-import ru.itis.trofimoff.todoapp.repositories.todo.TodoRepository;
-import ru.itis.trofimoff.todoapp.repositories.todo.TodoRepositoryImpl;
+import ru.itis.trofimoff.todoapp.repositories.jpa.TodoRepository;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ public class TodoServiceImpl implements TodoService {
 
     private TodoRepository todoRepository;
 
-    public TodoServiceImpl(TodoRepositoryImpl todoRepository) {
+    public TodoServiceImpl(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
     }
 
@@ -24,11 +23,14 @@ public class TodoServiceImpl implements TodoService {
         switch (rights) {
             case "admin":
                 todo.setGroupId(2);
-                todoRepository.bindUserWithTodo(todo.getId(), userId);
+                todoRepository.insertTodoIntoUsersTodo(todo.getId(), userId);
+                todoRepository.incrementUserStatAll(userId);
                 break;
             case "users" :
                 todo.setGroupId(1);
-                todoRepository.saveUserTodo(todo, userId);
+                Todo generatedTodo = todoRepository.save(todo); // check how it works
+                todoRepository.insertTodoIntoUsersTodo(generatedTodo.getId(), userId);
+                todoRepository.incrementUserStatAll(userId);
                 break;
             default:
         }
@@ -36,14 +38,15 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public void deleteTodo(int todoId, int userId) {
-        todoRepository.deleteById(todoId, userId);
+        todoRepository.deleteById(todoId);
+        todoRepository.incrementUserStatDone(userId);
     }
 
     @Override
     public void addTodo(TodoDto todoDto) {
         Todo todo = new Todo(todoDto);
         if (!todo.getText().trim().equals("")) {
-            todoRepository.saveTodo(todo);
+            todoRepository.save(todo);
         }
         todoDto.setId(todo.getId());
     }
@@ -51,17 +54,17 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public List<Todo> getUserTodos(int userId) {
-        return todoRepository.getUserTodos(userId);
+        return todoRepository.getUsersTodo(userId);
     }
 
     @Override
     public List<Todo> getUserTodosByGroup(int userId, int groupId) {
-        return todoRepository.getUserTodos(userId, groupId);
+        return todoRepository.getUsersTodoByGroup(userId, groupId);
     }
 
     @Override
     public void updateTodo(TodoDto todoDto) {
         Todo todo = new Todo(todoDto);
-        todoRepository.update(todo);
+        todoRepository.update(todo.getText(), todo.getId());
     }
 }

@@ -10,7 +10,7 @@ public interface TodoRepository extends CrudRepository<Todo> {
 
     void saveUserTodo(Todo todo, int userId);
 
-    void deleteById(int todoId, int userId);
+    void deleteByIdAndChangeUserStat(int todoId, int userId);
 
     void saveTodo(Todo todo);
 

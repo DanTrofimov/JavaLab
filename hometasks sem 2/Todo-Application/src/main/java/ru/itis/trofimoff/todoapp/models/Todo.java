@@ -20,7 +20,7 @@ public class Todo {
     int id;
     String text;
 
-    @ManyToMany(mappedBy = "users") // mb fix
+    @ManyToMany(mappedBy = "todos") // mb fix
     private List<User> users;
 
     @ManyToOne

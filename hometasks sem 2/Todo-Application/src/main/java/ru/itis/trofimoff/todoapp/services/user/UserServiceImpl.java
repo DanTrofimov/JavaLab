@@ -54,14 +54,14 @@ public class UserServiceImpl implements UserService {
         this.userRepository.save(user);
 
         // sending email
-        String confirmMail = mailsGenerator.getMailForConfirm(serverUrl, user.getConfirmCode(), springContextValue);
-        emailUtil.sendMail(user.getEmail(), "Registration", from, confirmMail);
+//        String confirmMail = mailsGenerator.getMailForConfirm(serverUrl, user.getConfirmCode(), springContextValue);
+//        emailUtil.sendMail(user.getEmail(), "Registration", from, confirmMail);
     }
 
     @Override
     public Optional<UserDto> findByEmail(String email) {
         Optional<User> user = this.userRepository.findByEmail(email);
-        System.out.println(user);
+//        System.out.println(user);
         return user.map(UserDto::new);
     }
 
