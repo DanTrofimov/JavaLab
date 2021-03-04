@@ -19,6 +19,7 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String text;
+//    int groupId;
 
     @ManyToMany(mappedBy = "todos") // mb fix
     private List<User> users;
@@ -42,11 +43,11 @@ public class Todo {
         this.text = text;
     }
 
-    public int getGroupId() {
-        return this.group.getId();
-    }
-
-    public void setGroupId(int id) {
-        this.group.setId(id);
-    }
+//    public int getGroupId() {
+//        return this.group.getId();
+//    }
+//
+//    public void setGroupId(int id) {
+//        this.group.setId(id);
+//    }
 }

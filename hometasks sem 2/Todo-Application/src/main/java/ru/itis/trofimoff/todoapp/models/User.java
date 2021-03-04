@@ -7,7 +7,6 @@ import ru.itis.trofimoff.todoapp.dto.SignUpFormDto;
 import javax.persistence.*;
 import java.util.List;
 
-
 @Data
 @NoArgsConstructor
 @Builder

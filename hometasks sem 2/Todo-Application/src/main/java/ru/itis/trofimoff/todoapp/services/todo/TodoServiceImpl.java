@@ -2,6 +2,7 @@ package ru.itis.trofimoff.todoapp.services.todo;
 
 import org.springframework.stereotype.Service;
 import ru.itis.trofimoff.todoapp.dto.TodoDto;
+import ru.itis.trofimoff.todoapp.models.Group;
 import ru.itis.trofimoff.todoapp.models.Todo;
 import ru.itis.trofimoff.todoapp.repositories.jpa.TodoRepository;
 
@@ -22,6 +23,7 @@ public class TodoServiceImpl implements TodoService {
         if (todo.getText().trim().equals("")) return;
         switch (rights) {
             case "admin":
+                // fixme: пофиксить, марсель объяснял
                 todo.setGroupId(2);
                 todoRepository.insertTodoIntoUsersTodo(todo.getId(), userId);
                 todoRepository.incrementUserStatAll(userId);
