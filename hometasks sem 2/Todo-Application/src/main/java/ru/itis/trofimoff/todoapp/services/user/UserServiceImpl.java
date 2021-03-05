@@ -61,9 +61,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<UserDto> findByEmail(String email) {
         Optional<User> user = this.userRepository.findByEmail(email);
-//        System.out.println(user);
         return user.map(UserDto::new);
     }
+
 
     @Override
     public boolean equalsRowPasswordWithHashPassword(String rowPassword, String hashPassword) {
@@ -78,6 +78,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> findAll() {
         List<User> users = userRepository.findAll();
+        List<UserDto> userDtos = new ArrayList<>();
+        users.forEach(user -> {
+            userDtos.add(new UserDto(user));
+        });
+        return userDtos;
+    }
+
+    @Override
+    public List<UserDto> findAllDefaultUsers() {
+        List<User> users = userRepository.findAllDefaultUsers();
         List<UserDto> userDtos = new ArrayList<>();
         users.forEach(user -> {
             userDtos.add(new UserDto(user));

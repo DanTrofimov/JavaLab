@@ -3,6 +3,7 @@ package ru.itis.trofimoff.todoapp.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -16,9 +17,6 @@ import java.util.List;
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String name;
     private int id;
-
-    @OneToMany(mappedBy = "group")
-    List<Todo> todos;
+    private String name;
 }

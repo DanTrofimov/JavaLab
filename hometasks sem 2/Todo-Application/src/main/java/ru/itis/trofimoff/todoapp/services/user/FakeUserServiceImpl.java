@@ -69,6 +69,11 @@ public class FakeUserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserDto> findAllDefaultUsers() {
+        return new ArrayList<>();
+    }
+
+    @Override
     public void confirmUser(String code) {
 //        userRepository.confirmUser(code);
     }

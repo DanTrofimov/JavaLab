@@ -24,7 +24,7 @@ public class Todo {
     @ManyToMany(mappedBy = "todos") // mb fix
     private List<User> users;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "group_id")
     public Group group;
 

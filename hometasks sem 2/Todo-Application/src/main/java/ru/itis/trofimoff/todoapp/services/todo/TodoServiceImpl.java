@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.itis.trofimoff.todoapp.dto.TodoDto;
 import ru.itis.trofimoff.todoapp.models.Group;
 import ru.itis.trofimoff.todoapp.models.Todo;
+import ru.itis.trofimoff.todoapp.repositories.jpa.GroupRepository;
 import ru.itis.trofimoff.todoapp.repositories.jpa.TodoRepository;
 
 import java.util.List;
@@ -12,9 +13,11 @@ import java.util.List;
 public class TodoServiceImpl implements TodoService {
 
     private TodoRepository todoRepository;
+    private GroupRepository groupRepository;
 
-    public TodoServiceImpl(TodoRepository todoRepository) {
+    public TodoServiceImpl(TodoRepository todoRepository, GroupRepository groupRepository) {
         this.todoRepository = todoRepository;
+        this.groupRepository = groupRepository;
     }
 
     @Override
@@ -23,15 +26,34 @@ public class TodoServiceImpl implements TodoService {
         if (todo.getText().trim().equals("")) return;
         switch (rights) {
             case "admin":
-                // fixme: пофиксить, марсель объяснял
-                todo.setGroupId(2);
-                todoRepository.insertTodoIntoUsersTodo(todo.getId(), userId);
+                /* fixme: пофиксить, марсель объяснял
+                    Todo_ - не сохранена
+                    Group - не сохранена
+                    1) сохранить Todo_
+                    2) достать группу
+                    3) ей положить Todo_
+                    4) сохранить группу
+                 */
+//                todo.setGroupId(2);
+                Group adminGroup = groupRepository.findById(2).get(); // if null throw
+                todo.setGroup(adminGroup);
+
+                Todo generatedAdminTodo = todoRepository.save(todo); // check how it works
+
+                System.out.println(generatedAdminTodo);
+
+                todoRepository.insertTodoIntoUsersTodo(userId, generatedAdminTodo.getId());
                 todoRepository.incrementUserStatAll(userId);
                 break;
             case "users" :
-                todo.setGroupId(1);
-                Todo generatedTodo = todoRepository.save(todo); // check how it works
-                todoRepository.insertTodoIntoUsersTodo(generatedTodo.getId(), userId);
+                Group userGroup = groupRepository.findById(1).get(); // if null throw
+                todo.setGroup(userGroup);
+
+                Todo generatedUsersTodo = todoRepository.save(todo); // check how it works
+
+                System.out.println(generatedUsersTodo);
+                System.out.println(userId);
+                todoRepository.insertTodoIntoUsersTodo(userId, generatedUsersTodo.getId());
                 todoRepository.incrementUserStatAll(userId);
                 break;
             default:
@@ -40,19 +62,19 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public void deleteTodo(int todoId, int userId) {
-        todoRepository.deleteById(todoId);
+        todoRepository.removeUserBinding(userId, todoId);
+        todoRepository.removeById(todoId);
         todoRepository.incrementUserStatDone(userId);
     }
 
     @Override
-    public void addTodo(TodoDto todoDto) {
+    public void addTodo(TodoDto todoDto, Group group) {
         Todo todo = new Todo(todoDto);
         if (!todo.getText().trim().equals("")) {
             todoRepository.save(todo);
         }
         todoDto.setId(todo.getId());
     }
-
 
     @Override
     public List<Todo> getUserTodos(int userId) {
