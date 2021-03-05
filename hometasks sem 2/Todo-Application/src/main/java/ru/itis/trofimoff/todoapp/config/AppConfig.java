@@ -39,11 +39,7 @@ import java.util.concurrent.Executors;
 @Configuration
 @ComponentScan("ru.itis.trofimoff.todoapp")
 @EnableWebMvc
-@EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "ru.itis.trofimoff.todoapp.repositories.jpa")
-
 @PropertySource("classpath:application.properties")
-@PropertySource("classpath:db.properties")
 public class AppConfig implements WebMvcConfigurer {
 
   @Autowired
@@ -59,33 +55,6 @@ public class AppConfig implements WebMvcConfigurer {
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
     registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/*");
-  }
-
-  @Bean
-  public FreeMarkerViewResolver freeMarkerViewResolver(){
-    FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
-    resolver.setPrefix("");
-    resolver.setSuffix(".ftl");
-    resolver.setContentType("text/html; charset=utf-8");
-    return resolver;
-  }
-
-  @Bean
-  public FreeMarkerConfigurer freeMarkerConfig(){
-    FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
-    configurer.setTemplateLoaderPath("/WEB-INF/freemarker/views");
-    return configurer;
-  }
-
-  @Bean
-  public freemarker.template.Configuration configuration() {
-    freemarker.template.Configuration configuration = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_30);
-    configuration.setDefaultEncoding("UTF-8");
-    configuration.setTemplateLoader(
-            new SpringTemplateLoader(new ClassRelativeResourceLoader(this.getClass()),
-                    "/"));
-    configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-    return configuration;
   }
 
   @Bean
@@ -129,56 +98,4 @@ public class AppConfig implements WebMvcConfigurer {
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
-
-  @Bean
-  public DataSource dataSource() {
-    return new HikariDataSource(hikariConfig());
-  }
-
-  @Bean
-  public HikariConfig hikariConfig() {
-    HikariConfig hikariConfig = new HikariConfig();
-    hikariConfig.setJdbcUrl(environment.getProperty("db.url"));
-    hikariConfig.setMaximumPoolSize(Integer.parseInt(Objects.requireNonNull(environment.getProperty("db.hikari.max-pool-size"))));
-    hikariConfig.setUsername(environment.getProperty("db.username"));
-    hikariConfig.setPassword(environment.getProperty("db.password"));
-    hikariConfig.setDriverClassName(environment.getProperty("db.driver.classname"));
-    return hikariConfig;
-  }
-
-  @Override
-  public void addViewControllers(ViewControllerRegistry registry) {
-    registry.addViewController("/").setViewName("registration");
-  }
-
-  @Bean
-  public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-    // создаем адаптер, который позволит Hibernate работать с Spring Data Jpa
-    HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
-    hibernateJpaVendorAdapter.setDatabase(Database.POSTGRESQL);
-    // создали фабрику EntityManager как Spring-бин
-    LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
-    entityManagerFactory.setDataSource(dataSource());
-    entityManagerFactory.setPackagesToScan("ru.itis.trofimoff.todoapp.models");
-    entityManagerFactory.setJpaVendorAdapter(hibernateJpaVendorAdapter);
-    entityManagerFactory.setJpaProperties(additionalProperties());
-    return entityManagerFactory;
-  }
-
-  @Bean
-  public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory){
-    JpaTransactionManager transactionManager = new JpaTransactionManager();
-    transactionManager.setEntityManagerFactory(entityManagerFactory);
-
-    return transactionManager;
-  }
-
-  private Properties additionalProperties() {
-    Properties properties = new Properties();
-    properties.setProperty("hibernate.hbm2ddl.auto", "update");
-    properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL95Dialect");
-    properties.setProperty("hibernate.show_sql", "true");
-    return properties;
-  }
-
 }

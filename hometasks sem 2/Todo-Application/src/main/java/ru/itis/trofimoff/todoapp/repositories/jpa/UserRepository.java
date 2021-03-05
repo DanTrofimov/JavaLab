@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     // находит по mail
     Optional<User> findByEmail(String email);
 
-    @Query(value = "select * from users where role = 'user'", nativeQuery = true)
+    @Query(value = "SELECT * FROM users WHERE role = 'user'", nativeQuery = true)
     List<User> findAllDefaultUsers();
 
     // по коду сетает confirmed на true
