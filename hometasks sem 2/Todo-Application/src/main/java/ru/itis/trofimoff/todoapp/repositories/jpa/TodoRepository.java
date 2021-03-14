@@ -49,4 +49,10 @@ public interface TodoRepository extends JpaRepository<Todo, Integer> {
     @Modifying
     @Query(value = "INSERT INTO users_todos(users_id, todos_id) VALUES(?1, ?2)", nativeQuery = true) // native - working?)
     void insertTodoIntoUsersTodo(int userId, int todoId);
+
+    @Query(value = "SELECT users_todos.users_id, todos.text, todos.id, todos.group_id FROM users_todos JOIN todos ON users_todos.todos_id = todos.id WHERE users_todos.users_id = ?1 limit ?2 offset ?3", nativeQuery = true) // native - working?)
+    List<Todo> getUsersTodoWithPagination(int userId, int limit, int offset);
+
+    @Query(value = "SELECT COUNT(*) FROM (SELECT users_todos.users_id, todos.text, todos.id, todos.group_id FROM users_todos JOIN todos ON users_todos.todos_id = todos.id WHERE users_todos.users_id = ?1) as count", nativeQuery = true) // native - working?)
+    int getUsersTodosAmount(int userId);
 }

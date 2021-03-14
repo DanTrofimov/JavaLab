@@ -56,7 +56,16 @@
                     <input type="text" name="todoText" placeholder="<@spring.message "main_page.task.placeholder"/>">
                     <button type="submit"><@spring.message "main_page.task.add"/></button>
                 </form>
-                <#else>
+
+                <#if pageAmount?? && size??>
+                    <div class="pagination">
+                        <#list 1..pageAmount as index>
+                            <a href="<@spring.url "/main/?page=${index - 1}&size=${size}"/>">${index}</a>
+                        </#list>
+                    </div>
+                </#if>
+
+            <#else>
                 <form class="todo-form" action="add-todo" method="post">
                     <input type="text" name="todoText" placeholder="<@spring.message "main_page.task.placeholder"/>">
                     <button type="submit"><@spring.message "main_page.task.add"/></button>

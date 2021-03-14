@@ -26,7 +26,7 @@ public class TodoServiceImpl implements TodoService {
         if (todo.getText().trim().equals("")) return;
         switch (rights) {
             case "admin":
-                /* fixme: пофиксить, марсель объяснял
+                /* fixme: пофиксить, основываясь на том, что объяснял Марсель
                     Todo_ - не сохранена
                     Group - не сохранена
                     1) сохранить Todo_
@@ -82,8 +82,20 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
+    public List<Todo> getUserTodosWithPagination(int userId, int page, int size) {
+        int offset = size * page;
+        return this.todoRepository.getUsersTodoWithPagination(userId, size, offset); // id, limit, offset
+    }
+
+
+    @Override
     public List<Todo> getUserTodosByGroup(int userId, int groupId) {
         return todoRepository.getUsersTodoByGroup(userId, groupId);
+    }
+
+    @Override
+    public int getUsersTodosAmount(int userId) {
+        return this.todoRepository.getUsersTodosAmount(userId);
     }
 
     @Override

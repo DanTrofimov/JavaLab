@@ -36,7 +36,7 @@ public class SignInController {
                 request.getSession().setAttribute("signInError", null);
                 switch (userDto.get().getRole()) {
                     case "user":
-                        return "redirect:/main";
+                        return "redirect:/main?page=0&size=5";
                     case "admin":
                         return "redirect:/admin";
                     default:
