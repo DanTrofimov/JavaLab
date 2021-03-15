@@ -20,7 +20,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Test {
+public class PostRequestTest {
     private static final String endpoint = "https://api.telegram.org/bot1614707727:AAGCxX_J_zCxdJ65mDpkozSxq5lX0Po5JJc/sendDocument?chat_id=406039741";
     private static final String filePath = "D:\\images\\cat.jpg";
     public static void main(String[] args) throws IOException {
