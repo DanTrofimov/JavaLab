@@ -10,6 +10,7 @@ import ru.itis.trofimoff.todoapp.models.Todo;
 import ru.itis.trofimoff.todoapp.models.User;
 import ru.itis.trofimoff.todoapp.services.group.GroupService;
 import ru.itis.trofimoff.todoapp.services.todo.TodoService;
+import ru.itis.trofimoff.todoapp.utils.pagination.PaginationUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -22,6 +23,9 @@ public class UserController {
 
     @Autowired
     public GroupService groupService;
+
+    @Autowired
+    public PaginationUtil paginationUtil;
 
     public int pageSize = 5;
     public int currentPage = 0;
@@ -39,12 +43,11 @@ public class UserController {
         request.getSession().setAttribute("todos", todoObjects);
         request.getSession().setAttribute("groups", groupObjects);
 
-        // for pagination
-        // move to the service
+
         int todosAmount = todoService.getUsersTodosAmount(currentUser.getId());
-        int pageAmount = todosAmount % pageSize == 0 ? todosAmount / pageSize : todosAmount / pageSize + 1;
-        System.out.println(pageAmount);
-        System.out.println(pageSize);
+        int pageAmount = paginationUtil.getPageAmount(todosAmount, pageSize);
+
+
         request.getSession().setAttribute("size", pageSize);
         request.getSession().setAttribute("pageAmount", pageAmount);
         request.getSession().setAttribute("currentPage", currentPage);
