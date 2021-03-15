@@ -49,14 +49,16 @@
         </div>
         <div class="todo-list">
             <#if todos?has_content>
-                <#list todos as todo>
-                    <@userTodo.todo text="${todo.getText()}" id="${todo.getId()}" todoGroup="${todo.getGroup().getId()}"/>
-                </#list>
-                <form class="todo-form" action="add-todo" method="post">
-                    <input type="text" name="todoText" placeholder="<@spring.message "main_page.task.placeholder"/>">
-                    <button type="submit"><@spring.message "main_page.task.add"/></button>
-                </form>
-                
+                <div>
+                    <#list todos as todo>
+                        <@userTodo.todo text="${todo.getText()}" id="${todo.getId()}" todoGroup="${todo.getGroup().getId()}"/>
+                    </#list>
+                    <form class="todo-form" action="add-todo" method="post">
+                        <input type="text" name="todoText" placeholder="<@spring.message "main_page.task.placeholder"/>">
+                        <button type="submit"><@spring.message "main_page.task.add"/></button>
+                    </form>
+                </div>
+
                 <#if pageAmount?? && size??>
                     <div class="pagination">
                         <#if currentPage gt 0>
