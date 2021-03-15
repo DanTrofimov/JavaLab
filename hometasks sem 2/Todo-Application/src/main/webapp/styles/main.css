@@ -190,6 +190,7 @@ body {
 }
 
 .pagination {
+    bottom: 10px;
     display: flex;
     flex-direction: row;
     width: 100%;

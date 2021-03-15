@@ -56,12 +56,18 @@
                     <input type="text" name="todoText" placeholder="<@spring.message "main_page.task.placeholder"/>">
                     <button type="submit"><@spring.message "main_page.task.add"/></button>
                 </form>
-
+                
                 <#if pageAmount?? && size??>
                     <div class="pagination">
+                        <#if currentPage gt 0>
+                            <a href="<@spring.url "/main/?page=${currentPage - 1}&size=${size}"/>"> << </a>
+                        </#if>
                         <#list 1..pageAmount as index>
                             <a href="<@spring.url "/main/?page=${index - 1}&size=${size}"/>">${index}</a>
                         </#list>
+                        <#if currentPage < pageAmount - 1>
+                            <a href="<@spring.url "/main/?page=${currentPage + 1}&size=${size}"/>"> >> </a>
+                        </#if>
                     </div>
                 </#if>
 

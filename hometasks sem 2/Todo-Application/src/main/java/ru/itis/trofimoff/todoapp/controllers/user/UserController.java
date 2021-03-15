@@ -47,6 +47,7 @@ public class UserController {
         System.out.println(pageSize);
         request.getSession().setAttribute("size", pageSize);
         request.getSession().setAttribute("pageAmount", pageAmount);
+        request.getSession().setAttribute("currentPage", currentPage);
 
         return "main";
     }
