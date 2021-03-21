@@ -182,7 +182,7 @@
       <version>2.3.7.RELEASE</version>
     </dependency>
 
-<!--    optional dependencies for post tests-->
+<!--    optional dependencies for post query tests-->
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>

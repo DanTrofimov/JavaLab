@@ -14,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import ru.itis.trofimoff.todoapp.converters.StringGroupConverter;
 import ru.itis.trofimoff.todoapp.interceptors.AuthInterceptor;
 import ru.itis.trofimoff.todoapp.utils.mail.generator.FreemarkerMailsGenerator;
 import ru.itis.trofimoff.todoapp.utils.mail.generator.MailsGenerator;

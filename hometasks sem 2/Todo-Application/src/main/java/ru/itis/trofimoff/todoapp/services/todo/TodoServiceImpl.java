@@ -1,6 +1,8 @@
 package ru.itis.trofimoff.todoapp.services.todo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.itis.trofimoff.todoapp.converters.StringGroupConverter;
 import ru.itis.trofimoff.todoapp.dto.TodoDto;
 import ru.itis.trofimoff.todoapp.models.Group;
 import ru.itis.trofimoff.todoapp.models.Todo;
@@ -12,16 +14,17 @@ import java.util.List;
 @Service
 public class TodoServiceImpl implements TodoService {
 
+    @Autowired
     private TodoRepository todoRepository;
+    @Autowired
     private GroupRepository groupRepository;
+    @Autowired
+    private StringGroupConverter stringGroupConverter;
 
-    public TodoServiceImpl(TodoRepository todoRepository, GroupRepository groupRepository) {
-        this.todoRepository = todoRepository;
-        this.groupRepository = groupRepository;
-    }
 
     @Override
     public void addUsersTodo(TodoDto todoDto, int userId, String rights) {
+        System.out.println(stringGroupConverter.convert(rights));
         Todo todo = new Todo(todoDto);
         if (todo.getText().trim().equals("")) return;
         switch (rights) {
@@ -34,11 +37,13 @@ public class TodoServiceImpl implements TodoService {
                     3) ей положить Todo_
                     4) сохранить группу
                  */
-//                todo.setGroupId(2);
-                Group adminGroup = groupRepository.findById(2).get(); // if null throw
+
+//                Group adminGroup = groupRepository.findById(2).get(); // if null throw
+                Group adminGroup = stringGroupConverter.convert(rights);
+
                 todo.setGroup(adminGroup);
 
-                Todo generatedAdminTodo = todoRepository.save(todo); // check how it works
+                Todo generatedAdminTodo = todoRepository.save(todo);
 
                 System.out.println(generatedAdminTodo);
 
@@ -46,10 +51,11 @@ public class TodoServiceImpl implements TodoService {
                 todoRepository.incrementUserStatAll(userId);
                 break;
             case "users" :
-                Group userGroup = groupRepository.findById(1).get(); // if null throw
+//                Group userGroup = groupRepository.findById(1).get(); // if null throw
+                Group userGroup = stringGroupConverter.convert(rights);
                 todo.setGroup(userGroup);
 
-                Todo generatedUsersTodo = todoRepository.save(todo); // check how it works
+                Todo generatedUsersTodo = todoRepository.save(todo);
 
                 System.out.println(generatedUsersTodo);
                 System.out.println(userId);
@@ -86,7 +92,6 @@ public class TodoServiceImpl implements TodoService {
         int offset = size * page;
         return this.todoRepository.getUsersTodoWithPagination(userId, size, offset); // id, limit, offset
     }
-
 
     @Override
     public List<Todo> getUserTodosByGroup(int userId, int groupId) {
