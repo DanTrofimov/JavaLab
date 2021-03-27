@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.itis.trofimoff.todoapp.dto.UserDto;
 import ru.itis.trofimoff.todoapp.models.Todo;
-import ru.itis.trofimoff.todoapp.models.User;
 import ru.itis.trofimoff.todoapp.services.todo.TodoService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +18,7 @@ public class FilterTodoController {
     public TodoService todoService;
 
     @RequestMapping(value = "/filter-todos", method = RequestMethod.GET)
-    public String getHandleTodo(HttpServletRequest request) {
+    public String getFilterTodo(HttpServletRequest request) {
         int groupId = Integer.parseInt(request.getParameter("group"));
         UserDto currentUser = (UserDto) request.getSession().getAttribute("currentUser");
         List<Todo> todos = todoService.getUserTodosByGroup(currentUser.getId(), groupId);
@@ -29,7 +28,7 @@ public class FilterTodoController {
     }
 
     @RequestMapping(value = "/filter-todos", method = RequestMethod.POST)
-    public String postHandleTodo() {
+    public String postFilterTodo() {
         return "/main";
     }
 }

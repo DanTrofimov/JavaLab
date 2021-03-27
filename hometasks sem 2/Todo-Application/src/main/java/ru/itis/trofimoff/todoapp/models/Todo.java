@@ -17,9 +17,8 @@ public class Todo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
-    String text;
-//    int groupId;
+    private int id;
+    private String text;
 
     @ManyToMany(mappedBy = "todos") // mb fix
     private List<User> users;

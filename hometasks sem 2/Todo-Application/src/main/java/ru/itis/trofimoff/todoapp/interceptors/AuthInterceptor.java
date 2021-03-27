@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class AuthInterceptor implements HandlerInterceptor {
-    protected final String[] protectedPaths = {"/main", "/admin", "/admin-add"};
+    private final String[] protectedPaths = {"/main", "/admin", "/admin-add"};
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {

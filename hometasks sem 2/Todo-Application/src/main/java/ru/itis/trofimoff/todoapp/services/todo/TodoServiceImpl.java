@@ -29,16 +29,6 @@ public class TodoServiceImpl implements TodoService {
         if (todo.getText().trim().equals("")) return;
         switch (rights) {
             case "admin":
-                /* fixme: пофиксить, основываясь на том, что объяснял Марсель
-                    Todo_ - не сохранена
-                    Group - не сохранена
-                    1) сохранить Todo_
-                    2) достать группу
-                    3) ей положить Todo_
-                    4) сохранить группу
-                 */
-
-//                Group adminGroup = groupRepository.findById(2).get(); // if null throw
                 Group adminGroup = stringGroupConverter.convert(rights);
 
                 todo.setGroup(adminGroup);
@@ -51,7 +41,6 @@ public class TodoServiceImpl implements TodoService {
                 todoRepository.incrementUserStatAll(userId);
                 break;
             case "users" :
-//                Group userGroup = groupRepository.findById(1).get(); // if null throw
                 Group userGroup = stringGroupConverter.convert(rights);
                 todo.setGroup(userGroup);
 

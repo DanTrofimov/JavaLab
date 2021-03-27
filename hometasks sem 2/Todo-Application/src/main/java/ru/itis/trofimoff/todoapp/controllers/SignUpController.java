@@ -19,19 +19,19 @@ public class SignUpController {
     public UserService userService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String getRegistrationPageEmptyPath(Model model){
+    public String getRegistrationPageEmptyPathMapping(Model model){
         model.addAttribute("signUpFormDto", new SignUpFormDto());
         return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String getRegistrationPage(Model model){
+    public String getRegistrationPageDefaultMapping(Model model){
         model.addAttribute("signUpFormDto", new SignUpFormDto());
         return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String postRegistrationPage(@Valid SignUpFormDto signUpForm, BindingResult bindingResult, Model model) {
+    public String postRegistrationPageDefaultMapping(@Valid SignUpFormDto signUpForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().stream().anyMatch(error -> {
                 if (Objects.requireNonNull(error.getCodes())[0].equals("signUpFormDto.ValidFields")) {

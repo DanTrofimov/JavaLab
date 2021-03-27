@@ -12,9 +12,9 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class TodoDto {
     @NotBlank
-    String todoText;
-    int id = 0;
-    int group = 0;
+    private String todoText;
+    private int id = 0;
+    private int group = 0;
 
     public TodoDto(String text) {
         this.todoText = text;

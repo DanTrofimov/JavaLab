@@ -9,13 +9,13 @@ import ru.itis.trofimoff.todoapp.models.User;
 @AllArgsConstructor
 @Builder
 public class UserDto {
-    int id;
-    String name;
-    String email;
-    String password;
-    String role; // user / admin
-    int allTodos;
-    int doneTodos;
+    private int id;
+    private String name;
+    private String email;
+    private String password;
+    private String role; // user / admin
+    private int allTodos;
+    private int doneTodos;
 
     public UserDto(User user) {
         this.id = user.getId();

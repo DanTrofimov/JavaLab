@@ -12,23 +12,28 @@ import org.springframework.web.servlet.DispatcherServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
+import java.io.IOException;
 
 public class ApplicationInitializer implements WebApplicationInitializer {
-    @SneakyThrows
+
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext springWebContext = new AnnotationConfigWebApplicationContext();
 
-        PropertySource propertySource = new ResourcePropertySource("classpath:application.properties");
-        springWebContext.getEnvironment().setActiveProfiles((String) propertySource.getProperty("spring.profile"));
+        try {
+            PropertySource propertySource = new ResourcePropertySource("classpath:application.properties");
+            springWebContext.getEnvironment().setActiveProfiles((String) propertySource.getProperty("spring.profile"));
 
-        springWebContext.register(AppConfig.class);
-        servletContext.addListener(new ContextLoaderListener(springWebContext));
+            springWebContext.register(AppConfig.class);
+            servletContext.addListener(new ContextLoaderListener(springWebContext));
 
-        ServletRegistration.Dynamic dispatcherServlet =
-                servletContext.addServlet("dispatcherServlet", new DispatcherServlet(springWebContext));
-        dispatcherServlet.setLoadOnStartup(1);
-        dispatcherServlet.addMapping("/");
+            ServletRegistration.Dynamic dispatcherServlet =
+                    servletContext.addServlet("dispatcherServlet", new DispatcherServlet(springWebContext));
+            dispatcherServlet.setLoadOnStartup(1);
+            dispatcherServlet.addMapping("/");
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
 
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
         characterEncodingFilter.setEncoding("UTF-8");

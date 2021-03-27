@@ -39,5 +39,4 @@ public class FreemarkerConfig implements WebMvcConfigurer {
         configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         return configuration;
     }
-
 }

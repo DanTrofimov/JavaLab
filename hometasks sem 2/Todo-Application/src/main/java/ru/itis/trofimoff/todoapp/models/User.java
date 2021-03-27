@@ -18,13 +18,13 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
-    String name;
-    String email;
-    String password;
-    String role; // user / admin
-    int allTodos;
-    int doneTodos;
+    private int id;
+    private String name;
+    private String email;
+    private String password;
+    private String role; // user / admin
+    private int allTodos;
+    private int doneTodos;
 
     private Boolean confirmed;
     private String confirmCode;

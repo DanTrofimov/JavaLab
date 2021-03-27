@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ru.itis.trofimoff.todoapp.dto.UserDto;
 import ru.itis.trofimoff.todoapp.models.Group;
 import ru.itis.trofimoff.todoapp.models.Todo;
-import ru.itis.trofimoff.todoapp.models.User;
 import ru.itis.trofimoff.todoapp.services.group.GroupService;
 import ru.itis.trofimoff.todoapp.services.todo.TodoService;
 import ru.itis.trofimoff.todoapp.utils.pagination.PaginationUtil;
@@ -27,8 +26,8 @@ public class UserController {
     @Autowired
     public PaginationUtil paginationUtil;
 
-    public int pageSize = 5;
-    public int currentPage = 0;
+    private int pageSize = 5;
+    private int currentPage = 0;
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String getMainPage(HttpServletRequest request){

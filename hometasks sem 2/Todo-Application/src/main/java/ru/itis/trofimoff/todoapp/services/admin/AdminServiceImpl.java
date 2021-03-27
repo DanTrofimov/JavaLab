@@ -29,7 +29,6 @@ public class AdminServiceImpl implements AdminService {
         return userService.findAllDefaultUsers();
     }
 
-    // на самом деле здесь написан быдлокод, как и в принципе во всем остальном проекте, но конкретно здесь он берет свое начало
     @Override
     public void addTodoForSeveralUsers(AdminTodoDto adminDto) {
 
