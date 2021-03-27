@@ -24,35 +24,13 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public void addUsersTodo(TodoDto todoDto, int userId, String rights) {
-        System.out.println(stringGroupConverter.convert(rights));
         Todo todo = new Todo(todoDto);
         if (todo.getText().trim().equals("")) return;
-        switch (rights) {
-            case "admin":
-                Group adminGroup = stringGroupConverter.convert(rights);
-
-                todo.setGroup(adminGroup);
-
-                Todo generatedAdminTodo = todoRepository.save(todo);
-
-                System.out.println(generatedAdminTodo);
-
-                todoRepository.insertTodoIntoUsersTodo(userId, generatedAdminTodo.getId());
-                todoRepository.incrementUserStatAll(userId);
-                break;
-            case "users" :
-                Group userGroup = stringGroupConverter.convert(rights);
-                todo.setGroup(userGroup);
-
-                Todo generatedUsersTodo = todoRepository.save(todo);
-
-                System.out.println(generatedUsersTodo);
-                System.out.println(userId);
-                todoRepository.insertTodoIntoUsersTodo(userId, generatedUsersTodo.getId());
-                todoRepository.incrementUserStatAll(userId);
-                break;
-            default:
-        }
+        Group adminGroup = stringGroupConverter.convert(rights);
+        todo.setGroup(adminGroup);
+        Todo generatedAdminTodo = todoRepository.save(todo);
+        todoRepository.insertTodoIntoUsersTodo(userId, generatedAdminTodo.getId());
+        todoRepository.incrementUserStatAll(userId);
     }
 
     @Override

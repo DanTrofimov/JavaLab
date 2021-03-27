@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.itis.trofimoff.todoapp.dto.SignInFormDto;
 import ru.itis.trofimoff.todoapp.services.user.UserService;
-
 import javax.servlet.http.HttpServletRequest;
-
 
 @Controller
 public class ConfirmController {
