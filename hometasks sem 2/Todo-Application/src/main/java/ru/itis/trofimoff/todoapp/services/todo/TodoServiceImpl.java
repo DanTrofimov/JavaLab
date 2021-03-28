@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.trofimoff.todoapp.converters.StringGroupConverter;
 import ru.itis.trofimoff.todoapp.dto.TodoDto;
+import ru.itis.trofimoff.todoapp.exceptions.UnknownGroupException;
 import ru.itis.trofimoff.todoapp.models.Group;
 import ru.itis.trofimoff.todoapp.models.Todo;
 import ru.itis.trofimoff.todoapp.repositories.jpa.GroupRepository;
@@ -26,8 +27,13 @@ public class TodoServiceImpl implements TodoService {
     public void addUsersTodo(TodoDto todoDto, int userId, String rights) {
         Todo todo = new Todo(todoDto);
         if (todo.getText().trim().equals("")) return;
-        Group adminGroup = stringGroupConverter.convert(rights);
-        todo.setGroup(adminGroup);
+        Group group;
+        try {
+            group = stringGroupConverter.convert(rights);
+        } catch (UnknownGroupException ex) {
+            group = new Group(3, "unsorted");
+        }
+        todo.setGroup(group);
         Todo generatedAdminTodo = todoRepository.save(todo);
         todoRepository.insertTodoIntoUsersTodo(userId, generatedAdminTodo.getId());
         todoRepository.incrementUserStatAll(userId);

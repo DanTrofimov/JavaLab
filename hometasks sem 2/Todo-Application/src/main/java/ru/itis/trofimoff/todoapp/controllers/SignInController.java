@@ -62,15 +62,4 @@ public class SignInController {
 //            return "redirect:/sign-in";
         }
     }
-
-    @RequestMapping(value = "/exception", method = RequestMethod.GET)
-    public String exceptionExample() throws IOException {
-        try {
-            throw new IOException();
-        } catch (IOException ex) {
-            logger.error("Exception: " + ex);
-        }
-        return "error";
-    }
-
 }
