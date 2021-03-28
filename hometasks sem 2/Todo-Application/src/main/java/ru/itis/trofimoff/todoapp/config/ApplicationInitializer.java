@@ -1,7 +1,11 @@
 package ru.itis.trofimoff.todoapp.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.PropertySource;
 import org.springframework.core.io.support.ResourcePropertySource;
+import org.springframework.data.annotation.AccessType;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -13,6 +17,9 @@ import javax.servlet.ServletRegistration;
 import java.io.IOException;
 
 public class ApplicationInitializer implements WebApplicationInitializer {
+
+    @Autowired
+    private Logger logger;
 
     @Override
     public void onStartup(ServletContext servletContext) {
@@ -30,7 +37,7 @@ public class ApplicationInitializer implements WebApplicationInitializer {
             dispatcherServlet.setLoadOnStartup(1);
             dispatcherServlet.addMapping("/");
         } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+            logger.error("Exception {}. Info: {}, Message {}. Stacktrace {}", ex, "from ApplicationInitializer", ex.getMessage(), ex.getStackTrace());
         }
 
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
