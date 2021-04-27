@@ -1,9 +1,10 @@
 package ru.itis.trofimoff;
 
+import ru.itis.trofimoff.annotations.ModelTable;
+
 import javax.sql.DataSource;
 import java.lang.reflect.Field;
 import java.sql.*;
-import java.util.HashMap;
 
 public class EntityManager {
     private final DataSource dataSource;
@@ -12,96 +13,66 @@ public class EntityManager {
         this.dataSource = dataSource;
     }
 
-    public void save(String tableName, Object entity) {
-        Connection connection = null;
-        PreparedStatement statement = null;
+    public String getModelTableName(Class<?> entityClass) {
+        ModelTable annotation = entityClass.getAnnotation(ModelTable.class);
+        return annotation.tableName();
+    }
+
+    public void save(Object entity) {
 
         Class<?> entityClass = entity.getClass();
         Field[] fields = entityClass.getDeclaredFields();
 
         QueryConstructor.init();
-        StringBuilder sql = QueryConstructor.save(tableName, fields);
+        StringBuilder sql = QueryConstructor.save(getModelTableName(entityClass), fields);
 
         // adding entity into the db
-        try {
-            connection = dataSource.getConnection();
-            statement = connection.prepareStatement(sql.toString());
+        try (
+            Connection connection = dataSource.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql.toString())
+        ) {
             for (int i = 0; i < fields.length; i++) {
                 fields[i].setAccessible(true);
                 statement.setObject(i + 1, fields[i].get(entity));
             }
-
             statement.executeUpdate();
-        } catch (SQLException | IllegalAccessException ex) {
+        }  catch (SQLException | IllegalAccessException ex) {
             throw new IllegalArgumentException(ex);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    // ignore
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    // ignore
-                }
-            }
         }
     }
 
-    public <T> void createTable(String tableName, Class<T> entityClass) {
+    public <T> void createTable(Class<T> entityClass) {
 
         Field[] fields = entityClass.getDeclaredFields();
 
         QueryConstructor.init();
-        StringBuilder sql = QueryConstructor.createTable(tableName, fields);
-
-        Connection connection = null;
-        Statement statement = null;
+        StringBuilder sql = QueryConstructor.createTable(getModelTableName(entityClass), fields);
 
         // adding table into the db
-        try {
-            connection = dataSource.getConnection();
-            statement = connection.createStatement();
+        try (
+        Connection connection = dataSource.getConnection();
+        Statement statement = connection.createStatement();
+        ) {
             statement.executeUpdate(sql.toString());
-        } catch (SQLException e) {
-            throw new IllegalArgumentException(e);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    // ignore
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    // ignore
-                }
-            }
+        } catch (SQLException ex) {
+            throw new IllegalArgumentException(ex);
         }
     }
 
-    public <T, ID> T findById(String tableName, Class<T> resultType, ID idValue) {
+    public <T, ID> T findById(Class<T> resultType, ID idValue) {
 
         T result;
 
         QueryConstructor.init();
-        StringBuilder sql = QueryConstructor.findById(tableName);
+        StringBuilder sql = QueryConstructor.findById(getModelTableName(resultType));
 
         ResultSet resultSet = null;
-        Connection connection = null;
-        PreparedStatement statement = null;
 
         // finding entity in the db by id
-        try {
-            connection = dataSource.getConnection();
-            statement = connection.prepareStatement(sql.toString());
+        try (
+            Connection connection = dataSource.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql.toString())
+        ) {
             Field id = resultType.getDeclaredField("id");
             id.setAccessible(true);
             statement.setObject(1, idValue);
@@ -116,30 +87,8 @@ public class EntityManager {
                 result = null;
             }
             return result;
-        } catch (SQLException | NoSuchFieldException | IllegalAccessException | InstantiationException e) {
-            throw new IllegalArgumentException(e);
-        } finally {
-            if (resultSet != null) {
-                try {
-                    resultSet.close();
-                } catch (SQLException throwables) {
-                    // ignore
-                }
-            }
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    // ignore
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    // ignore
-                }
-            }
+        } catch (SQLException | NoSuchFieldException | IllegalAccessException | InstantiationException ex) {
+            throw new IllegalArgumentException(ex);
         }
     }
 
@@ -150,31 +99,14 @@ public class EntityManager {
         QueryConstructor.init();
         StringBuilder sql = QueryConstructor.dropTable(tableName);
 
-        Connection connection = null;
-        PreparedStatement statement = null;
-
         // removing table from the db
-        try {
-            connection = dataSource.getConnection();
-            statement = connection.prepareStatement(sql.toString());
+        try (
+            Connection connection = dataSource.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql.toString());
+        ) {
             statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new IllegalArgumentException(e);
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    // ignore
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    // ignore
-                }
-            }
+        } catch (SQLException ex) {
+            throw new IllegalArgumentException(ex);
         }
     }
 }
