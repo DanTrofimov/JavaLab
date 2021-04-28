@@ -21,6 +21,11 @@ public class EntityManager {
         return annotation.tableName();
     }
 
+//    public void setEntityValue(Class<?> entity, String field, Object value) throws NoSuchMethodException {
+//        entity.getDeclaredMethod(field);
+//        System.out.println();
+//    }
+
     public void save(Object entity) {
 
         Class<?> entityClass = entity.getClass();
