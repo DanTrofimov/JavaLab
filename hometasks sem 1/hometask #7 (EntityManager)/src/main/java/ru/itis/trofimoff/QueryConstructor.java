@@ -1,11 +1,17 @@
 package ru.itis.trofimoff;
 
+import ru.itis.trofimoff.criteria.Criteria;
+
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
 public class QueryConstructor {
 
     private static final HashMap<String, String> types = new HashMap<>();
+
+    public void addType(String type, String dbType) {
+        types.put(type, dbType);
+    }
 
     public static void init() {
         types.put("string", "varchar");
@@ -54,11 +60,10 @@ public class QueryConstructor {
         return sql;
     }
 
-    public static StringBuilder findById(String tableName) {
+    public static StringBuilder findBy(String tableName, StringBuilder criteria) {
         // constructing sql query
         StringBuilder sql = new StringBuilder(DBQueries.SQL_FIND);
-        sql.append(tableName.trim()).append(" WHERE id=?");
-
+        sql.append(tableName.trim()).append(' ').append(criteria);
         return sql;
     }
 }

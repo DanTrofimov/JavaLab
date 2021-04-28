@@ -1,6 +1,7 @@
 package ru.itis.trofimoff;
 
 import ru.itis.trofimoff.annotations.ModelTable;
+import ru.itis.trofimoff.criteria.Criteria;
 
 import javax.sql.DataSource;
 import java.lang.reflect.Field;
@@ -59,23 +60,20 @@ public class EntityManager {
         }
     }
 
-    public <T, ID> T findById(Class<T> resultType, ID idValue) {
+    public <T, ID> T findBy(Class<T> resultType, Criteria criteria) {
 
         T result;
 
         QueryConstructor.init();
-        StringBuilder sql = QueryConstructor.findById(getModelTableName(resultType));
+        StringBuilder sql = QueryConstructor.findBy(getModelTableName(resultType), criteria.query);
 
         ResultSet resultSet = null;
 
-        // finding entity in the db by id
+        // finding entity in the db
         try (
             Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql.toString())
         ) {
-            Field id = resultType.getDeclaredField("id");
-            id.setAccessible(true);
-            statement.setObject(1, idValue);
             resultSet = statement.executeQuery();
             result = resultType.newInstance();
             if (resultSet.next()) {
@@ -87,7 +85,7 @@ public class EntityManager {
                 result = null;
             }
             return result;
-        } catch (SQLException | NoSuchFieldException | IllegalAccessException | InstantiationException ex) {
+        } catch (SQLException | IllegalAccessException | InstantiationException ex) {
             throw new IllegalArgumentException(ex);
         }
     }
