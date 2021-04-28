@@ -6,6 +6,8 @@ import ru.itis.trofimoff.criteria.Criteria;
 import javax.sql.DataSource;
 import java.lang.reflect.Field;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EntityManager {
     private final DataSource dataSource;
@@ -35,6 +37,7 @@ public class EntityManager {
             for (int i = 0; i < fields.length; i++) {
                 fields[i].setAccessible(true);
                 statement.setObject(i + 1, fields[i].get(entity));
+                fields[i].setAccessible(false);
             }
             statement.executeUpdate();
         }  catch (SQLException | IllegalAccessException ex) {
@@ -60,7 +63,7 @@ public class EntityManager {
         }
     }
 
-    public <T, ID> T findBy(Class<T> resultType, Criteria criteria) {
+    public <T, ID> List<T> findBy(Class<T> resultType, Criteria criteria) {
 
         T result;
 
@@ -69,22 +72,24 @@ public class EntityManager {
 
         ResultSet resultSet = null;
 
+        List<T> resultList = new ArrayList<>();
+
         // finding entity in the db
         try (
             Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql.toString())
         ) {
             resultSet = statement.executeQuery();
-            result = resultType.newInstance();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
+                result = resultType.newInstance();
                 for (Field field : resultType.getDeclaredFields()) {
                     field.setAccessible(true);
                     field.set(result, resultSet.getObject(field.getName()));
+                    field.setAccessible(false);
                 }
-            } else {
-                result = null;
+                resultList.add(result);
             }
-            return result;
+            return resultList;
         } catch (SQLException | IllegalAccessException | InstantiationException ex) {
             throw new IllegalArgumentException(ex);
         }

@@ -15,8 +15,13 @@ public class Main {
         entityManager.dropTable("users");
         entityManager.createTable(User.class);
         UUID id = UUID.randomUUID();
-        User user = new User(id, "Bob", "Martin", 69, "solid@gmail.com");
-        entityManager.save( user);
+        User bob = new User(id, "Bob", "Martin", 69, "solid@gmail.com");
+        User barbara = new User(id, "Barbara", "Liskov", 81, "barbara@gmail.com");
+        User linus = new User(id, "Linus", "Torvalds", 51, "linux@gmail.com");
+
+        entityManager.save(bob);
+        entityManager.save(barbara);
+        entityManager.save(linus);
 
         Expression expressionAge = new Expression("users.age", "=", "69");
         Expression expressionName = new Expression("users.firstName", "=", "'Bob'");
