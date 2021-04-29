@@ -1,7 +1,5 @@
 package ru.itis.trofimoff;
 
-import ru.itis.trofimoff.criteria.Criteria;
-
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
@@ -65,5 +63,11 @@ public class QueryConstructor {
         StringBuilder sql = new StringBuilder(DBQueries.SQL_FIND);
         sql.append(tableName.trim()).append(' ').append(criteria);
         return sql;
+    }
+
+    public static StringBuilder getSetterName(String fieldName) {
+        StringBuilder result = new StringBuilder("set");
+        result.append(fieldName.substring(0, 1).toUpperCase()).append(fieldName.substring(1));
+        return result;
     }
 }

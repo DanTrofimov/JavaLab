@@ -5,6 +5,7 @@ import ru.itis.trofimoff.criteria.Criteria;
 
 import javax.sql.DataSource;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +22,14 @@ public class EntityManager {
         return annotation.tableName();
     }
 
-//    public void setEntityValue(Class<?> entity, String field, Object value) throws NoSuchMethodException {
-//        entity.getDeclaredMethod(field);
-//        System.out.println();
-//    }
+    public void setEntityValue(Class<?> entityClass, Object instance, String fieldName, Object value) {
+        StringBuilder setter = QueryConstructor.getSetterName(fieldName);
+        try {
+            entityClass.getDeclaredMethod(setter.toString(), value.getClass()).invoke(instance, value);
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 
     public void save(Object entity) {
 
@@ -90,6 +95,8 @@ public class EntityManager {
                 for (Field field : resultType.getDeclaredFields()) {
                     field.setAccessible(true);
                     field.set(result, resultSet.getObject(field.getName()));
+                    // Class<?> entityClass, Object instance, String field, Object value
+                    setEntityValue(resultType, result, field.getName(), resultSet.getObject(field.getName()));
                     field.setAccessible(false);
                 }
                 resultList.add(result);
