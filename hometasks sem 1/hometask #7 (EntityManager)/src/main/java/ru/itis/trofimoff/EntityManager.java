@@ -104,8 +104,6 @@ public class EntityManager {
                 result = resultType.newInstance();
                 for (Field field : resultType.getDeclaredFields()) {
                     field.setAccessible(true);
-                    field.set(result, resultSet.getObject(field.getName()));
-                    // Class<?> entityClass, Object instance, String field, Object value
                     setEntityValue(resultType, result, field.getName(), resultSet.getObject(field.getName()));
                     field.setAccessible(false);
                 }

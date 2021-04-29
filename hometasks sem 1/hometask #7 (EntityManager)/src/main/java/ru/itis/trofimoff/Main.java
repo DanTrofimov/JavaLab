@@ -44,7 +44,7 @@ public class Main {
                 .build();
 
         System.out.println(entityManager.findBy(User.class, criteria));
-        System.out.println(entityManager.findBy(User.class, criteria));
+        System.out.println(entityManager.findBy(User.class, criteriaArray));
         System.out.println(entityManager.findBy(User.class, criteriaAll));
     }
 }
