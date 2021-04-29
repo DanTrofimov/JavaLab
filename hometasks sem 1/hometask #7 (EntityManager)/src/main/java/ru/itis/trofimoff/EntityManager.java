@@ -2,6 +2,7 @@ package ru.itis.trofimoff;
 
 import ru.itis.trofimoff.annotations.ModelTable;
 import ru.itis.trofimoff.criteria.Criteria;
+import ru.itis.trofimoff.exceptions.*;
 
 import javax.sql.DataSource;
 import java.lang.reflect.Field;
@@ -26,8 +27,12 @@ public class EntityManager {
         StringBuilder setter = QueryConstructor.getSetterName(fieldName);
         try {
             entityClass.getDeclaredMethod(setter.toString(), value.getClass()).invoke(instance, value);
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {
-            System.out.println(ex.getMessage());
+        } catch (NoSuchMethodException ex) {
+            throw new CantFindEntityMethodException();
+        } catch (InvocationTargetException ex) {
+            throw new UnknownSetterException();
+        } catch (IllegalAccessException ex) {
+            throw new NoAccessToEntityMethodException();
         }
     }
 
@@ -50,8 +55,10 @@ public class EntityManager {
                 fields[i].setAccessible(false);
             }
             statement.executeUpdate();
-        }  catch (SQLException | IllegalAccessException ex) {
-            throw new IllegalArgumentException(ex);
+        }  catch (IllegalAccessException ex) {
+            throw new NoAccessToEntityMethodException();
+        } catch (SQLException ex) {
+            throw new ConnectDatabaseException();
         }
     }
 
@@ -69,7 +76,7 @@ public class EntityManager {
         ) {
             statement.executeUpdate(sql.toString());
         } catch (SQLException ex) {
-            throw new IllegalArgumentException(ex);
+            throw new CantFindEntityMethodException();
         }
     }
 
@@ -102,8 +109,12 @@ public class EntityManager {
                 resultList.add(result);
             }
             return resultList;
-        } catch (SQLException | IllegalAccessException | InstantiationException ex) {
-            throw new IllegalArgumentException(ex);
+        } catch (InstantiationException ex) {
+            throw new CreateNewEntityInstanseException();
+        } catch (SQLException ex) {
+            throw new ConnectDatabaseException();
+        } catch (IllegalAccessException ex) {
+            throw new NoAccessToEntityMethodException();
         }
     }
 
@@ -121,7 +132,7 @@ public class EntityManager {
         ) {
             statement.executeUpdate();
         } catch (SQLException ex) {
-            throw new IllegalArgumentException(ex);
+            throw new ConnectDatabaseException();
         }
     }
 }
