@@ -13,5 +13,6 @@ import lombok.NoArgsConstructor;
 public class Expression {
     public String field;
     public String comparingSign;
-    public String comparingValue;
+    public String[] comparingValue;
 }
+

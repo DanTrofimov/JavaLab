@@ -64,10 +64,4 @@ public class QueryConstructor {
         sql.append(tableName.trim()).append(' ').append(criteria);
         return sql;
     }
-
-    public static StringBuilder getSetterName(String fieldName) {
-        StringBuilder result = new StringBuilder("set");
-        result.append(fieldName.substring(0, 1).toUpperCase()).append(fieldName.substring(1));
-        return result;
-    }
 }

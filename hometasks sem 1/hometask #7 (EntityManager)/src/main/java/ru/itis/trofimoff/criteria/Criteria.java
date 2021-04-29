@@ -1,5 +1,7 @@
 package ru.itis.trofimoff.criteria;
 
+import ru.itis.trofimoff.helpers.EntityHelper;
+
 public class Criteria {
 
     public StringBuilder query = new StringBuilder();
@@ -13,11 +15,19 @@ public class Criteria {
         }
 
         public Builder single(Expression expression) {
+            String comparingResult = "";
+            if (expression.comparingValue.length == 1) {
+                comparingResult = expression.comparingValue[0];
+            } else {
+                comparingResult = EntityHelper.convertMultipleComparingValues(expression.comparingValue);
+            }
             criteria.query
                     .append('(')
                     .append(expression.field)
+                    .append(" ")
                     .append(expression.comparingSign)
-                    .append(expression.comparingValue)
+                    .append(" ")
+                    .append(comparingResult)
                     .append(')');
             return this;
         }
@@ -30,6 +40,11 @@ public class Criteria {
         public Builder or(Expression expression) {
             criteria.query.append(" OR ");
             return single(expression);
+        }
+
+        public Builder clear() {
+            criteria.query = new StringBuilder();
+            return this;
         }
 
         public Criteria build() {

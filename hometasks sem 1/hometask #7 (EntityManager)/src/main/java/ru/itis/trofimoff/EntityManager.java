@@ -3,6 +3,7 @@ package ru.itis.trofimoff;
 import ru.itis.trofimoff.annotations.ModelTable;
 import ru.itis.trofimoff.criteria.Criteria;
 import ru.itis.trofimoff.exceptions.*;
+import ru.itis.trofimoff.helpers.EntityHelper;
 
 import javax.sql.DataSource;
 import java.lang.reflect.Field;
@@ -24,7 +25,7 @@ public class EntityManager {
     }
 
     public void setEntityValue(Class<?> entityClass, Object instance, String fieldName, Object value) {
-        StringBuilder setter = QueryConstructor.getSetterName(fieldName);
+        StringBuilder setter = EntityHelper.getSetterName(fieldName);
         try {
             entityClass.getDeclaredMethod(setter.toString(), value.getClass()).invoke(instance, value);
         } catch (NoSuchMethodException ex) {
@@ -86,6 +87,8 @@ public class EntityManager {
 
         QueryConstructor.init();
         StringBuilder sql = QueryConstructor.findBy(getModelTableName(resultType), criteria.query);
+
+        System.out.println(sql.toString());
 
         ResultSet resultSet = null;
 
