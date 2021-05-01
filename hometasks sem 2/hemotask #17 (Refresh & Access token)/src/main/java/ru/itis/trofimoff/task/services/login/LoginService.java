@@ -5,4 +5,5 @@ import ru.itis.trofimoff.task.dto.TokensDto;
 
 public interface LoginService {
     TokensDto login(EmailPasswordDto emailPassword);
+    TokensDto refresh(String refreshToken);
 }

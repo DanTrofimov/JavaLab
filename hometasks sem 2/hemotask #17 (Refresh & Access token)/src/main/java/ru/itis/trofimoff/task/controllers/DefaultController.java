@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import ru.itis.trofimoff.task.dto.EmailPasswordDto;
 import ru.itis.trofimoff.task.dto.TokensDto;
 import ru.itis.trofimoff.task.services.login.LoginService;
@@ -22,7 +23,7 @@ public class DefaultController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokensDto> login(@RequestBody EmailPasswordDto emailPassword) {
-        return ResponseEntity.ok(loginService.login(emailPassword));
+    public ResponseEntity<TokensDto> login(@RequestBody EmailPasswordDto emailPassword, @RequestHeader("REFRESH-TOKEN") String token) {
+        return token != null ? ResponseEntity.ok(loginService.refresh(token)) : ResponseEntity.ok(loginService.login(emailPassword));
     }
 }

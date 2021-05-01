@@ -13,6 +13,7 @@ import ru.itis.trofimoff.task.repository.TokenRepository;
 import ru.itis.trofimoff.task.services.user.UserService;
 import ru.itis.trofimoff.task.utils.TokenGenerator;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import java.util.function.Supplier;
@@ -53,6 +54,28 @@ public class LoginServiceImpl implements LoginService {
                     .build();
         } else {
             throw new UsernameNotFoundException("Invalid username or password");
+        }
+    }
+
+    @Override
+    public TokensDto refresh(String refreshToken) {
+        Optional<Token> token = tokensRepository.findByToken(refreshToken);
+        if (token.isPresent()) {
+            // created refresh token for user
+            String tokenValue = UUID.randomUUID().toString();
+            Token newRefreshToken = Token.builder()
+                    .token(tokenValue)
+                    .user(token.get().getUser())
+                    .build();
+
+            tokensRepository.save(newRefreshToken);
+
+            return TokensDto.builder()
+                    .accessToken(tokenGenerator.createAccessToken(token.get().getUser()))
+                    .refreshToken(tokenValue)
+                    .build();
+        } else {
+            throw new UsernameNotFoundException("Unknown user");
         }
     }
 }
