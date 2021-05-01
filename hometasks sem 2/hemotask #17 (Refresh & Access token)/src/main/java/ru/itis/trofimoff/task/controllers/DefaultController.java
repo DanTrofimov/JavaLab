@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import ru.itis.trofimoff.task.dto.EmailPasswordDto;
-import ru.itis.trofimoff.task.dto.TokenDto;
+import ru.itis.trofimoff.task.dto.TokensDto;
 import ru.itis.trofimoff.task.services.login.LoginService;
 
 @Controller
@@ -22,7 +22,7 @@ public class DefaultController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(@RequestBody EmailPasswordDto emailPassword) {
+    public ResponseEntity<TokensDto> login(@RequestBody EmailPasswordDto emailPassword) {
         return ResponseEntity.ok(loginService.login(emailPassword));
     }
 }

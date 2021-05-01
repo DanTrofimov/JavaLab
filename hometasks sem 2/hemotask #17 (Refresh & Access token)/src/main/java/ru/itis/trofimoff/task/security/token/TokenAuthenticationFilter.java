@@ -17,6 +17,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException, IOException, ServletException {
         String token = request.getHeader("X-TOKEN");
 
+
         if (token != null) {
             TokenAuthentication tokenAuthentication = new TokenAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(tokenAuthentication);
