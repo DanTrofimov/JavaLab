@@ -23,8 +23,6 @@ public class DefaultController {
 
     @PostMapping("/login")
     public ResponseEntity<TokenDto> login(@RequestBody EmailPasswordDto emailPassword) {
-        System.out.println(emailPassword);
-        System.out.println(loginService.login(emailPassword));
         return ResponseEntity.ok(loginService.login(emailPassword));
     }
 }

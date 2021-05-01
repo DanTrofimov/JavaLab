@@ -33,6 +33,7 @@ public class LoginServiceImpl implements LoginService {
         User user = userService.findByEmail(emailPassword.getEmail())
                 .orElseThrow((Supplier<Throwable>) () -> new UsernameNotFoundException("User not found"));
         if (passwordEncoder.matches(emailPassword.getPassword(), user.getHashPassword())) {
+            // generate here tokens
             String tokenValue = UUID.randomUUID().toString();
             Token token = Token.builder()
                     .token(tokenValue)
