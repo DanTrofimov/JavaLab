@@ -1,0 +1,20 @@
+GET http://localhost:8091/todos
+###
+POST http://localhost:8091/todos
+Content-Type: application/json
+
+{
+  "text": "hello world!",
+  "id": "3"
+}
+###
+PUT  http://localhost:8091/todos
+Content-Type: application/json
+
+{
+  "text": "hello world! (edited)",
+  "id": "3"
+}
+###
+DELETE  http://localhost:8091/todos?todoId=3
+###
