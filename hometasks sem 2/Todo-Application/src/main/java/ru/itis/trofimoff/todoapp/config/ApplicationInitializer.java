@@ -1,8 +1,11 @@
 package ru.itis.trofimoff.todoapp.config;
 
-import lombok.SneakyThrows;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.PropertySource;
 import org.springframework.core.io.support.ResourcePropertySource;
+import org.springframework.data.annotation.AccessType;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -10,25 +13,32 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
+import java.io.IOException;
 
 public class ApplicationInitializer implements WebApplicationInitializer {
-    @SneakyThrows
+
+    @Autowired
+    private Logger logger;
+
     @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
+    public void onStartup(ServletContext servletContext) {
         AnnotationConfigWebApplicationContext springWebContext = new AnnotationConfigWebApplicationContext();
 
-        PropertySource propertySource = new ResourcePropertySource("classpath:application.properties");
-        springWebContext.getEnvironment().setActiveProfiles((String) propertySource.getProperty("spring.profile"));
+        try {
+            PropertySource propertySource = new ResourcePropertySource("classpath:application.properties");
+            springWebContext.getEnvironment().setActiveProfiles((String) propertySource.getProperty("spring.profile"));
 
-        springWebContext.register(AppConfig.class);
-        servletContext.addListener(new ContextLoaderListener(springWebContext));
+            springWebContext.register(AppConfig.class);
+            servletContext.addListener(new ContextLoaderListener(springWebContext));
 
-        ServletRegistration.Dynamic dispatcherServlet =
-                servletContext.addServlet("dispatcherServlet", new DispatcherServlet(springWebContext));
-        dispatcherServlet.setLoadOnStartup(1);
-        dispatcherServlet.addMapping("/");
+            ServletRegistration.Dynamic dispatcherServlet =
+                    servletContext.addServlet("dispatcherServlet", new DispatcherServlet(springWebContext));
+            dispatcherServlet.setLoadOnStartup(1);
+            dispatcherServlet.addMapping("/");
+        } catch (IOException ex) {
+            logger.error("Exception {}. Info: {}, Message {}. Stacktrace {}", ex, "from ApplicationInitializer", ex.getMessage(), ex.getStackTrace());
+        }
 
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
         characterEncodingFilter.setEncoding("UTF-8");

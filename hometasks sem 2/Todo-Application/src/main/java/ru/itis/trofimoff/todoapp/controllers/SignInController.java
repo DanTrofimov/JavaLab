@@ -1,17 +1,23 @@
 package ru.itis.trofimoff.todoapp.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import ru.itis.trofimoff.todoapp.config.ApplicationInitializer;
 import ru.itis.trofimoff.todoapp.dto.SignInFormDto;
 import ru.itis.trofimoff.todoapp.dto.UserDto;
 import ru.itis.trofimoff.todoapp.services.user.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Optional;
 
 @Controller
@@ -19,6 +25,9 @@ public class SignInController {
 
     @Autowired
     public UserService userService;
+
+    @Autowired
+    private Logger logger;
 
     @RequestMapping(value = "/sign-in", method = RequestMethod.GET)
     public String getSignInPage(Model model){
@@ -36,7 +45,7 @@ public class SignInController {
                 request.getSession().setAttribute("signInError", null);
                 switch (userDto.get().getRole()) {
                     case "user":
-                        return "redirect:/main";
+                        return "redirect:/main?page=0&size=5";
                     case "admin":
                         return "redirect:/admin";
                     default:

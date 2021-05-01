@@ -1,5 +1,7 @@
 package ru.itis.trofimoff.todoapp.interceptors;
 
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import ru.itis.trofimoff.todoapp.dto.UserDto;
 
@@ -8,10 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class AuthInterceptor implements HandlerInterceptor {
-    protected final String[] protectedPaths = {"/main", "/admin", "/admin-add"};
+    private final String[] protectedPaths = {"/main", "/admin", "/admin-add"};
+
+    @Autowired
+    private Logger logger;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         boolean isProtected = false;
         String currentPath = request.getRequestURI();
         currentPath = currentPath.substring(request.getContextPath().length());
@@ -23,33 +28,37 @@ public class AuthInterceptor implements HandlerInterceptor {
         }
 
         UserDto user = (UserDto) request.getSession().getAttribute("currentUser");
-
-        if (user == null) {
-            if (isProtected) {
-                response.sendRedirect(request.getContextPath() + "/sign-in");
-                return false;
-            } else {
-                return true;
-            }
-        } else {
-            switch (user.getRole()){
-                case "user":
-                    if (isProtected && !currentPath.equals("/main")) {
-                        response.sendRedirect(request.getContextPath() + "/main");
-                        return false;
-                    } else {
-                        return true;
-                    }
-                case "admin":
-                    if (isProtected && currentPath.equals("/main")) {
-                        response.sendRedirect(request.getContextPath() + "/admin");
-                        return false;
-                    } else {
-                        return true;
-                    }
-                default:
+        try {
+            if (user == null) {
+                if (isProtected) {
+                    response.sendRedirect(request.getContextPath() + "/sign-in");
+                    return false;
+                } else {
                     return true;
+                }
+            } else {
+                switch (user.getRole()){
+                    case "user":
+                        if (isProtected && !currentPath.equals("/main")) {
+                            response.sendRedirect(request.getContextPath() + "/main");
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    case "admin":
+                        if (isProtected && currentPath.equals("/main")) {
+                            response.sendRedirect(request.getContextPath() + "/admin");
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    default:
+                        return true;
+                }
             }
+        } catch (IOException ex) {
+            logger.error("Exception: {}, Message: {}, Stacktrace: {}", ex, ex.getMessage(), ex.getStackTrace());
+            return false;
         }
     }
 }

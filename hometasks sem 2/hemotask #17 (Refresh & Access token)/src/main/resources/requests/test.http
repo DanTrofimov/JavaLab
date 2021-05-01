@@ -1,0 +1,31 @@
+GET http://localhost:8091/todos
+###
+POST http://localhost:8091/todos
+Content-Type: application/json
+
+{
+  "text": "hello world!",
+  "id": "3"
+}
+###
+PUT  http://localhost:8091/todos
+Content-Type: application/json
+
+{
+  "text": "hello world! (edited)",
+  "id": "3"
+}
+###
+DELETE  http://localhost:8091/todos?todoId=3
+###
+
+POST http://localhost:8091/login
+Content-Type: application/json
+REFRESH-TOKEN: 4b590198-94c4-4bc4-9d11-e7b1dffc1f36
+
+{
+  "email": "dan@gmail.com",
+  "password": "qwerty007"
+}
+
+###

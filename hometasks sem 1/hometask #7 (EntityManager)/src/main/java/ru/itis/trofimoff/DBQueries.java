@@ -4,7 +4,7 @@ public class DBQueries {
     //language=SQL
     protected static final String SQL_CREATE_TABLE = "create table ";
     //language=SQL
-    protected static final String SQL_DROP_TABLE = "drop table ";
+    protected static final String SQL_DROP_TABLE = "drop table if exists ";
     //language=SQL
     protected static final String SQL_SAVE = "insert into ";
     //language=SQL

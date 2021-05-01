@@ -12,6 +12,7 @@ public interface UserService {
     Optional<UserDto> findByEmail(String email);
     UserStatisticsDto getUserStatistic(int userId);
     List<UserDto> findAll();
+    List<UserDto> findAllDefaultUsers();
     boolean equalsRowPasswordWithHashPassword(String rowPassword, String hashPassword);
     void confirmUser(String code);
 }

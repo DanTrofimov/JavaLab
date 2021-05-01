@@ -1,27 +1,23 @@
 package ru.itis.trofimoff.todoapp.config;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-import freemarker.template.TemplateExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.ClassRelativeResourceLoader;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.ui.freemarker.SpringTemplateLoader;
-import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import ru.itis.trofimoff.todoapp.interceptors.AuthInterceptor;
-import ru.itis.trofimoff.todoapp.utils.mail.sender.EmailUtil;
-import ru.itis.trofimoff.todoapp.utils.mail.sender.EmailUtilImpl;
 import ru.itis.trofimoff.todoapp.utils.mail.generator.FreemarkerMailsGenerator;
 import ru.itis.trofimoff.todoapp.utils.mail.generator.MailsGenerator;
 
-import javax.sql.DataSource;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
@@ -31,7 +27,6 @@ import java.util.concurrent.Executors;
 @ComponentScan("ru.itis.trofimoff.todoapp")
 @EnableWebMvc
 @PropertySource("classpath:application.properties")
-@PropertySource("classpath:db.properties")
 public class AppConfig implements WebMvcConfigurer {
 
   @Autowired
@@ -47,33 +42,6 @@ public class AppConfig implements WebMvcConfigurer {
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
     registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/*");
-  }
-
-  @Bean
-  public FreeMarkerViewResolver freeMarkerViewResolver(){
-    FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
-    resolver.setPrefix("");
-    resolver.setSuffix(".ftl");
-    resolver.setContentType("text/html; charset=utf-8");
-    return resolver;
-  }
-
-  @Bean
-  public FreeMarkerConfigurer freeMarkerConfig(){
-    FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
-    configurer.setTemplateLoaderPath("/WEB-INF/freemarker/views");
-    return configurer;
-  }
-
-  @Bean
-  public freemarker.template.Configuration configuration() {
-    freemarker.template.Configuration configuration = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_30);
-    configuration.setDefaultEncoding("UTF-8");
-    configuration.setTemplateLoader(
-            new SpringTemplateLoader(new ClassRelativeResourceLoader(this.getClass()),
-                    "/"));
-    configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-    return configuration;
   }
 
   @Bean
@@ -109,33 +77,7 @@ public class AppConfig implements WebMvcConfigurer {
   }
 
   @Bean
-  public EmailUtil emailUtil() {
-    return new EmailUtilImpl();
-  }
-  
-  @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
-  }
-
-  @Bean
-  public DataSource dataSource() {
-    return new HikariDataSource(hikariConfig());
-  }
-
-  @Bean
-  public HikariConfig hikariConfig() {
-    HikariConfig hikariConfig = new HikariConfig();
-    hikariConfig.setJdbcUrl(environment.getProperty("db.url"));
-    hikariConfig.setMaximumPoolSize(Integer.parseInt(Objects.requireNonNull(environment.getProperty("db.hikari.max-pool-size"))));
-    hikariConfig.setUsername(environment.getProperty("db.username"));
-    hikariConfig.setPassword(environment.getProperty("db.password"));
-    hikariConfig.setDriverClassName(environment.getProperty("db.driver.classname"));
-    return hikariConfig;
-  }
-
-  @Override
-  public void addViewControllers(ViewControllerRegistry registry) {
-    registry.addViewController("/").setViewName("registration");
   }
 }

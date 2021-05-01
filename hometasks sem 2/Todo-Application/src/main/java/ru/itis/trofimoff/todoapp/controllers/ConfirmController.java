@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.itis.trofimoff.todoapp.dto.SignInFormDto;
 import ru.itis.trofimoff.todoapp.services.user.UserService;
-
 import javax.servlet.http.HttpServletRequest;
-
 
 @Controller
 public class ConfirmController {
@@ -19,7 +17,7 @@ public class ConfirmController {
     public UserService userService;
 
     @RequestMapping(value = "/confirm/{code}", method = RequestMethod.GET)
-    public String getMainPage(HttpServletRequest request, @PathVariable String code, Model model){
+    public String getConfirmUser(HttpServletRequest request, @PathVariable String code, Model model){
 
         System.out.println(code);
         userService.confirmUser(code);

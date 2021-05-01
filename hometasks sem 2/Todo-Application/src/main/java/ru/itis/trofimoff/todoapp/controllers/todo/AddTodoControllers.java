@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.itis.trofimoff.todoapp.dto.TodoDto;
 import ru.itis.trofimoff.todoapp.dto.UserDto;
-import ru.itis.trofimoff.todoapp.models.Todo;
 import ru.itis.trofimoff.todoapp.services.todo.TodoService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +28,7 @@ public class AddTodoControllers {
         UserDto currentUser = (UserDto) request.getSession().getAttribute("currentUser");
         if (!bindingResult.hasErrors()) {
             todoService.addUsersTodo(todoDto, currentUser.getId(), "users");
+            System.out.println("current user: " + currentUser.toString());
         }
         return "redirect:/main";
     }

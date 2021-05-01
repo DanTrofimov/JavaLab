@@ -7,29 +7,19 @@ public class QueryConstructor {
 
     private static final HashMap<String, String> types = new HashMap<>();
 
+    public void addType(String type, String dbType) {
+        types.put(type, dbType);
+    }
+
     public static void init() {
         types.put("string", "varchar");
         types.put("long", "bigint");
         types.put("integer", "int");
+        types.put("uuid", "uuid");
     }
 
     public static String getTypeForDataBase(String fieldType) {
         return types.get(fieldType);
-    }
-
-    public static StringBuilder save(String tableName, Field[] fields) {
-        // constructing full sql query
-        StringBuilder sql = new StringBuilder(DBQueries.SQL_SAVE);
-        // adding field-name
-        sql.append(tableName.trim()).append(" values(");
-        for (int i = 0; i < fields.length; i++) {
-            sql.append("?");
-            if (i + 1 != fields.length) {
-                sql.append(", ");
-            }
-        }
-        sql.append(");");
-        return sql;
     }
 
     public static StringBuilder createTable(String tableName, Field[] fields) {
@@ -47,18 +37,31 @@ public class QueryConstructor {
         return sql;
     }
 
-    public static StringBuilder findById(String tableName) {
-        // constructing sql query
-        StringBuilder sql = new StringBuilder(DBQueries.SQL_FIND);
-        sql.append(tableName.trim()).append(" WHERE id=?");
-
-        return sql;
-    }
-
     public static StringBuilder dropTable(String tableName) {
         StringBuilder sql = new StringBuilder(DBQueries.SQL_DROP_TABLE);
         sql.append(tableName);
+        return sql;
+    }
 
+    public static StringBuilder save(String tableName, Field[] fields) {
+        // constructing full sql query
+        StringBuilder sql = new StringBuilder(DBQueries.SQL_SAVE);
+        // adding field-name
+        sql.append(tableName.trim()).append(" values(");
+        for (int i = 0; i < fields.length; i++) {
+            sql.append("?");
+            if (i + 1 != fields.length) {
+                sql.append(", ");
+            }
+        }
+        sql.append(");");
+        return sql;
+    }
+
+    public static StringBuilder findBy(String tableName, StringBuilder criteria) {
+        // constructing sql query
+        StringBuilder sql = new StringBuilder(DBQueries.SQL_FIND);
+        sql.append(tableName.trim()).append(' ').append(criteria);
         return sql;
     }
 }

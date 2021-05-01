@@ -18,12 +18,12 @@ public class UserStatisticsController {
 
     @RequestMapping(value = "/user-statistics", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public UserStatisticsDto getAddTodo(HttpServletRequest request) {
+    public UserStatisticsDto getUsersStatistics(HttpServletRequest request) {
         return userService.getUserStatistic(Integer.parseInt(request.getParameter("userId")));
     }
 
     @RequestMapping(value = "/user-statistics", method = RequestMethod.POST)
-    public String postAddTodo(HttpServletRequest request) {
+    public String postUsersStatistics(HttpServletRequest request) {
         return "redirect:/main";
     }
 }

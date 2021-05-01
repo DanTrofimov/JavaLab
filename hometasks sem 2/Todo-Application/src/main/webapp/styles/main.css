@@ -72,7 +72,9 @@ body {
     width: 500px;
     display: flex;
     flex-direction: column;
-    margin: 30px 20px 50px 20px;
+    margin: 30px 20px 20px 20px;
+
+    justify-content: space-between;
 }
 
 .empty-todos-image {
@@ -187,4 +189,17 @@ body {
 
 .filter-button:hover {
     background-color: #91c195;
+}
+
+.pagination {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+}
+
+.pagination > a {
+    margin-right: 10px;
 }

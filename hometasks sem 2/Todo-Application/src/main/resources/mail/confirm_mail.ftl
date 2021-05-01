@@ -14,8 +14,8 @@
     </style>
 </head>
 <body>
-<h1>Please click the link below to confirm your email:</h1>
-<img src="https://www.meme-arsenal.com/memes/d06842366e1b8012d92fde048446e016.jpg" alt="">
+<h1></h1>
+<img src="https://sun2.tattelecom-nbc.userapi.com/impg/a1Y7d2D1WOJBWrBF0VUpb-ImYHq3W2grY0aE6A/nCaJXdCKO5U.jpg?size=1022x1080&quality=96&sign=7aeb9d529d79319181793b2dd6ae4393&type=album" alt="">
 <h2><a href="${server_url}/${server_contextapp}/confirm/${confirm_code}">Click me!</a></h2>
 </body>
 </html>
