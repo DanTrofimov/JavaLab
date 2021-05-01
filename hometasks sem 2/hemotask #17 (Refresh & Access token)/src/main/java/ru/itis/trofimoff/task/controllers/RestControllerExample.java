@@ -15,7 +15,7 @@ public class RestControllerExample {
     public TodoService todoService;
 
     @GetMapping("/todos")
-    public ResponseEntity<List<Todo>> getTodos() {
+    public ResponseEntity<List<Todo>> getTodos(@RequestHeader("X-TOKEN") String token) {
         return ResponseEntity.ok(todoService.findAllTodos());
     }
 
