@@ -20,7 +20,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String email;
 
@@ -35,6 +35,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String patronymic;
+    private String redisId;
 
     public enum State {
         ACTIVE, BANNED

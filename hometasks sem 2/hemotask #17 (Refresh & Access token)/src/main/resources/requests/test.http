@@ -1,5 +1,5 @@
 GET http://localhost:8091/todos
-X-TOKEN: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmluZ1RpbWUiOjE2MjEwOTA5NTYxNDMsInN1YiI6IjEiLCJyb2xlIjoiQURNSU4iLCJzdGF0ZSI6IkFDVElWRSIsImVtYWlsIjoiZGFuQGdtYWlsLmNvbSJ9.Z2sFRa6OtZRkJJZepdrc3ZOWk6QJsEpJFbPjVgB-ozk
+X-TOKEN: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmluZ1RpbWUiOjE2MjExMDY1NzA3NTUsInN1YiI6IjEiLCJyb2xlIjoiQURNSU4iLCJzdGF0ZSI6IkFDVElWRSIsImVtYWlsIjoiZGFuQGdtYWlsLmNvbSJ9.mTLiI931fLWpm6Ns64b6mIqB_IaDcXpRTuk89ZCdC5o
 
 ###
 POST http://localhost:8091/todos
@@ -23,7 +23,7 @@ DELETE  http://localhost:8091/todos?todoId=3
 
 POST http://localhost:8091/login
 Content-Type: application/json
-REFRESH-TOKEN: 4b590198-94c4-4bc4-9d11-e7b1dffc1f36
+REFRESH-TOKEN: stub
 
 {
   "email": "dan@gmail.com",
@@ -34,5 +34,9 @@ REFRESH-TOKEN: 4b590198-94c4-4bc4-9d11-e7b1dffc1f36
 
 GET http://localhost:8091/logout
 X-TOKEN: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmluZ1RpbWUiOjE2MjEwOTA5NTYxNDMsInN1YiI6IjEiLCJyb2xlIjoiQURNSU4iLCJzdGF0ZSI6IkFDVElWRSIsImVtYWlsIjoiZGFuQGdtYWlsLmNvbSJ9.Z2sFRa6OtZRkJJZepdrc3ZOWk6QJsEpJFbPjVgB-ozk
+
+###
+
+POST http://localhost:8091/users/1/block
 
 ###
