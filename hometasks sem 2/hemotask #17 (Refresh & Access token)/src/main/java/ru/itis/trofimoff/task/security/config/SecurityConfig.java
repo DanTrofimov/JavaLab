@@ -9,9 +9,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import ru.itis.trofimoff.task.security.filters.AccessTokenFilter;
 import ru.itis.trofimoff.task.security.token.TokenAuthenticationFilter;
 import ru.itis.trofimoff.task.security.token.TokenAuthenticationProvider;
 import ru.itis.trofimoff.task.security.token.TokenLogoutFilter;
+
+import javax.persistence.Access;
 
 @Configuration
 @EnableWebSecurity(debug = true)
@@ -27,6 +30,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private TokenAuthenticationProvider tokenAuthenticationProvider;
 
+    @Autowired
+    private AccessTokenFilter accessTokenFilter;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -35,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterAt(tokenLogoutFilter, LogoutFilter.class)
+                .addFilter(accessTokenFilter)
                 .authorizeRequests()
                 .antMatchers("/todos").hasAuthority("ADMIN")
                 .antMatchers("/logout").hasAnyAuthority()

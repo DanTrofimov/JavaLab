@@ -23,7 +23,7 @@ public class DefaultController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokensDto> login(@RequestBody EmailPasswordDto emailPassword, @RequestHeader("REFRESH-TOKEN") String token) {
+    public ResponseEntity<TokensDto> login(@RequestBody EmailPasswordDto emailPassword, @RequestHeader("X-TOKEN") String token) {
         return !token.equals("stub") ? ResponseEntity.ok(loginService.refresh(token)) : ResponseEntity.ok(loginService.login(emailPassword));
     }
 }
