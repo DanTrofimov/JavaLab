@@ -11,6 +11,8 @@ import ru.itis.trofimoff.task.dto.EmailPasswordDto;
 import ru.itis.trofimoff.task.dto.TokensDto;
 import ru.itis.trofimoff.task.services.login.LoginService;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class DefaultController {
 
@@ -23,7 +25,9 @@ public class DefaultController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokensDto> login(@RequestBody EmailPasswordDto emailPassword, @RequestHeader("X-TOKEN") String token) {
-        return !token.equals("stub") ? ResponseEntity.ok(loginService.refresh(token)) : ResponseEntity.ok(loginService.login(emailPassword));
+    public ResponseEntity<TokensDto> login(@RequestBody EmailPasswordDto emailPassword, HttpServletRequest request) {
+        String token = request.getHeader("X-TOKEN");
+        System.out.println("X-TOKEN: " + token);
+        return token != null ? ResponseEntity.ok(loginService.refresh(token)) : ResponseEntity.ok(loginService.login(emailPassword));
     }
 }

@@ -21,21 +21,15 @@ public class AccessTokenFilter extends OncePerRequestFilter {
 
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException, IOException, ServletException {
-
         String token = request.getHeader("X-TOKEN");
-
         if (token != null) {
-
             if (service.exists(token)) {
-                System.out.println("forbidden!");
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 return;
             }
-
             TokenAuthentication tokenAuthentication = new TokenAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(tokenAuthentication);
         }
-
         filterChain.doFilter(request, response);
     }
 }

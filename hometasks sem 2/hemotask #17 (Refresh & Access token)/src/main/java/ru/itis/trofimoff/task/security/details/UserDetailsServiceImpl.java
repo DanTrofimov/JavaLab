@@ -29,6 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private TokenGenerator tokenGenerator;
 
     @SneakyThrows
+
     @Override
     public UserDetails loadUserByUsername(String token) throws UsernameNotFoundException {
         // getting access token -> building user -> creating UserDetails

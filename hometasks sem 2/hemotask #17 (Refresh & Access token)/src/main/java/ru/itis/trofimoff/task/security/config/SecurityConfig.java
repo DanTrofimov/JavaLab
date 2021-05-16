@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import ru.itis.trofimoff.task.security.filters.AccessTokenFilter;
+import ru.itis.trofimoff.task.security.filters.RefreshTokenFilter;
 import ru.itis.trofimoff.task.security.token.TokenAuthenticationFilter;
 import ru.itis.trofimoff.task.security.token.TokenAuthenticationProvider;
 import ru.itis.trofimoff.task.security.token.TokenLogoutFilter;
@@ -33,6 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AccessTokenFilter accessTokenFilter;
 
+    @Autowired
+    private RefreshTokenFilter refreshTokenFilter;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -40,12 +44,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(accessTokenFilter, TokenAuthenticationFilter.class)
+                .addFilterBefore(refreshTokenFilter, TokenAuthenticationFilter.class)
                 .addFilterAt(tokenLogoutFilter, LogoutFilter.class)
-                .addFilter(accessTokenFilter)
                 .authorizeRequests()
+                .antMatchers("/login").permitAll()
                 .antMatchers("/todos").hasAuthority("ADMIN")
                 .antMatchers("/logout").hasAnyAuthority()
-                .antMatchers("/login").permitAll()
                 .and()
                 .sessionManagement().disable();
     }
