@@ -13,7 +13,6 @@ public class DefaultController {
 
     @GetMapping(value = "/sign-in")
     public String getSignInPage() {
-        System.out.println("hello!");
         return "sign-in";
     }
 

@@ -20,5 +20,10 @@ public class Method {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     String name;
-    Integer callAmount;
+    Integer amount;
+
+    public Method(String name) {
+        this.name = name;
+        this.amount = 0;
+    }
 }

@@ -3,6 +3,7 @@ package ru.itis.trofimoff.config;
 import freemarker.template.TemplateExceptionHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.io.ClassRelativeResourceLoader;
 import org.springframework.ui.freemarker.SpringTemplateLoader;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
