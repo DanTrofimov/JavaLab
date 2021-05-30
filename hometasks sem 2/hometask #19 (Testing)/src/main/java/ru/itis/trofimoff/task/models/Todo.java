@@ -20,4 +20,8 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String text;
+
+    public Todo(String text) {
+        this.text = text;
+    }
 }

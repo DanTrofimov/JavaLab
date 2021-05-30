@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.trofimoff.task.models.Todo;
+import ru.itis.trofimoff.task.repository.jdbc.TodoJdbcRepository;
 import ru.itis.trofimoff.task.services.todo.TodoService;
 
 import java.util.List;
@@ -32,5 +33,10 @@ public class RestControllerExample {
     @DeleteMapping("/todos")
     public ResponseEntity<?> deleteTodo(@RequestParam Integer todoId) {
         return ResponseEntity.ok(todoService.deleteTodo(todoId));
+    }
+
+    @GetMapping("/todos-jdbc")
+    public ResponseEntity<List<Todo>> getJdbcTodos() {
+        return ResponseEntity.ok(todoService.findAllJdbcTodos());
     }
 }

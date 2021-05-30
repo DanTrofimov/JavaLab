@@ -32,6 +32,7 @@ public class RestControllerExampleTest {
     @MockBean
     private TodoService todoService;
 
+    //Arrange
     @BeforeEach
     public void setUp() {
         when(todoService.findAllTodos()).thenReturn(Collections.singletonList(

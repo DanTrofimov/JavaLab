@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.trofimoff.task.models.Todo;
 import ru.itis.trofimoff.task.repository.TodoRepository;
+import ru.itis.trofimoff.task.repository.jdbc.TodoJdbcRepository;
 
 import java.util.List;
 
@@ -12,6 +13,9 @@ public class TodoServiceImpl implements TodoService {
 
     @Autowired
     public TodoRepository todoRepository;
+
+    @Autowired
+    public TodoJdbcRepository todoJdbcRepository;
 
     @Override
     public List<Todo> findAllTodos() {
@@ -39,5 +43,10 @@ public class TodoServiceImpl implements TodoService {
         Todo deletingTodo = todoRepository.findById(id);
         todoRepository.deleteById(id);
         return deletingTodo;
+    }
+
+    @Override
+    public List<Todo> findAllJdbcTodos() {
+        return todoJdbcRepository.findAllTodos();
     }
 }

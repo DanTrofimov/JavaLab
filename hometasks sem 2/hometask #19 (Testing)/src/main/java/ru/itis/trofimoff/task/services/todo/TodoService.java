@@ -10,4 +10,5 @@ public interface TodoService {
     Todo saveTodo(Todo todo);
     Todo updateTodo(Todo todo);
     Todo deleteTodo(int id);
+    List<Todo> findAllJdbcTodos();
 }

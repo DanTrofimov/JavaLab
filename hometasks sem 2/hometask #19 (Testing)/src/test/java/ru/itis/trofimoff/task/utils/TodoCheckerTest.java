@@ -23,6 +23,7 @@ public class TodoCheckerTest {
     @Mock
     private TodoMapper todoMapper;
 
+    //Arrange
     @BeforeEach
     public void setUp() {
         lenient().when(todoMapper.mapTodo("IMPORTANT create API")).thenReturn("important todo");
