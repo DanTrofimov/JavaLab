@@ -2,7 +2,9 @@
 rep for tasks from Java Lab
 
 # List of lectures
+
 ##1st semester
+
 * [Threads p.1](https://www.youtube.com/watch?v=I64DGoWQwGY&ab_channel=itdrive)
 * [Threads p.2](https://www.youtube.com/watch?v=R5hJnwWx9p4&ab_channel=itdrive)
 * [Jar-files](https://www.youtube.com/watch?v=A9S-2bMusac&feature=youtu.be&ab_channel=itdrive)
@@ -25,6 +27,7 @@ rep for tasks from Java Lab
 * [Hibernate](https://www.youtube.com/watch?v=PpLfC367juI&feature=youtu.be&ab_channel=itdrive)
 
 ##2nd semester
+
 * [Hibernate p.1](https://www.youtube.com/watch?v=gLLhu03d9GY&ab_channel=itdrive)
 * [Hibernate p.2](https://www.youtube.com/watch?v=8hePAj9bs6I&ab_channel=itdrive)
 * [JPA](https://www.youtube.com/watch?v=60fgYTTFTM8&ab_channel=itdriveitdrive)
