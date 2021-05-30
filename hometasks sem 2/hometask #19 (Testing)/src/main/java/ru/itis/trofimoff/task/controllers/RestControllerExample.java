@@ -25,8 +25,8 @@ public class RestControllerExample {
     }
 
     @PutMapping("/todos")
-    public void putTodo(@RequestBody  Todo todo) {
-        todoService.updateTodo(todo);
+    public ResponseEntity<?> putTodo(@RequestBody Todo todo) {
+        return ResponseEntity.ok(todoService.updateTodo(todo));
     }
 
     @DeleteMapping("/todos")

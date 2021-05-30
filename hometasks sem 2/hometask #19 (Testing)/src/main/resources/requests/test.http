@@ -1,0 +1,30 @@
+GET http://localhost:8091/todos
+Content-Type: application/json
+
+{
+  "id": 4
+}
+###
+
+POST http://localhost:8091/todos
+Content-Type: application/json
+
+{
+  "text": "IMPORTANT deploy staging"
+}
+
+###
+
+DELETE http://localhost:8091/todos?todoId=4
+
+###
+
+PUT http://localhost:8091/todos
+Content-Type: application/json
+
+{
+  "id": 5,
+  "text": "FEATURE add PWA (edited)"
+}
+
+###

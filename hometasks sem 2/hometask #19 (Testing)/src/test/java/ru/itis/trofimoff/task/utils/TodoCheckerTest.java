@@ -8,13 +8,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.itis.trofimoff.task.utils.checker.TodoChecker;
 import ru.itis.trofimoff.task.utils.mapper.TodoMapper;
-import ru.itis.trofimoff.task.utils.mapper.TodoMapperImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.lenient;
 
 
 @DisplayNameGeneration(value = DisplayNameGenerator.ReplaceUnderscores.class)

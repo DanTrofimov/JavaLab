@@ -29,12 +29,15 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public void updateTodo(Todo todo) {
+    public Todo updateTodo(Todo todo) {
         todoRepository.update(todo.getText(), todo.getId());
+        return todoRepository.findById(todo.getId());
     }
 
     @Override
     public Todo deleteTodo(int id) {
-        return  todoRepository.deleteById(id);
+        Todo deletingTodo = todoRepository.findById(id);
+        todoRepository.deleteById(id);
+        return deletingTodo;
     }
 }
