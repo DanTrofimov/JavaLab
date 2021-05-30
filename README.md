@@ -23,6 +23,7 @@ rep for tasks from Java Lab
 * [Classes for Multithreading](https://www.youtube.com/watch?v=W9Kg5mBCdxQ&feature=youtu.be&ab_channel=itdrive)
 * [CountDownLatch](https://trello.com/c/q9lh320n/32-countdownlatch)
 * [Hibernate](https://www.youtube.com/watch?v=PpLfC367juI&feature=youtu.be&ab_channel=itdrive)
+
 ##2nd semester
 * [Hibernate p.1](https://www.youtube.com/watch?v=gLLhu03d9GY&ab_channel=itdrive)
 * [Hibernate p.2](https://www.youtube.com/watch?v=8hePAj9bs6I&ab_channel=itdrive)
