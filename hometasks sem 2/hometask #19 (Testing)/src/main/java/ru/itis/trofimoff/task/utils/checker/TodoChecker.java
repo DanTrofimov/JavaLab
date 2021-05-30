@@ -1,13 +1,14 @@
 package ru.itis.trofimoff.task.utils.checker;
 
+import lombok.AllArgsConstructor;
 import ru.itis.trofimoff.task.utils.EmptyStringException;
 import ru.itis.trofimoff.task.utils.mapper.TodoMapper;
-import ru.itis.trofimoff.task.utils.mapper.TodoMapperImpl;
 
+@AllArgsConstructor
 public class TodoChecker {
 
     private final int CRITERIA_LENGTH = 10;
-    private TodoMapper todoMapper = new TodoMapperImpl();
+    private TodoMapper todoMapper;
 
     public Boolean isTodoLong(String todoText) {
         if (todoText.trim().length() == 0) throw new EmptyStringException();

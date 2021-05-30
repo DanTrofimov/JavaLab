@@ -1,21 +1,42 @@
 package ru.itis.trofimoff.task.utils;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import ru.itis.trofimoff.task.utils.checker.TodoChecker;
 import ru.itis.trofimoff.task.utils.mapper.TodoMapper;
 import ru.itis.trofimoff.task.utils.mapper.TodoMapperImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 
 @DisplayNameGeneration(value = DisplayNameGenerator.ReplaceUnderscores.class)
 @DisplayName("TodoChecker is working when")
+@ExtendWith(MockitoExtension.class)
 public class TodoCheckerTest {
-    private TodoChecker todoChecker = new TodoChecker();
-    private TodoMapper todoMapper = new TodoMapperImpl();
+
+    private TodoChecker todoChecker;
+
+    @Mock
+    private TodoMapper todoMapper;
+
+    @BeforeEach
+    public void setUp() {
+        lenient().when(todoMapper.mapTodo("IMPORTANT create API")).thenReturn("important todo");
+        lenient().when(todoMapper.mapTodo("IMPORTANT deploy staging")).thenReturn("important todo");
+        lenient().when(todoMapper.mapTodo("FEATURE add OAuth")).thenReturn("todo delivers feature");
+        lenient().when(todoMapper.mapTodo("FEATURE upgrade app to PWA")).thenReturn("todo delivers feature");
+        lenient().when(todoMapper.mapTodo("Lorem ipsum dolor")).thenReturn("unclassified");
+        lenient().when(todoMapper.mapTodo("Sed ut perspiciatis unde")).thenReturn("unclassified");
+        todoChecker = new TodoChecker(todoMapper);
+    }
 
     @DisplayName("isTodoLong() is working")
     @Nested
