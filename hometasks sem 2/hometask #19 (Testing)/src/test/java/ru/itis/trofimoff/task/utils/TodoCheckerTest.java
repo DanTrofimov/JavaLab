@@ -1,24 +1,26 @@
 package ru.itis.trofimoff.task.utils;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
-import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.Mock;
 import ru.itis.trofimoff.task.utils.checker.TodoChecker;
+import ru.itis.trofimoff.task.utils.mapper.TodoMapper;
+import ru.itis.trofimoff.task.utils.mapper.TodoMapperImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 
 @DisplayNameGeneration(value = DisplayNameGenerator.ReplaceUnderscores.class)
 @DisplayName("TodoChecker is working when")
 public class TodoCheckerTest {
-    private final TodoChecker todoChecker = new TodoChecker();
+    private TodoChecker todoChecker = new TodoChecker();
+    private TodoMapper todoMapper = new TodoMapperImpl();
 
     @DisplayName("isTodoLong() is working")
     @Nested
     class ForIsLong {
-        @ParameterizedTest(name = "throws exception on {0}")
+        @ParameterizedTest(name = "throws exception on empty string")
         @ValueSource(strings = {
                 "     ",
                 ""
@@ -47,5 +49,35 @@ public class TodoCheckerTest {
         }
     }
 
+    @DisplayName("checkTodoStatus() is working")
+    @Nested
+    class CheckTodoStatus {
+        @ParameterizedTest(name = "returns <important todo> on important todos")
+        @ValueSource(strings = {
+                "IMPORTANT create API",
+                "IMPORTANT deploy staging"
+        })
+        public void can_classify_important_tasks(String todoText) {
+            assertEquals("important todo", todoChecker.checkTodoStatus(todoText));
+        }
 
+        @ParameterizedTest(name = "returns <feature> on feature delivering todos")
+        @ValueSource(strings = {
+                "FEATURE add OAuth",
+                "FEATURE upgrade app to PWA"
+        })
+        public void can_classify_feature_tasks(String todoText) {
+            assertEquals("todo delivers feature", todoChecker.checkTodoStatus(todoText));
+        }
+
+
+        @ParameterizedTest(name = "returns <unclassified> on unknown type if todo")
+        @ValueSource(strings = {
+                "Lorem ipsum dolor",
+                "Sed ut perspiciatis unde"
+        })
+        public void can_handle_unclassified_todo(String todoText) {
+            assertEquals("unclassified", todoChecker.checkTodoStatus(todoText));
+        }
+    }
 }

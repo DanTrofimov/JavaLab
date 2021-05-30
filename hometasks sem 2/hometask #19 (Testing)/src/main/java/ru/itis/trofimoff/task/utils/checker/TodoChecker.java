@@ -1,18 +1,20 @@
 package ru.itis.trofimoff.task.utils.checker;
 
 import ru.itis.trofimoff.task.utils.EmptyStringException;
+import ru.itis.trofimoff.task.utils.mapper.TodoMapper;
+import ru.itis.trofimoff.task.utils.mapper.TodoMapperImpl;
 
 public class TodoChecker {
 
     private final int CRITERIA_LENGTH = 10;
-    private final String CRITERIA_IMPORTANT = "IMPORTANT";
+    private TodoMapper todoMapper = new TodoMapperImpl();
 
     public Boolean isTodoLong(String todoText) {
         if (todoText.trim().length() == 0) throw new EmptyStringException();
         return todoText.length() > CRITERIA_LENGTH;
     }
 
-    public Boolean isTodoImportant(String todoText) {
-        return todoText.contains(CRITERIA_IMPORTANT);
+    public String checkTodoStatus(String todoText) {
+        return todoMapper.mapTodo(todoText);
     }
 }
