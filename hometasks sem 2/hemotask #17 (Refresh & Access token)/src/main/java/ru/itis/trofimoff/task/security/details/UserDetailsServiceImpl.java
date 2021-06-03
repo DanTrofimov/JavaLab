@@ -29,10 +29,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private TokenGenerator tokenGenerator;
 
     @SneakyThrows
-
     @Override
     public UserDetails loadUserByUsername(String token) throws UsernameNotFoundException {
         // getting access token -> building user -> creating UserDetails
+
+        if (token == null) throw new UsernameNotFoundException("User not found");
 
         String email = tokenGenerator.verifyToken(token).getEmail();
         Optional<User> user = userService.findByEmail(email);
