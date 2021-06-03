@@ -9,6 +9,7 @@ import ru.itis.trofimoff.task.dto.EmailPasswordDto;
 import ru.itis.trofimoff.task.dto.TokensDto;
 import ru.itis.trofimoff.task.models.Token;
 import ru.itis.trofimoff.task.models.User;
+import ru.itis.trofimoff.task.redis.services.RedisUsersService;
 import ru.itis.trofimoff.task.repository.TokenRepository;
 import ru.itis.trofimoff.task.services.user.UserService;
 import ru.itis.trofimoff.task.utils.TokenGenerator;
@@ -20,6 +21,7 @@ import java.util.function.Supplier;
 
 @Service
 public class LoginServiceImpl implements LoginService {
+
     @Autowired
     private UserService userService;
 
@@ -31,6 +33,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private TokenGenerator tokenGenerator;
+
+    @Autowired
+    private RedisUsersService redisUsersService;
 
     @SneakyThrows
     @Override
@@ -48,8 +53,11 @@ public class LoginServiceImpl implements LoginService {
 
             tokensRepository.save(refreshToken);
 
+            String accessToken = tokenGenerator.createAccessToken(user);
+            redisUsersService.addTokenToUser(user, accessToken);
+
             return TokensDto.builder()
-                    .accessToken(tokenGenerator.createAccessToken(user))
+                    .accessToken(accessToken)
                     .refreshToken(refreshToken.getToken())
                     .build();
         } else {

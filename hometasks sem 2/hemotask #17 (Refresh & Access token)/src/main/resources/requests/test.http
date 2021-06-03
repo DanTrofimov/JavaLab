@@ -1,4 +1,6 @@
 GET http://localhost:8091/todos
+X-TOKEN: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmluZ1RpbWUiOjE2MjI3Mjc4MTQwMTgsInN1YiI6IjEiLCJyb2xlIjoiQURNSU4iLCJzdGF0ZSI6IkFDVElWRSIsImVtYWlsIjoiZGFuQGdtYWlsLmNvbSJ9.Fd0bbzDZqXMwk7cet563SoI1Buo-lrjHHAbcpiJscBk
+
 ###
 POST http://localhost:8091/todos
 Content-Type: application/json
@@ -21,11 +23,19 @@ DELETE  http://localhost:8091/todos?todoId=3
 
 POST http://localhost:8091/login
 Content-Type: application/json
-REFRESH-TOKEN: 4b590198-94c4-4bc4-9d11-e7b1dffc1f36
 
 {
   "email": "dan@gmail.com",
   "password": "qwerty007"
 }
+
+###
+
+GET http://localhost:8091/logout
+X-TOKEN: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmluZ1RpbWUiOjE2MjI3MjgxNjE1MTYsInN1YiI6IjEiLCJyb2xlIjoiQURNSU4iLCJzdGF0ZSI6IkFDVElWRSIsImVtYWlsIjoiZGFuQGdtYWlsLmNvbSJ9.fDvdi9M2TE5o_GQoUZR85vtFU85Dy2sgezcjFJBDX3A
+
+###
+
+POST http://localhost:8091/users/1/block
 
 ###

@@ -45,6 +45,7 @@ public class TokenGenerator {
             System.out.println(decodedJWT.getClaim("expiringTime"));
 
             if (isExpired(new Date(Long.parseLong(String.valueOf(decodedJWT.getClaim("expiringTime")))))) {
+                System.out.println("expiringTime!");
                 throw new JWTVerificationException("Token is expired");
             }
 
@@ -56,6 +57,7 @@ public class TokenGenerator {
                     .build();
 
         } catch (JWTVerificationException e) {
+            System.out.println("verification!");
             System.err.println(e.getMessage());
         }
 
