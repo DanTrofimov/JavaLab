@@ -43,3 +43,9 @@ rep for tasks from Java Lab
 * [Redis](https://www.youtube.com/watch?v=Q_E2lgkk3Rk&feature=youtu.be&ab_channel=itdrive)
 * [JUnit/Hamcrest/Mockito](https://www.youtube.com/watch?v=YoyBblfhzY8&feature=youtu.be&ab_channel=itdrive)
 * [Testing of repositories & controllers](https://www.youtube.com/watch?v=9SUqLtHLLUU&ab_channel=itdrive)
+
+## 3rd semester
+
+* [Git Flow](https://www.youtube.com/watch?v=8_gNJllH8Lo)
+* [ClassLoaders, Method Reference](https://www.youtube.com/watch?v=e4uqJav1itc)
+* [JVM, GC, JIT](https://www.youtube.com/watch?v=7C0SySHR8Co)
